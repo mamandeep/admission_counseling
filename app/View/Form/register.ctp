@@ -14,7 +14,7 @@
             <td style="width: 20%"></td>
             <td class="table_headertxt" style="padding-top: 17px; width: 20%;">
                 <?php echo $this->Form->input('Registereduser.id', array('type' => 'hidden'));
-                      echo $this->Form->input('Registereduser.applicant_id', array('type' => 'hidden', 'value' => $this->Session->read('applicant_id')));  ?>
+                      echo $this->Form->input('Registereduser.std_id', array('type' => 'hidden', 'value' => $this->Session->read('std_id')));  ?>
                 First Name
             </td>
             <td width="20%"><?php echo $this->Form->input('Registereduser.first_name', array('label' => false)); ?></td>
@@ -28,43 +28,6 @@
             <td width="20%"><?php echo $this->Form->input('Registereduser.last_name', array('label' => false)); ?></td>
             <td></td>
         </tr>
-        <tr>
-            <td style="width: 20%"></td>
-            <td class="table_headertxt" style="padding-top: 17px; width: 20%;">
-                Category
-            </td>
-            <td width="20%">
-                <?php echo $this->Form->input('Registereduser.category', array(
-                    'options' => array(
-                        'General' => 'General',
-                        'SC' => 'SC',
-                        'ST' => 'ST',
-                        'OBC' => 'OBC'),
-                    'empty' => 'Select',
-                    'selected' => 'General',
-                    'style' => 'width: 100%;',
-                    'label' => false
-                )); ?></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td style="width: 20%"></td>
-            <td class="table_headertxt" style="padding-top: 17px; width: 20%;">
-                Differently Abled
-            </td>
-            <td width="20%">
-                <?php
-                    echo $this->Form->input('Registereduser.physically_disabled', array(
-                        'options' => array('yes' => 'Yes',
-                                           'no' => 'No'),
-                        'selected' => 'no',
-                        'label' => false,
-                        'id' => 'physical_disable_select'
-                    )); ?>
-            </td>
-            <td></td>
-        </tr>
-        
         <tr>
             <td style="width: 20%"></td>
             <td class="table_headertxt" style="padding-top: 17px; width: 20%;">
@@ -114,10 +77,6 @@
                 </div></td>
             <td></td>
         </tr>
-        <tr>
-            <td style="width: 20%"></td>
-            <td colspan="3" style="font-size: 10px">If already registered and have an Applicant Id, proceed to make payment: <a href="<?php echo $this->webroot; ?>form/prepayment" >Click Here</a></td>
-        </tr>
     </table>
     
 </div>
@@ -141,10 +100,7 @@
 
 <script>
     $(document).ready(function () {
-        <?php if(isset($this->request->query['payment_status']) && strval(base64_decode($this->request->query['payment_status'])) == "0") { echo "$('#payment_bt').on(\"click\", function (e) {
-        e.preventDefault();
-    });"; } ?>
-            
+        
         $('.creload').on('click', function() {
             var mySrc = $(this).prev().attr('src');
             var glue = '?';
@@ -154,5 +110,6 @@
             $(this).prev().attr('src', mySrc + glue + new Date().getTime());
             return false;
         });
+        
     });
 </script>

@@ -24263,3 +24263,38 @@ Stack Trace:
 #7 F:\Xampp\htdocs\cake_2_0_Teaching_Backup\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(ReportsController), Object(CakeRequest))
 #8 F:\Xampp\htdocs\cake_2_0_Teaching_Backup\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #9 {main}
+2016-05-22 10:20:11 Error: Fatal Error (1): Call to a member function find() on null in [F:\Xampp\htdocs\admission_counseling\app\Controller\FormController.php, line 68]
+2016-05-22 10:20:12 Error: [FatalErrorException] Call to a member function find() on null
+Request URL: /admission_counseling/Form/register
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'F:\\Xampp\\htdocs...', 68)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'F:\\Xampp\\htdocs...', 68, Array)
+#2 F:\Xampp\htdocs\admission_counseling\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'F:\\Xampp\\htdocs...', 68, Array)
+#3 F:\Xampp\htdocs\admission_counseling\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2016-05-22 10:21:33 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'std_id' cannot be null
+Request URL: /admission_counseling/Form/register
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 F:\Xampp\htdocs\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('INSERT INTO `cu...', Array)
+#2 F:\Xampp\htdocs\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(1012): DboSource->execute('INSERT INTO `cu...')
+#3 F:\Xampp\htdocs\admission_counseling\lib\Cake\Model\Model.php(1928): DboSource->create(Object(Registereduser), Array, Array)
+#4 F:\Xampp\htdocs\admission_counseling\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 F:\Xampp\htdocs\admission_counseling\app\Controller\FormController.php(80): Model->save(Array)
+#6 [internal function]: FormController->register()
+#7 F:\Xampp\htdocs\admission_counseling\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(FormController), Array)
+#8 F:\Xampp\htdocs\admission_counseling\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 F:\Xampp\htdocs\admission_counseling\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(FormController), Object(CakeRequest))
+#10 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2016-05-22 12:05:11 Error: Fatal Error (1): Call to a member function find() on null in [F:\Xampp\htdocs\admission_counseling\app\Controller\FormController.php, line 38]
+2016-05-22 12:05:12 Error: [FatalErrorException] Call to a member function find() on null
+Request URL: /admission_counseling/form/generalinformation
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'F:\\Xampp\\htdocs...', 38)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'F:\\Xampp\\htdocs...', 38, Array)
+#2 F:\Xampp\htdocs\admission_counseling\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'F:\\Xampp\\htdocs...', 38, Array)
+#3 F:\Xampp\htdocs\admission_counseling\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

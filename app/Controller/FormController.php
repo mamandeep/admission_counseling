@@ -5,7 +5,7 @@ class FormController extends AppController {
     var $components = array('Captcha.Captcha'=>array('Model'=>'Signup', 
                         'field'=>'security_code'));//'Captcha.Captcha'
 
-    var $uses = array('Signup', 'Registereduser','Post','Applicant','Education','Experience','Image', 'Misc', 'Researchpaper','Researcharticle', 'Researchproject', 'Document', 'ApiScore');                
+    var $uses = array('Signup', 'Student', 'Registereduser');                
     
     public $helpers = array('Captcha.Captcha');
     
@@ -35,11 +35,11 @@ class FormController extends AppController {
     }
     
     public function generalinformation() {
-           $applicants = $this->Applicant->find('all', array(
-                'conditions' => array('Applicant.id' => $this->Session->read('applicant_id'))));
-            if (count($applicants) == 1 ) {
-                $this->set('applicant', $applicants['0']);
-            }
+           //$applicants = $this->Applicant->find('all', array(
+           //     'conditions' => array('Applicant.id' => $this->Session->read('applicant_id'))));
+            //if (count($applicants) == 1 ) {
+            //    $this->set('applicant', $applicants['0']);
+            //}
     }
         
         public function register() {
@@ -73,17 +73,19 @@ class FormController extends AppController {
                         $this->Session->setFlash('Email / Date of Birth is already registered.');
                         return false;
                     }
-                    $this->Applicant->create();
-                    $this->Applicant->set(array(
-                        'advertisement_no' => 'T-01 (2016)'));
-                    
-                    if($this->Registereduser->save($this->data['Registereduser']) && $this->Applicant->save()) {
-                        $this->Session->write('applicant_id', $this->Applicant->getLastInsertID());
+                    $this->Student->create();
+                    //$this->Student->set(array(
+                    //    'advertisement_no' => 'T-01 (2016)'));
+                    if(!$this->Student->save(array(), false)){
+                        debug($this->Student->validationErrors); die();
+                    }
+                    if($this->Student->save(null, false) && $this->Registereduser->save($this->data['Registereduser'])) {
+                        $this->Session->write('std_id', $this->Student->getLastInsertID());
                         $this->Session->write('registration_id', $this->Registereduser->getLastInsertID());
-                        $this->Applicant->id = $this->Session->read('applicant_id');
-                        $this->Applicant->saveField('registration_id', $this->Session->read('registration_id'));
+                        $this->Student->id = $this->Session->read('std_id');
+                        $this->Student->saveField('reg_id', $this->Session->read('registration_id'));
                         $this->Registereduser->id = $this->Session->read('registration_id');
-                        $this->Registereduser->saveField('applicant_id', $this->Session->read('applicant_id'));
+                        $this->Registereduser->saveField('std_id', $this->Session->read('std_id'));
                         $this->Session->setFlash('You have successfully registered.');
                         //$this->redirect(array('controller' => 'form', 'action' => 'pay'));
 			$this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
@@ -97,6 +99,10 @@ class FormController extends AppController {
                         'cake-error'));
                 }
             }
+        }
+        
+        public function studentdetails() {
+            
         }
         
         public function prepayment() {
