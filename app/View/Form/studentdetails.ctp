@@ -1,3 +1,6 @@
+<div id="wrapper">
+  <div id="sidebar"><?php echo $this->element('left-sidebar');?></div>
+  <div id="maincontent">
 <?php echo $this->Form->create('Student', array('id' => 'Student_Details', 
                                 'url' => Router::url( null, true ))); 
 //print_r($this->request->data);
@@ -5,7 +8,8 @@
         <table>
             <tr>
                 <td><?php 
-                    echo $this->Form->input('Student.id', array('type' => 'hidden'));
+                    echo $this->Form->input('Student.id', array('type' => 'hidden', 'value' => $this->Session->read('std_id')));
+                    echo $this->Form->input('Student.reg_id', array('type' => 'hidden', 'value' => $this->Session->read('registration_id')));
                     ?></td>
                 <td></td>
             </tr>
@@ -43,44 +47,39 @@
             </tr>
             <tr>
                 <td><?php echo $this->Form->input('Student.gender', array(
-                    'options' => array('None' => 'None', 'Male' => 'Male', 'Female' => 'Female', 'Transgender' => 'Transgender'),
-                    'empty' => 'None'
-                    'selected' => 'None',
+                    'options' => array('Male' => 'Male', 'Female' => 'Female', 'Transgender' => 'Transgender'),
+                    'empty' => array('none' => '- select -'),
                     'style' => 'width: 100%;',
                     'label' => 'Gender'
                 )); ?></td>
                 <td><?php echo $this->Form->input('Student.category', array(
-                    'options' => array('None' => 'None', 'General' => 'General', 'SC' => 'SC', 'ST' => 'ST', 'OBC' => 'OBC'),
-                    'empty' => 'None'
-                    'selected' => 'None',
+                    'options' => array('General' => 'General', 'SC' => 'SC', 'ST' => 'ST', 'OBC' => 'OBC'),
+                    'empty' => array('none' => '- select -'),
                     'style' => 'width: 100%;',
                     'label' => 'Category'
                 )); ?></td>
                 <td><?php echo $this->Form->input('Student.pwd', array(
-                    'options' => array('None' => 'None', 'Yes' => 'Yes', 'No' => 'No'),
-                    'empty' => 'None'
-                    'selected' => 'None',
+                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
+                    'empty' => array('none' => '- select -'),
                     'style' => 'width: 100%;',
                     'label' => 'Differently Abled'
                 )); ?></td>
             </tr>
             <tr>
                 <td><?php echo $this->Form->input('Student.kashmiri_mig', array(
-                    'options' => array('None' => 'None', 'Yes' => 'Yes', 'No' => 'No'),
-                    'empty' => 'None'
-                    'selected' => 'None',
+                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
+                    'empty' => array('none' => '- select -'),
                     'style' => 'width: 100%;',
                     'label' => 'Kashmiri Migrant'
                 )); ?></td>
                 <td><?php echo $this->Form->input('Student.ward_of_def', array(
-                    'options' => array('None' => 'None', 'Yes' => 'Yes', 'No' => 'No'),
-                    'empty' => 'None'
-                    'selected' => 'None',
+                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
+                    'empty' => array('none' => '- select -'),
                     'style' => 'width: 100%;',
                     'label' => 'Ward of Defense Personnel'
                 )); ?></td>
                 <td><?php echo $this->Form->input('Student.state_domicile', array(
-                    'options' => array('None' => 'None', 
+                    'options' => array( 
                                        'Andaman and Nicobar Islands' => 'Andaman and Nicobar Islands',
                                         'Andhra Pradesh' => 'Andhra Pradesh',
                                         'Arunachal Pradesh' => 'Arunachal Pradesh',
@@ -118,23 +117,45 @@
                                         'Uttarakhand' => 'Uttarakhand',
                                         'West Bengal' => 'West Bengal'
                                        ),
-                    'empty' => 'None'
-                    'selected' => 'None',
+                    'empty' => array('none' => '- select -'),
                     'style' => 'width: 100%;',
                     'label' => 'State of Domicile'
                 )); ?></td>
             </tr>
             <tr>
                 <td><?php echo $this->Form->input('Student.comm_address', array('label' => 'Communication Address:', 'maxlength' => '200')); ?></td>
-                <td><?php echo $this->Form->input('Student.year_of_cucet', array(
-                    'type' => 'date',
+                <td><?php 
+                    $yearArray = range(2000, 2016);
+                    ?>
+                    <div class="input select required">
+                        <label for="StudentYearOfCucet">Year of appearing in CUCET</label>
+                        <select name="data[Student][year_of_cucet]" id="StudentYearOfCucet" required="required">
+                            <option value="none">- select -</option>
+                            <?php echo $dbYear;
+                                foreach ($yearArray as $year) {
+                                    $selected = (isset($dbYear) && $dbYear !== "" && $year == $dbYear) ? 'selected' : '';
+                                    echo '<option '.$selected.' value="'.$year.'">'.$year.'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    <?php 
+                    /*echo $this->Form->input('year_of_cucet', array(
+                    'type' => 'datetime',
+                    'name' => 'data[Student][year_of_cucet]',
                     'dateFormat' => 'Y',
+                    'timeFormat' => null,
                     'minYear' => date('Y') - 10,
                     'maxYear' => date('Y'),
                     'label' => 'Year of appearing in CUCET',
                     'empty' => '- select -',
                     'style' => 'width: 100%;'
-                    )); ?></td>
+                    'type' => 'date', 
+                    'dateFormat' => 'Y', 
+                    'minYear' => date('Y') - 10, 
+                    'maxYear' => date('Y'), 
+                    'name' => 'data[Student][year_of_cucet]'
+                    ));*/ ?></td>
                 <td></td>
             </tr>
         </table>
@@ -142,6 +163,7 @@
             <?php echo $this->Form->submit('Submit', array('div' => false)); ?>
 	</div>
 <?php echo $this->Form->end(); ?>
-
+</div>
+</div>
 <script>
 </script>

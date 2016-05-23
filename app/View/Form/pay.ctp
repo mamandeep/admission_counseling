@@ -1,5 +1,5 @@
 <center>
-    <div style="font-size: 20px; font-weight: bold;">Please note down your Applicant Id for future reference: <?php echo $Applicant['id']?></div>
+    <div style="font-size: 20px; font-weight: bold;">Please note down your Registration Id for future reference: <?php echo $Student['id']?></div>
 <table width='100%' cellpadding='0' cellspacing="0" ><tr><th width='90%'>&nbsp;</th></tr></table>
 	<!--<center><h3>PHP Integration Kit - Request Page</H3></center>-->
 
@@ -26,9 +26,9 @@
 			<!--<br><span><font color="red"> Please Enter your Secret Key provided.</font></span>--> </td>
         </tr>
 	   <tr>
-            <td class="fieldName" width="50%"><span class="error">*</span> Applicant Id</td>
+            <td class="fieldName" width="50%"><span class="error">*</span> Registration Id</td>
 
-            <td  align="left" width="50%"> <input name="reference_no" type="text" value="<?php echo $Applicant['id']?>" readonly="readonly" /></td>
+            <td  align="left" width="50%"> <input name="reference_no" type="text" value="<?php echo $Student['id']?>" readonly="readonly" /></td>
         </tr>
         <tr>
             <td class="fieldName" width="50%"><span class="error">*</span> Application Fee</td>
@@ -171,6 +171,6 @@
 </form>
 <script>
     $(document).ready(function () {
-        window.alert("Please note down Applicant Id for furture reference: <?php echo $Applicant['id']?>");
+        window.alert("Please note down Registration Id for furture reference: <?php echo $Student['id']?>");
         });
 </script>

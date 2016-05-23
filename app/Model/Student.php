@@ -19,7 +19,7 @@ class Student extends AppModel {
                 'message' => 'This field has crossed allowed limit.'
             ),
             'pattern'=>array(
-                 'rule'      => '/^[a-z ]{3-100}$/i',
+                 'rule'      => '/^[a-z ]+$/i',
                  'message'   => 'Only letters allowed'
             )
         ),
@@ -60,7 +60,7 @@ class Student extends AppModel {
                 'message' => 'This field has crossed allowed limit.'
             ),
             'pattern'=>array(
-                 'rule'      => '/^[a-z ]{3-100}$/i',
+                 'rule'      => '/^[a-z ]+$/i',
                  'message'   => 'Only letters allowed'
             )
         ),
@@ -101,7 +101,7 @@ class Student extends AppModel {
                 'message' => 'This field has crossed allowed limit.'
             ),
             'pattern'=>array(
-                 'rule'      => '/^[a-z ]{3-100}$/i',
+                 'rule'      => '/^[a-z ]+$/i',
                  'message'   => 'Only letters allowed'
             )
         ),

@@ -5,7 +5,7 @@ class FormController extends AppController {
     var $components = array('Captcha.Captcha'=>array('Model'=>'Signup', 
                         'field'=>'security_code'));//'Captcha.Captcha'
 
-    var $uses = array('Signup', 'Student', 'Registereduser');                
+    var $uses = array('Signup', 'Student', 'Registereduser','Choice','Branch');                
     
     public $helpers = array('Captcha.Captcha');
     
@@ -102,6 +102,21 @@ class FormController extends AppController {
         }
         
         public function studentdetails() {
+            if(!empty($this->data['Student'])) {
+                $this->Student->create();    
+                $this->Student->set($this->data);
+                if($this->Student->validates() && $this->Student->save()) {
+                    $this->redirect(array('controller' => 'form', 'action' => 'prepay'));
+                }
+                else {
+                    $this->Session->setFlash('There was an error in saving the form.');
+                    return false;
+                }
+            }
+            $student = $this->Student->find('all', array(
+                    'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+            $this->request->data = $student['0'];
+            $this->set('dbYear', $student['0']['Student']['year_of_cucet']);
             
         }
         
@@ -194,14 +209,23 @@ class FormController extends AppController {
             }
         }
 
-	public function pay() {
-                //print_r($this->Session->read('applicant_id')); return false;
-                $registered_user = $this->Registereduser->find('all', array(
-                    'conditions' => array('Registereduser.applicant_id' => $this->Session->read('applicant_id'))));
-                $applicants = $this->Applicant->find('all', array(
-                            'conditions' => array('Applicant.id' => $this->Session->read('applicant_id'))));
-                if($registered_user['0']['Registereduser']['category'] == "SC" || $registered_user['0']['Registereduser']['category'] == "ST" 
-                        || $registered_user['0']['Registereduser']['physically_disabled'] == "yes") {
+	public function prepay() {
+            $student = $this->Student->find('all', array(
+                            'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+            $this->set('payment_status', $student['0']['Student']['response_code']);
+        }
+        
+        public function pay() {
+                $arr = array("Male", "Female", "Transgender");
+                $student = $this->Student->find('all', array(
+                            'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+                if(!in_array($student['0']['Student']['gender'], $arr)) {
+                    $this->Session->setFlash('Please complete the Personal Details section before payment.');
+                    $this->redirect(array('controller' => 'form', 'action' => 'studentdetails'));
+                }
+                      
+                if($student['0']['Student']['category'] == "SC" || $student['0']['Student']['category'] == "ST" 
+                        || $student['0']['Student']['pwd'] == "Yes") {
                         $this->set('app_fee', '250');
                         $this->Session->write('payment_amount','250');
                 }
@@ -209,13 +233,7 @@ class FormController extends AppController {
                         $this->set('app_fee', '750');
                         $this->Session->write('payment_amount','750');
                 }
-                $this->set('Applicant', $applicants['0']['Applicant']);
-                //}
-                //else {
-                    //$this->Session->setFlash('Invalid Applicant ID.');
-                    //$this->redirect(array('controller' => 'form', 
-                                              //'action' => 'register'));
-                //}
+                $this->set('Student', $student['0']['Student']);
 	}
 
 	public function post() {
@@ -251,14 +269,6 @@ class FormController extends AppController {
 		}
 	}
         
-        function validate_amount($amount) {
-            if(isset($amount) && ($amount === "750" || $amount === "250")) {
-                return $amount;
-            }
-            else 
-                return "750";
-        }
-        
 	public function returnpg() {
 		$HASHING_METHOD = 'sha512'; // md5,sha1
 
@@ -281,9 +291,9 @@ class FormController extends AppController {
 				if($_POST['ResponseCode'] == 0){
 					// update response and the order's payment status as SUCCESS in to database
 					
-					$this->Applicant->create();
-            				$this->Applicant->id = $this->Session->read('applicant_id');
-					$this->Applicant->set(array('response_code' => $_POST['ResponseCode'],
+					$this->Student->create();
+            				$this->Student->id = $this->Session->read('std_id');
+					$this->Student->set(array('response_code' => $_POST['ResponseCode'],
 								    'payment_date_created' => $_POST['DateCreated'],
 								    'payment_id' => $_POST['PaymentID'],
 								    'payment_amount' => $_POST['Amount'],
@@ -334,7 +344,44 @@ class FormController extends AppController {
 		}
 	}
 
-	public function print_bfs() {
+	public function options() {
+            if(!empty($this->data['Choice'])) {
+                if($this->data['modified'] == 'true') {
+                    $choices = $this->Choice->deleteAll( array('Choice.std_id' => $this->Session->read('std_id')));
+                }
+                
+                if($this->Choice->saveMany($this->data['Choice'])) { 
+                    // redirect to next step
+                    return true;
+                }
+                
+                return false;
+            }
+            //$temp = $this->Session->read('applicant_id');
+            $choice_arr = $this->Choice->find('all', array(
+                    'conditions' => array('Choice.std_id' => $this->Session->read('std_id'))));
+            //$misc = $this->Applicant->find('all', array(
+            //        'conditions' => array('Applicant.id' => $this->Session->read('applicant_id'))));
+            //print_r($this->Session->read('applicant_id'));
+            //if(count($education_arr) == 7 || count($education_arr) == 12) {
+                //$this->request->data = $education_arr;
+            //$educationId_arr = array();
+            $choice_data = array();
+            foreach($choice_arr as $key => $value) {
+                //$educationId_arr[$key] = $value['Education']['id'];
+                $choice_data[$key] = $choice_arr[$key]['Choice'];
+            }
+            $branchlist = $this->Branch->find('list', array(
+                                                'conditions' => array(
+                                                    'college_code' => 1
+                                                ),    
+                                                'fields' => array('Branch.branch_code','Branch.branch_name')));
+            //foreach ($branchlist as $key)
+            $this->request->data = array('Choice' => $choice_data);
+            $this->set('branchArr', $branchlist);
+        }
+        
+        public function print_bfs() {
             $this->layout = false;
             $this->set('data_set', 'false');
             $applicants = $this->Applicant->find('all', array(
