@@ -345,21 +345,35 @@ class FormController extends AppController {
 	}
 
 	public function options() {
+            $student = $this->Student->find('all', array(
+                            'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+            
+            if(!empty($student['0']['Student']['response_code']) && $student['0']['Student']['response_code'] == "0") {
+                $this->Session->setFlash('Payment not completed.');
+                $this->redirect(array('controller' => 'form', 'action' => 'prepay'));
+            }
+            //$this->Session->write('options_locked', $student['0']['Student']['options_locked']);
+            $this->set('optionsLocked', ($student['0']['Student']['options_locked'] == "1") ? "1" : "0");
             if(!empty($this->data['Choice'])) {
-                if($this->data['modified'] == 'true') {
+                if(!empty($this->data['modified']) && $this->data['modified'] == 'true') {
                     $choices = $this->Choice->deleteAll( array('Choice.std_id' => $this->Session->read('std_id')));
                 }
                 
                 if($this->Choice->saveMany($this->data['Choice'])) { 
-                    // redirect to next step
-                    return true;
+                    $this->redirect(array('controller' => 'form', 'action' => 'lockoptions'));
+                    //return true;
+                }
+                else {
+                    $this->Session->setFlash('There was an error in saving the preferences. Please contact Support.');
+                    return false;
                 }
                 
-                return false;
+                //return false;
             }
             //$temp = $this->Session->read('applicant_id');
             $choice_arr = $this->Choice->find('all', array(
-                    'conditions' => array('Choice.std_id' => $this->Session->read('std_id'))));
+                    'conditions' => array('Choice.std_id' => $this->Session->read('std_id')),
+                    'order' => array('Choice.pref_order ASC')));
             //$misc = $this->Applicant->find('all', array(
             //        'conditions' => array('Applicant.id' => $this->Session->read('applicant_id'))));
             //print_r($this->Session->read('applicant_id'));
@@ -379,6 +393,48 @@ class FormController extends AppController {
             //foreach ($branchlist as $key)
             $this->request->data = array('Choice' => $choice_data);
             $this->set('branchArr', $branchlist);
+        }
+        
+        public function lockoptions() {
+            //print_r($this->data);
+            $student = $this->Student->find('all', array(
+                            'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+            
+            //$this->Session->write('options_locked', $student['0']['Student']['options_locked']);
+            if(!empty($this->Session->read('options_locked')) && $this->Session->read('options_locked') == "1") {
+                $this->Session->setFlash('The options have been locked.');
+                $this->redirect(array('controller' => 'form', 'action' => 'options'));
+            }
+                
+            if(!empty($this->data) && $this->data['lockoptions'] == "true") {
+                $this->Student->id = $this->Session->read('std_id');
+                if (!empty($this->Student->id)) {
+                    $this->Student->saveField('options_locked', "1");
+                    //$this->Session->write('options_locked', "1");
+            	}
+            	$this->redirect(array('controller' => 'form', 'action' => 'options'));
+            }
+            
+            $choice_arr = $this->Choice->find('all', array(
+                                    'conditions' => array('Choice.std_id' => $this->Session->read('std_id')),
+                                    'order' => array('Choice.pref_order ASC')));
+            if(count($choice_arr) == 0) {
+                $this->Session->setFlash('No Preferences given.');
+                $this->redirect(array('controller' => 'form', 'action' => 'options'));
+            }
+            
+            $choice_data = array();
+            foreach($choice_arr as $key => $value) {
+                $choice_data[$key] = $choice_arr[$key]['Choice'];
+            }
+            $branchlist = $this->Branch->find('list', array(
+                                                'conditions' => array(
+                                                    'college_code' => 1
+                                                ),    
+                                                'fields' => array('Branch.branch_code','Branch.branch_name')));
+            $this->request->data = array('Choice' => $choice_data);
+            $this->set('branchArr', $branchlist);
+            $this->set('showLockButton', ($student['0']['Student']['options_locked'] == "1") ? "1" : "0");
         }
         
         public function print_bfs() {

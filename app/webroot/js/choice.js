@@ -9,7 +9,10 @@ $(document).ready(function () {
     gradeTable
         .on('click', 'a.add', function(e) {
             e.preventDefault();
-            
+            if(numberRows >= 3 ) {
+                alert("Maximum limit for filling the Options has reached.");
+                return false;
+            }
             $(gradeTemplate({key: numberRows++}))
                 .hide()
                 .appendTo(gradeBody)
@@ -39,9 +42,10 @@ $(document).ready(function () {
                     .fadeOut('fast', function() {
                         $(this).remove();
                     });
+                    
+                $("#modified").val('true');
             }
             
-            $("#modified").val('true');
         });
 
         if (numberRows === 0) {

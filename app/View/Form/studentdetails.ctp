@@ -16,11 +16,9 @@
         </table>
         <table>
             <tr>
-                <td>
-                    <div class="main_content_header">1. Personal Details</div>
+                <td colspan="3">
+                    <div class="main_content_header">Personal Details</div>
                 </td>
-                <td></td>
-                <td></td>
             </tr>
             <tr>
                 <td><?php 

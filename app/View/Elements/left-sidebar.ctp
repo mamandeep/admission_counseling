@@ -1,15 +1,15 @@
 <div>Navigation</div>
 <div>
     <div class="nav-menu-link">
-        <a href=""/>Personal Details</a>
+        <a href="<?php echo $this->webroot; ?>form/studentdetails"> Personal Details</a>
     </div>
     <div class="nav-menu-link">
-        <a href=""/>Payment Details</a>
+        <a href="<?php echo $this->webroot; ?>form/prepay">Payment Details</a>
     </div>
     <div class="nav-menu-link">
-        <a href=""/>Select Preferences</a>
+        <a href="<?php echo $this->webroot; ?>form/options">Select Preferences</a>
     </div>
     <div class="nav-menu-link">
-        <a href=""/>Lock Options</a>
+        <a href="<?php echo $this->webroot; ?>form/lockoptions">Lock Options</a>
     </div>
 </div>

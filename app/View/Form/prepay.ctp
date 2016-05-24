@@ -1,3 +1,6 @@
+<div id="wrapper">
+  <div id="sidebar"><?php echo $this->element('left-sidebar');?></div>
+  <div id="maincontent" class="section-to-print">
 <table width="900" cellpadding="2" cellspacing="2" border="0" align="center">
 <tr>
 <th colspan="2">
@@ -38,3 +41,5 @@
 </th>
 </tr>
 </table>
+  </div>
+</div>

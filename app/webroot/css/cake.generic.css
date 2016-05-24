@@ -842,3 +842,36 @@ div#maincontent {
 .nav-menu-link {
     padding: 10px 10px 10px 0;
 }
+
+#printLOptions {
+    height: 20px;
+    width: 50px;
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 0px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  .main_content_header {
+      color: black;
+  }
+  
+  .section-to-print, .section-to-print * {
+    visibility: visible;
+  }
+  
+  .section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  #printLOptions {
+    visibility: hidden;
+  }
+}

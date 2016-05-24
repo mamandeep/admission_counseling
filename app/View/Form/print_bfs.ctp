@@ -799,7 +799,7 @@ echo $this->Html->script('jquery-1.11.1-min');
         });
 
         $("#finalsubmit").click(function(e) {
-            if(!confirm("Are you sure to finaliz the submission process? After final submission you will not be able to modify your Application Form!")) {
+            if(!confirm("Are you sure to finalize the submission process? After final submission you will not be able to modify your Application Form!")) {
                 e.preventDefault();
             }
             else {
