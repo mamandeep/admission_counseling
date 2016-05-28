@@ -5,7 +5,7 @@ class FormController extends AppController {
     var $components = array('Captcha.Captcha'=>array('Model'=>'Signup', 
                         'field'=>'security_code'));//'Captcha.Captcha'
 
-    var $uses = array('Signup', 'Student', 'Registereduser','Choice','Branch');                
+    var $uses = array('Signup', 'Student', 'Registereduser','Choice','Branch', 'Document', 'Subject','BranchSubject');                
     
     public $helpers = array('Captcha.Captcha');
     
@@ -390,9 +390,19 @@ class FormController extends AppController {
                                                     'college_code' => 1
                                                 ),    
                                                 'fields' => array('Branch.branch_code','Branch.branch_name')));
+            $subjectlist = $this->Subject->find('list', array(
+                                                'conditions' => array(
+                                                    'college_code' => 1
+                                                ),    
+                                                'fields' => array('Subject.subject_code','Subject.subject_name')));
+            
+            $subjectbranch = $this->BranchSubject->find('list', array(    
+                                                'fields' => array('BranchSubject.subject_code','BranchSubject.branch_code')));
             //foreach ($branchlist as $key)
             $this->request->data = array('Choice' => $choice_data);
             $this->set('branchArr', $branchlist);
+            $this->set('subjectArr', $subjectlist);
+            $this->set('subjectBrArr', $subjectbranch);
         }
         
         public function lockoptions() {

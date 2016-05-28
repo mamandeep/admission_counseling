@@ -37,9 +37,12 @@
     <table id="options-table">
         <thead>
             <tr>
-                <th>Name of the Branch</th>
-                <th>Preference Order</th>
-                <th>&nbsp;</th>
+                <th width="5%">Preference Order</th>
+                <th width="30%">Subject</th>
+                <th width="15%">Roll No.</th>
+                <th width="35%">Name of the Branch</th>
+                <th width="10%">Score</th>
+                <th width="5%">&nbsp;</th>
             </tr>
         </thead>
         <tbody>
@@ -48,14 +51,16 @@
                     for ($key = 0; $key < count($this->request->data['Choice']); $key++) {
                         echo $this->element('choice', array('key' => $key,
                                                             'branchArr' => isset($branchArr) ? $branchArr : array(),
-                                                            'selected' => $this->request->data['Choice'][$key]['preference']));
+                                                            'subjectArr' => isset($subjectArr) ? $subjectArr : array(),
+                                                            'selected' => $this->request->data['Choice'][$key]['preference'],
+                                                            'selectedSub' => $this->request->data['Choice'][$key]['subject']));
                     }
                 }
             ?>
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2"></td>
+                <td colspan="5"></td>
                 <td class="actions">
                     <a href="#" class="add">Add Row</a>
                 </td>

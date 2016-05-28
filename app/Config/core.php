@@ -218,6 +218,7 @@
 	Configure::write('Session', array(
 		'defaults' => 'php',
                 'timeout' => 1440,  // 24 hours
+                'cookie' => 'PHPSESSID',
                 'cookieTimeout' => 1440, // 24 hours
                 'autoRegenerate' => true,
                 'checkAgent' => false,
