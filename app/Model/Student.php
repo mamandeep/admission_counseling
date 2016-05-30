@@ -49,6 +49,7 @@ class Student extends AppModel {
                  'message'   => 'Only valid 10 digit mobile number allowed',
             )
         ),
+        /*
         'father_name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -130,7 +131,7 @@ class Student extends AppModel {
                  'rule'      => '/^[789][0-9]{9}$/i',
                  'message'   => 'Only valid 10 digit mobile number allowed'
             )
-        ),
+        ),*/
         'dob' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -146,6 +147,7 @@ class Student extends AppModel {
                 'message'   => 'Only valid date is allowed'
             )
         ),
+        /*
         'aadhaar_no' => array(
             'pattern'=>array(
                 'rule'      => '/^[0-9]{4} [0-9]{4} [0-9]{4}$/i',
@@ -169,12 +171,16 @@ class Student extends AppModel {
                 'required'   => true,
                 'message' => 'This field cannot be left blank'
             )
-        ),
+        ),*/
         'category' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 'required'   => true,
                 'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Category not selected'
             )
         ),
         'pwd' => array(
@@ -182,6 +188,10 @@ class Student extends AppModel {
                 'rule' => array('notempty'),
                 'required'   => true,
                 'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Value not selected'
             )
         ),
         'kashmiri_mig' => array(
@@ -189,6 +199,10 @@ class Student extends AppModel {
                 'rule' => array('notempty'),
                 'required'   => true,
                 'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Value not selected'
             )
         ),
         'ward_of_def' => array(
@@ -196,15 +210,20 @@ class Student extends AppModel {
                 'rule' => array('notempty'),
                 'required'   => true,
                 'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Value not selected'
             )
         ),
+        /*
         'state_domicile' => array(
             'states' => array(
                 'rule' => 'checkstate',
                 'required' => true,
                 'message' => 'State selected is not valid'
             )
-        ),
+        ),*/
         'comm_address' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -216,6 +235,57 @@ class Student extends AppModel {
                 'message' => 'This field has crossed allowed limit.'
             )
         ),
+        'subject1' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'pattern'=>array(
+                 'rule'      => '/^[a-z 0-9]+$/i',
+                 'message'   => 'Value not selected'
+            )
+        ),
+        'rollno1' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'length' => array (
+                'rule' => array('maxLength', 10),
+                'message' => 'This field has crossed allowed limit. Only 10 digits allowed'
+            ),
+            'pattern'=>array(
+                 'rule'      => '/^[0-9]+$/i',
+                 'message'   => 'Only digits allowed',
+            )
+        ),
+        'score1' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'pattern'=>array(
+                 'rule'      => '/^[0-9]+$/i',
+                 'message'   => 'Only digits allowed',
+            )
+        ),
+        'pg_result' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            )
+        ),
+        'pg_marks' => array(
+            'pattern'=>array(
+                 'rule'      => '/^[0-9.]+$/i',
+                 'message'   => 'Only numbers are allowed',
+            )
+        )
+        /*
         'year_of_cucet' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -226,7 +296,7 @@ class Student extends AppModel {
                 'rule'      => '/^[0-9]{4}$/i',
                 'message'   => 'Only valid Year (yyyy) is allowed'
             )
-        )
+        )*/
     );
 
     function beforeSave($options = array()) {

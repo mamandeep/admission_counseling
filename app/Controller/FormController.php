@@ -105,11 +105,15 @@ class FormController extends AppController {
             if(!empty($this->data['Student'])) {
                 $this->Student->create();    
                 $this->Student->set($this->data);
-                if($this->Student->validates() && $this->Student->save()) {
-                    $this->redirect(array('controller' => 'form', 'action' => 'prepay'));
+                if($this->Student->validates()) {
+                    if($this->Student->save())
+                        $this->redirect(array('controller' => 'form', 'action' => 'uploaddocuments'));
+                    else {
+                        $this->Session->setFlash('There was an error in saving the form.');
+                    }
                 }
                 else {
-                    $this->Session->setFlash('There was an error in saving the form.');
+                    $this->Session->setFlash('Some of the data filled is not correct. Please check.');
                     return false;
                 }
             }
@@ -117,6 +121,10 @@ class FormController extends AppController {
                     'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             $this->request->data = $student['0'];
             $this->set('dbYear', $student['0']['Student']['year_of_cucet']);
+            $this->set('pg_result', $student['0']['Student']['pg_result']);
+        }
+        
+        public function uploaddocuments() {
             
         }
         

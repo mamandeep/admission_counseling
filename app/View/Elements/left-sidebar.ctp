@@ -4,7 +4,7 @@
         <a href="<?php echo $this->webroot; ?>form/studentdetails"> Personal Details</a>
     </div>
     <div class="nav-menu-link">
-        <a href="<?php echo $this->webroot; ?>form/add">Upload Documents</a>
+        <a href="<?php echo $this->webroot; ?>form/uploaddocuments">Upload Documents</a>
     </div>
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/prepay">Payment Details</a>

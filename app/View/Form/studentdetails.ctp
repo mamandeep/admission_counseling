@@ -14,9 +14,10 @@
                 <td></td>
             </tr>
         </table>
-        <table>
+      <div style="white-space:pre;overflow:auto;width:100%;padding:10px;">
+        <table style="width:100%;">
             <tr>
-                <td colspan="3">
+                <td>
                     <div class="main_content_header">Personal Details</div>
                 </td>
             </tr>
@@ -27,7 +28,80 @@
                 <td><?php echo $this->Form->input('Student.email', array('label' => 'Email:', 'maxlength' => '100'));
                 ?></td>
                 <td><?php echo $this->Form->input('Student.mobile_no', array('label' => 'Mobile No.:', 'maxlength' => '100')); ?></td>
+                <td><?php echo $this->Form->input('Student.dob', array('label' => 'Date of Birth:', 'maxlength' => '100')); ?></td>
+                <td><?php echo $this->Form->input('Student.category', array(
+                    'options' => array('General' => 'General', 'SC' => 'SC', 'ST' => 'ST', 'OBC' => 'OBC'),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Category'
+                )); ?></td>
+                <td><?php echo $this->Form->input('Student.pwd', array(
+                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Differently Abled'
+                )); ?></td>
+                <td><?php echo $this->Form->input('Student.kashmiri_mig', array(
+                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Kashmiri Migrant'
+                )); ?></td>
+                <td><?php echo $this->Form->input('Student.ward_of_def', array(
+                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Ward of Defense Personnel'
+                )); ?></td>
+                <td><?php echo $this->Form->input('Student.comm_address', array('label' => 'Communication Address:', 'maxlength' => '200')); ?></td>
+                <td><?php echo $this->Form->input('Student.subject1', array(
+                    'options' => array( 
+                                        'Subject 1' => 'Subject 1',
+                                        'Subject 2' => 'Subject 2',
+                                        'Subject 3' => 'Subject 3',
+                                        'Subject 4' => 'Subject 4',
+                                        'Subject 5' => 'Subject 5',
+                                        'Subject 6' => 'Subject 6',
+                                        'Subject 7' => 'Subject 7',
+                                        'Subject 8' => 'Subject 8',
+                                        'Subject 9' => 'Subject 9',
+                                        'Subject 10' => 'Subject 10',
+                                        'Subject 11' => 'Subject 11',
+                                        'Subject 12' => 'Subject 12',
+                                        'Subject 13' => 'Subject 13',
+                                        'Subject 14' => 'Subject 14',
+                                        'Subject 15' => 'Subject 15' 
+                                       ),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Subject appeared in'
+                )); ?></td>
+                <td><?php echo $this->Form->input('Student.rollno1', array('label' => 'Roll No.', 'maxlength' => '100')); ?></td>
+                <td><?php echo $this->Form->input('Student.score1', array('label' => 'Score', 'maxlength' => '100')); ?></td>
+                <td><?php
+                        echo $this->Form->input('Student.pg_result', array(
+                        'options' => array('Yes' => 'Yes',
+                                           'No' => 'No'),
+                        'selected' => (isset($pg_result) ? $pg_result : 'No'),
+                        'label' => 'Is PG Result declared?',
+                        'id' => 'pg_result'
+                    )); ?>
+                    <table id="pg_result_marks">
+                        <tr>
+                            <td>Marks (%): </td>
+                            <td><?php echo $this->Form->input('Student.pg_marks', array('label' => false, 'maxlength' => '100')); ?></td>
+                        </tr>
+                    </table>
+                </td>
+                <td><?php echo $this->Form->input('Student.gate_year_of_passing', array('label' => 'GATE - Year of Passing', 'maxlength' => '50')); ?></td>
+                <td><?php echo $this->Form->input('Student.gate_rollno', array('label' => 'GATE - Roll No.', 'maxlength' => '50')); ?></td>
+                <td><?php echo $this->Form->input('Student.gate_score', array('label' => 'GATE - Score', 'maxlength' => '50')); ?></td>
+                <td><?php echo $this->Form->input('Student.gpat_year_of_passing', array('label' => 'GPAT - Year of Passing', 'maxlength' => '50')); ?></td>
+                <td><?php echo $this->Form->input('Student.gpat_rollno', array('label' => 'GPAT - Roll No.', 'maxlength' => '50')); ?></td>
+                <td><?php echo $this->Form->input('Student.gpat_score', array('label' => 'GPAT - Score', 'maxlength' => '50')); ?></td>
+                <td><?php echo $this->Form->input('Student.any_other_info', array('label' => 'Any Other Information', 'maxlength' => '200')); ?></td>
             </tr>
+            <!--
             <tr>
                 <td><?php echo $this->Form->input('Student.father_name', array('label' => 'Father\'s Name:', 'maxlength' => '100')); ?></td>
                 <td><?php echo $this->Form->input('Student.father_email', array('label' => 'Father\'s Email:', 'maxlength' => '100')); ?></td>
@@ -39,7 +113,7 @@
                 <td><?php echo $this->Form->input('Student.mother_mobile', array('label' => 'Mother\'s Mobile No.:', 'maxlength' => '100')); ?></td>
             </tr>
             <tr>
-                <td><?php echo $this->Form->input('Student.dob', array('label' => 'Date of Birth:', 'maxlength' => '100')); ?></td>
+                
                 <td><?php echo $this->Form->input('Student.aadhaar_no', array('label' => 'Aadhaar No. (xxxx xxxx xxxx):', 'maxlength' => '100')); ?></td>
                 <td><?php echo $this->Form->input('Student.nationality', array('label' => 'Nationality:', 'maxlength' => '100')); ?></td>
             </tr>
@@ -50,32 +124,8 @@
                     'style' => 'width: 100%;',
                     'label' => 'Gender'
                 )); ?></td>
-                <td><?php echo $this->Form->input('Student.category', array(
-                    'options' => array('General' => 'General', 'SC' => 'SC', 'ST' => 'ST', 'OBC' => 'OBC'),
-                    'empty' => array('none' => '- select -'),
-                    'style' => 'width: 100%;',
-                    'label' => 'Category'
-                )); ?></td>
-                <td><?php echo $this->Form->input('Student.pwd', array(
-                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
-                    'empty' => array('none' => '- select -'),
-                    'style' => 'width: 100%;',
-                    'label' => 'Differently Abled'
-                )); ?></td>
             </tr>
             <tr>
-                <td><?php echo $this->Form->input('Student.kashmiri_mig', array(
-                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
-                    'empty' => array('none' => '- select -'),
-                    'style' => 'width: 100%;',
-                    'label' => 'Kashmiri Migrant'
-                )); ?></td>
-                <td><?php echo $this->Form->input('Student.ward_of_def', array(
-                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
-                    'empty' => array('none' => '- select -'),
-                    'style' => 'width: 100%;',
-                    'label' => 'Ward of Defense Personnel'
-                )); ?></td>
                 <td><?php echo $this->Form->input('Student.state_domicile', array(
                     'options' => array( 
                                        'Andaman and Nicobar Islands' => 'Andaman and Nicobar Islands',
@@ -121,7 +171,6 @@
                 )); ?></td>
             </tr>
             <tr>
-                <td><?php echo $this->Form->input('Student.comm_address', array('label' => 'Communication Address:', 'maxlength' => '200')); ?></td>
                 <td><?php 
                     $yearArray = range(2000, 2016);
                     ?>
@@ -155,13 +204,42 @@
                     'name' => 'data[Student][year_of_cucet]'
                     ));*/ ?></td>
                 <td></td>
-            </tr>
+            </tr>-->
         </table>
+        </div>
 	<div class="submit">
-            <?php echo $this->Form->submit('Submit', array('div' => false)); ?>
+            <?php echo $this->Form->submit('Save', array('div' => false)); ?>
 	</div>
 <?php echo $this->Form->end(); ?>
 </div>
 </div>
 <script>
+    $(document).ready(function () {
+        if($("#pg_result option:selected").text() === "Yes") {
+            $('#pg_result_marks').css('display', 'table');
+        }
+        else {
+            var elem = $("input[name='data[Student][pg_marks]']");
+            if(elem.attr('class').indexOf("form-error") == -1) {
+                $('#pg_result_marks').css('display', 'none');
+            }
+            else {
+                $("#pg_result").val("Yes");
+                $('#pg_result_marks').css('display', 'table');
+            }
+        }
+        
+        $("select[name='data[Student][pg_result]']").change(function(){
+            if($(this).val() === 'No') {
+                $('#pg_result_marks').each(function(){
+                    $(this).css('display','none');
+                });
+            }
+            else {
+                $('#pg_result_marks').each(function(){
+                    $(this).css('display','table');
+                });
+            }
+        });
+    });
 </script>
