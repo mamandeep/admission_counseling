@@ -220,12 +220,12 @@
         }
         else {
             var elem = $("input[name='data[Student][pg_marks]']");
-            if(elem.attr('class').indexOf("form-error") == -1) {
-                $('#pg_result_marks').css('display', 'none');
-            }
-            else {
+            if(elem.attr('class') && elem.attr('class').indexOf("form-error") != -1) {
                 $("#pg_result").val("Yes");
                 $('#pg_result_marks').css('display', 'table');
+            }
+            else {
+                $('#pg_result_marks').css('display', 'none');
             }
         }
         

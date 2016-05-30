@@ -1,6 +1,74 @@
+<script>
+    $(function() {
+        $('#file_upload').uploadify({
+            'swf'      : '<?php echo $this->webroot . 'files/uploadify.swf' ?>',
+            'uploader' : '<?php echo $this->webroot . 'form/uploaddocuments' ?>',
+            'cancelImg' : '<?php echo $this->webroot . 'files/uploadify-cancel.png' ?>',
+            'folder'    : 'documents',
+            'auto'      : false,
+            'multi'    : false,
+            'onComplete'  : function(event, ID, fileObj, response, data) {
+                            alert('File Uploaded');
+                           }
+        });
+    });
+    
+    $(function() {
+        $('#file_upload2').uploadify({
+            'swf'      : '<?php echo $this->webroot . 'files/uploadify.swf' ?>',
+            'uploader' : '<?php echo $this->webroot . 'form/uploaddocuments' ?>',
+            'cancelImg' : '<?php echo $this->webroot . 'files/uploadify-cancel.png' ?>',
+            'folder'    : 'documents',
+            'auto'      : false,
+            'multi'    : false,
+        });
+    });
+    
+    $(function() {
+        $('#file_upload3').uploadify({
+            'swf'      : '<?php echo $this->webroot . 'files/uploadify.swf' ?>',
+            'uploader' : '<?php echo $this->webroot . 'form/uploaddocuments' ?>',
+            'cancelImg' : '<?php echo $this->webroot . 'files/uploadify-cancel.png' ?>',
+            'folder'    : 'documents',
+            'auto'      : false,
+            'multi'    : false,
+        });
+    });
+    
+    $(function() {
+        $('#file_upload4').uploadify({
+            'swf'      : '<?php echo $this->webroot . 'files/uploadify.swf' ?>',
+            'uploader' : '<?php echo $this->webroot . 'form/uploaddocuments' ?>',
+            'cancelImg' : '<?php echo $this->webroot . 'files/uploadify-cancel.png' ?>',
+            'folder'    : 'documents',
+            'auto'      : false,
+            'multi'    : false,
+        });
+    });
+    
+    /*$(".file_upload").each(function() {
+        $(this).uploadify({
+           //height        : 30,
+           'swf'           : '<?php echo $this->webroot . 'files/uploadify.swf' ?>',
+           'uploader'      : '<?php echo $this->webroot . 'form/uploaddocuments' ?>',
+           //width         : 120,
+           'cancelImg'     : '<?php echo $this->webroot . 'files/uploadify-cancel.png' ?>',
+           'auto'          : true,
+           'folder'        : 'documents',
+           //multiple      : false,
+           'onComplete'    : function(event, ID, fileObj, response, data) {
+                            alert('File Uploaded');
+                           }
+        });
+    });*/
 
+</script>
+<div id="wrapper">
+  <div id="sidebar"><?php echo $this->element('left-sidebar');?></div>
+  <div id="maincontent">
 <?php
-
+echo $this->Html->css('uploadify.css');
+echo $this->Html->script('jquery.uploadify.min');
 echo $this->Form->create('Document', array('id' => 'Image_Details', 'url' => Router::url( null, true ), 'type' => 'file')); ?>
 <div class="main_content_header">Upload Documents</div>
 <div id="contentContainer">
@@ -51,15 +119,19 @@ echo $this->Form->create('Document', array('id' => 'Image_Details', 'url' => Rou
     <?php echo $this->Form->submit('Cancel', array('name' => 'Cancel', 'div' => false)); ?>
 </div>
 <?php echo $this->Form->end(); ?>
+
+<input type="file" name="file_upload" id="file_upload" class="file_upload" />
+<input type="file" name="file_upload2" id="file_upload2" class="file_upload" />
+<input type="file" name="file_upload3" id="file_upload3" class="file_upload" />
+<input type="file" name="file_upload4" id="file_upload4" class="file_upload" />
+<br/><br/>
+<a href="javascript:fileUpload();"/> Upload Documents </a>
+  </div>
 <script>
-    /*$(function () {
-        $('#fileupload').fileupload({
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    $('<p/>').text(file.name).appendTo(document.body);
-                });
-            }
-        });
-    });*/
+    function fileUpload() {
+        $('#file_upload').uploadify('upload', '*');
+        $('#file_upload2').uploadify('upload', '*');
+        $('#file_upload3').uploadify('upload', '*');
+        $('#file_upload4').uploadify('upload', '*');
+    }
 </script>
