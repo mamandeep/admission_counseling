@@ -49,7 +49,6 @@ class Student extends AppModel {
                  'message'   => 'Only valid 10 digit mobile number allowed',
             )
         ),
-        /*
         'father_name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -65,6 +64,7 @@ class Student extends AppModel {
                  'message'   => 'Only letters allowed'
             )
         ),
+        /*
         'father_email' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -75,7 +75,7 @@ class Student extends AppModel {
                  'rule'      => 'email',
                  'message'   => 'Only valid email allowed'
             )
-        ),
+        ),*/
         'father_mobile' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -106,6 +106,7 @@ class Student extends AppModel {
                  'message'   => 'Only letters allowed'
             )
         ),
+        /*
         'mother_email' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -116,7 +117,7 @@ class Student extends AppModel {
                  'rule'      => 'email',
                  'message'   => 'Only valid email allowed'
             )
-        ),
+        ),*/
         'mother_mobile' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -131,7 +132,7 @@ class Student extends AppModel {
                  'rule'      => '/^[789][0-9]{9}$/i',
                  'message'   => 'Only valid 10 digit mobile number allowed'
             )
-        ),*/
+        ),
         'dob' => array(
             'notempty' => array(
                 'rule' => array('notempty'),

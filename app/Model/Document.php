@@ -5,7 +5,6 @@ class Document extends AppModel {
     public $useTable = 'document';
     
     public $validate = array(
-        /*
         'filename' => array(
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::uploadError
             'uploadError' => array(
@@ -34,7 +33,7 @@ class Document extends AppModel {
                 'allowEmpty' => TRUE,
                 'last' => TRUE,
             )
-        ),*/
+        ),
         'filename2' => array(
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::uploadError
             'uploadError' => array(

@@ -14,11 +14,11 @@
                 <td></td>
             </tr>
         </table>
-      <div style="white-space:pre;overflow:auto;width:100%;padding:10px;">
+      <!--<div style="white-space:pre;overflow:auto;width:100%;padding:10px;">-->
         <table style="width:100%;">
             <tr>
                 <td>
-                    <div class="main_content_header">Personal Details</div>
+                    <div class="main_content_header">Details</div>
                 </td>
             </tr>
             <tr>
@@ -28,6 +28,16 @@
                 <td><?php echo $this->Form->input('Student.email', array('label' => 'Email:', 'maxlength' => '100'));
                 ?></td>
                 <td><?php echo $this->Form->input('Student.mobile_no', array('label' => 'Mobile No.:', 'maxlength' => '100')); ?></td>
+            </tr>
+            <tr>
+                <td><?php echo $this->Form->input('Student.father_name', array('label' => 'Father\'s Name:', 'maxlength' => '100')); ?></td>
+                <td colspan="2"><?php echo $this->Form->input('Student.father_mobile', array('label' => 'Father\'s Mobile No.:', 'maxlength' => '100')); ?></td>
+            </tr>
+            <tr>
+                <td><?php echo $this->Form->input('Student.mother_name', array('label' => 'Mother\'s Name:', 'maxlength' => '100')); ?></td>
+                <td colspan="2"><?php echo $this->Form->input('Student.mother_mobile', array('label' => 'Mother\'s Mobile No.:', 'maxlength' => '100')); ?></td>
+            </tr>
+            <tr>
                 <td><?php echo $this->Form->input('Student.dob', array('label' => 'Date of Birth:', 'maxlength' => '100')); ?></td>
                 <td><?php echo $this->Form->input('Student.category', array(
                     'options' => array('General' => 'General', 'SC' => 'SC', 'ST' => 'ST', 'OBC' => 'OBC'),
@@ -41,6 +51,8 @@
                     'style' => 'width: 100%;',
                     'label' => 'Differently Abled'
                 )); ?></td>
+            </tr>
+            <tr>
                 <td><?php echo $this->Form->input('Student.kashmiri_mig', array(
                     'options' => array('Yes' => 'Yes', 'No' => 'No'),
                     'empty' => array('- select -' => '- select -'),
@@ -54,6 +66,8 @@
                     'label' => 'Ward of Defense Personnel'
                 )); ?></td>
                 <td><?php echo $this->Form->input('Student.comm_address', array('label' => 'Communication Address:', 'maxlength' => '200')); ?></td>
+            </tr>
+            <tr>
                 <td><?php echo $this->Form->input('Student.subject1', array(
                     'options' => array( 
                                         'Subject 1' => 'Subject 1',
@@ -78,6 +92,60 @@
                 )); ?></td>
                 <td><?php echo $this->Form->input('Student.rollno1', array('label' => 'Roll No.', 'maxlength' => '100')); ?></td>
                 <td><?php echo $this->Form->input('Student.score1', array('label' => 'Score', 'maxlength' => '100')); ?></td>
+            </tr>
+            <tr>
+                <td><?php echo $this->Form->input('Student.subject2', array(
+                    'options' => array( 
+                                        'Subject 1' => 'Subject 1',
+                                        'Subject 2' => 'Subject 2',
+                                        'Subject 3' => 'Subject 3',
+                                        'Subject 4' => 'Subject 4',
+                                        'Subject 5' => 'Subject 5',
+                                        'Subject 6' => 'Subject 6',
+                                        'Subject 7' => 'Subject 7',
+                                        'Subject 8' => 'Subject 8',
+                                        'Subject 9' => 'Subject 9',
+                                        'Subject 10' => 'Subject 10',
+                                        'Subject 11' => 'Subject 11',
+                                        'Subject 12' => 'Subject 12',
+                                        'Subject 13' => 'Subject 13',
+                                        'Subject 14' => 'Subject 14',
+                                        'Subject 15' => 'Subject 15' 
+                                       ),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Subject appeared in'
+                )); ?></td>
+                <td><?php echo $this->Form->input('Student.rollno2', array('label' => 'Roll No.', 'maxlength' => '100')); ?></td>
+                <td><?php echo $this->Form->input('Student.score2', array('label' => 'Score', 'maxlength' => '100')); ?></td>
+            </tr>
+            <tr>
+                <td><?php echo $this->Form->input('Student.subject3', array(
+                    'options' => array( 
+                                        'Subject 1' => 'Subject 1',
+                                        'Subject 2' => 'Subject 2',
+                                        'Subject 3' => 'Subject 3',
+                                        'Subject 4' => 'Subject 4',
+                                        'Subject 5' => 'Subject 5',
+                                        'Subject 6' => 'Subject 6',
+                                        'Subject 7' => 'Subject 7',
+                                        'Subject 8' => 'Subject 8',
+                                        'Subject 9' => 'Subject 9',
+                                        'Subject 10' => 'Subject 10',
+                                        'Subject 11' => 'Subject 11',
+                                        'Subject 12' => 'Subject 12',
+                                        'Subject 13' => 'Subject 13',
+                                        'Subject 14' => 'Subject 14',
+                                        'Subject 15' => 'Subject 15' 
+                                       ),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Subject appeared in'
+                )); ?></td>
+                <td><?php echo $this->Form->input('Student.rollno3', array('label' => 'Roll No.', 'maxlength' => '100')); ?></td>
+                <td><?php echo $this->Form->input('Student.score3', array('label' => 'Score', 'maxlength' => '100')); ?></td>
+            </tr>
+            <tr>
                 <td><?php
                         echo $this->Form->input('Student.pg_result', array(
                         'options' => array('Yes' => 'Yes',
@@ -93,12 +161,18 @@
                         </tr>
                     </table>
                 </td>
+            </tr>
+            <tr>
                 <td><?php echo $this->Form->input('Student.gate_year_of_passing', array('label' => 'GATE - Year of Passing', 'maxlength' => '50')); ?></td>
                 <td><?php echo $this->Form->input('Student.gate_rollno', array('label' => 'GATE - Roll No.', 'maxlength' => '50')); ?></td>
                 <td><?php echo $this->Form->input('Student.gate_score', array('label' => 'GATE - Score', 'maxlength' => '50')); ?></td>
+            </tr>
+            <tr>
                 <td><?php echo $this->Form->input('Student.gpat_year_of_passing', array('label' => 'GPAT - Year of Passing', 'maxlength' => '50')); ?></td>
                 <td><?php echo $this->Form->input('Student.gpat_rollno', array('label' => 'GPAT - Roll No.', 'maxlength' => '50')); ?></td>
                 <td><?php echo $this->Form->input('Student.gpat_score', array('label' => 'GPAT - Score', 'maxlength' => '50')); ?></td>
+            </tr>
+            <tr>
                 <td><?php echo $this->Form->input('Student.any_other_info', array('label' => 'Any Other Information', 'maxlength' => '200')); ?></td>
             </tr>
             <!--
@@ -206,7 +280,7 @@
                 <td></td>
             </tr>-->
         </table>
-        </div>
+        <!--</div>-->
 	<div class="submit">
             <?php echo $this->Form->submit('Save', array('div' => false)); ?>
 	</div>

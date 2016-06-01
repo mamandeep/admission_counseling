@@ -20,9 +20,9 @@ class FormController extends AppController {
     public function beforeFilter() {
         parent::beforeFilter();
         //$this->Auth->allow('login','add','logout'); 
-        /*if(!$this->Session->check('registration_id')) {
+        if(!$this->Session->check('std_id')) {
             $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
-        }*/
+        }
     }
 	
 
@@ -127,29 +127,42 @@ class FormController extends AppController {
         }
         
         public function uploaddocuments() {
-            $targetFolder = 'documents'; // Relative to the root
-            $verifyToken = "";
-            if(!empty($_POST['timestamp']))
-                $verifyToken = md5('unique_salt' . $_POST['timestamp']);
+            if(!empty($this->data['Document'])) {
+                if(!empty($this->data['Document']['filename']['error']) && $this->data['Document']['filename']['error'] == 4
+                && !empty($this->data['Document']['filename2']['error']) && $this->data['Document']['filename2']['error'] == 4
+                && !empty($this->data['Document']['filename3']['error']) && $this->data['Document']['filename3']['error'] == 4
+                && !empty($this->data['Document']['filename4']['error']) && $this->data['Document']['filename4']['error'] == 4
+               )
+                return true;
 
-            if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
-                    $tempFile = $_FILES['Filedata']['tmp_name'];
-                    $targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
-                    $targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
-                    $filename = WWW_ROOT . $targetFolder . DS . $this->Session->read('std_id') . '.' . pathinfo($_FILES['Filedata']['name'], PATHINFO_EXTENSION);
-                    
-                    //debug($filename . $_FILES['Filedata']); return false;
-                    // Validate the file type
-                    $fileTypes = array('jpg','jpeg','gif','png','pdf'); // File extensions
-                    $fileParts = pathinfo($_FILES['Filedata']['name']);
-
-                    if (in_array($fileParts['extension'],$fileTypes)) {
-                            move_uploaded_file($tempFile, $filename);
-                            echo '1';
-                    } else {
-                            echo 'Invalid file type.';
-                    }
+                if ($this->Document->save($this->data['Document'])) {
+                    $this->Session->setFlash('Your documents have been submitted successfully.');
+                    $this->redirect(array('controller'=>'form', 'action' => 'showdocuments'));
+                    return true;
+                }
+                return false;
             }
+            
+            $param ="";
+            if(isset($this->params['url']['ct'])) 
+                $param = $this->params['url']['ct'];
+            if($param == "1") {
+                $this->redirect(array('controller'=>'form', 'action' => 'showdocuments'));
+            }
+            
+            $images = $this->Document->find('all', array(
+                    'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
+            
+            if(count($images) == 1) {
+                $this->request->data = $images['0'];
+            }
+            else if(count($images) > 1) {
+                $this->Session->setFlash('An error has occured. Please contact Support.');
+            }
+        }
+        
+        public function previewdocuments() {
+            
         }
         
         public function prepayment() {
