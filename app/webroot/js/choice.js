@@ -9,7 +9,7 @@ $(document).ready(function () {
     gradeTable
         .on('click', 'a.add', function(e) {
             e.preventDefault();
-            if(numberRows >= 3 ) {
+            if(gradeTable.find('tbody > tr').length >= 3 ) {
                 alert("Maximum limit for filling the Options has reached.");
                 return false;
             }
@@ -31,6 +31,13 @@ $(document).ready(function () {
                     $(attri1).val($('#glob_userId').val());
             }
             $("#modified").val('true');
+            var count = 1;
+            $('table#options-table tbody tr input').each(function() {
+                //alert($(this).attr('name'));
+                if($(this).attr('name').indexOf("pref_order") != -1) {
+                    $(this).val(count++);
+                }
+            });
         })
         .on('click', 'a.remove', function(e) {
                 e.preventDefault();
@@ -45,6 +52,13 @@ $(document).ready(function () {
                     
                 $("#modified").val('true');
             }
+            var count = 1;
+            $('table#options-table tbody tr input').each(function() {
+                alert($(this).attr('name'));
+                if($(this).attr('name').indexOf("pref_order") != -1) {
+                    $(this).val(count++);
+                }
+            });
             
         });
 

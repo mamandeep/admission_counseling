@@ -27081,3 +27081,419 @@ Request URL: /admission_counseling/js/underscore-min.map
 Stack Trace:
 #0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2016-06-01 11:58:32 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 05:41:49 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 05:42:02 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 05:42:27 Error: [MissingActionException] Action FormController::showdocuments() could not be found.
+Exception Attributes: array (
+  'controller' => 'FormController',
+  'action' => 'showdocuments',
+)
+Request URL: /admission_counseling/form/showdocuments
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 F:\Xampp\htdocs\admission_counseling\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(FormController), Object(CakeRequest))
+#2 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-06-02 05:42:28 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 05:43:19 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 05:43:21 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 05:43:27 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 05:51:28 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:00:23 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:02:03 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:03:28 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:09:43 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:10:44 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:13:16 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:14:22 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:15:10 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:16:37 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:21:46 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:21:48 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:21:52 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:22:38 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:43:06 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:43:08 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:43:25 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:44:11 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:44:20 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:44:22 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:44:27 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:44:29 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:46:43 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:47:29 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:47:33 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:47:38 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:50:00 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:50:03 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:51:30 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:51:52 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 09:58:19 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 10:15:16 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 10:17:36 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 10:25:09 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 10:26:19 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 10:26:26 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 10:35:12 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-02 10:36:12 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

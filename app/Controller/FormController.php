@@ -137,7 +137,7 @@ class FormController extends AppController {
 
                 if ($this->Document->save($this->data['Document'])) {
                     $this->Session->setFlash('Your documents have been submitted successfully.');
-                    $this->redirect(array('controller'=>'form', 'action' => 'showdocuments'));
+                    $this->redirect(array('controller'=>'form', 'action' => 'previewdocuments'));
                     return true;
                 }
                 return false;
@@ -147,7 +147,7 @@ class FormController extends AppController {
             if(isset($this->params['url']['ct'])) 
                 $param = $this->params['url']['ct'];
             if($param == "1") {
-                $this->redirect(array('controller'=>'form', 'action' => 'showdocuments'));
+                $this->redirect(array('controller'=>'form', 'action' => 'previewdocuments'));
             }
             
             $images = $this->Document->find('all', array(
@@ -162,7 +162,28 @@ class FormController extends AppController {
         }
         
         public function previewdocuments() {
+            $images = $this->Document->find('all', array(
+                    'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
             
+            if(count($images) == 1) {
+                //$this->request->data = $images['0'];
+                if(empty($images['0']['Document']['filename']) || empty($images['0']['Document']['filename2']) 
+                    || empty($images['0']['Document']['filename4']))
+                {
+                    if(empty($images['0']['Document']['filename']))
+                        $this->Session->setFlash('Photograph is mandatory');
+                    if(empty($images['0']['Document']['filename2']))
+                        $this->Session->setFlash('Date of Birth Certificate is mandatory');
+                    if(empty($images['0']['Document']['filename4']))
+                        $this->Session->setFlash('Signature is mandatory');
+                    $this->redirect(array('controller'=>'form', 'action' => 'uploaddocuments'));
+                }
+                $this->set('image', $images['0']);
+                //print_r($this->request->data);
+            }
+            else if(count($images) > 1) {
+                $this->Session->setFlash('An error has occured. Please contact Support.');
+            }
         }
         
         public function prepayment() {
