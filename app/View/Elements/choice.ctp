@@ -1,11 +1,10 @@
 <?php
 $key = isset($key) ? $key : '<%= key %>';
-$branchArr = isset($branchArr) ? $branchArr : array();
+$codeSubjectCentre = isset($codeSubjectCentre) ? $codeSubjectCentre : array();
 $selected = isset($selected) ? $selected : 'none';
-$subjectArr = isset($subjectArr) ? $subjectArr : array();
 $selectedSub = isset($selectedSub) ? $selectedSub : 'none';
 ?>
-<tr>
+<tr id="row_<?php echo $key; ?>">
     <td>
         <?php echo $this->Form->hidden("Choice.{$key}.id");
               echo $this->Form->hidden("Choice.{$key}.std_id");
@@ -18,32 +17,42 @@ $selectedSub = isset($selectedSub) ? $selectedSub : 'none';
     </td>
     <td>
         <?php //$selected = (isset($dbYear) && $dbYear !== "" && $year == $dbYear) ? 'selected' : '';
-              //print_r($branchArr); print_r($selected);
+                $subjectoptions = array();
+                foreach ($codeSubjectCentre as $key2 => $value2) {
+                    $subjectoptions[$key2] = $key2;
+                }
+              //print_r($codeSubjectCentre); //print_r($selected);
               echo $this->Form->input("Choice.{$key}.subject", array(
-                    'options' => $subjectArr,
-                    'empty' => array('none' => '- select -'),
+                    'options' => $subjectoptions,
+                    'empty' => array('- select -' => '- select -'),
                     'style' => 'width: 100%;',
-                    'label' => false,
-                    'selected' => $selectedSub
-                )); ?>
-    </td>
-    <td>
-        <?php echo $this->Form->text("Choice.{$key}.rollno"); ?>
-    </td>
-    <td>
-        <?php //$selected = (isset($dbYear) && $dbYear !== "" && $year == $dbYear) ? 'selected' : '';
-              //print_r($branchArr); print_r($selected);
-              echo $this->Form->input("Choice.{$key}.preference", array(
-                    'options' => $branchArr,
-                    'empty' => array('none' => '- select -'),
-                    'style' => 'width: 100%;',
-                    'label' => false,
-                    'selected' => $selected
+                    'label' => false
                 )); ?>
     </td>
     <td>
         <?php echo $this->Form->text("Choice.{$key}.score"); ?>
     </td>
+    <!--<td>
+        <?php echo $this->Form->text("Choice.{$key}.rollno"); ?>
+    </td>-->
+    <td>
+        <?php //$selected = (isset($dbYear) && $dbYear !== "" && $year == $dbYear) ? 'selected' : '';
+              //print_r($branchArr); print_r($selected);
+              echo $this->Form->input("Choice.{$key}.preference", array(
+                    'options' => array(),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => false
+                )); ?>
+    </td>
+    <td>
+        <div name="[Choice][<?php echo $key; ?>][centre]" style="width: 100px; overflow-x: auto;white-space: nowrap;"></div>
+        <?php echo $this->Form->input("Choice.{$key}.centre", array('type' => 'hidden')); ?>
+    </td>
+    <!--
+    <td>
+        <?php echo $this->Form->text("Choice.{$key}.score"); ?>
+    </td>-->
     <!--
     <td>
         <?php  

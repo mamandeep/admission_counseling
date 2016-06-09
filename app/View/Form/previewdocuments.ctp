@@ -20,19 +20,30 @@
             <tr>
                 <td></td>
                 <td>Date of Birth Certificate</td>
-                <td><a href="<?php if(!empty($image['Document']['filename2'])) { echo $this->webroot . $image['Document']['filename2']; } else { echo ""; } ?>" target="_blank">click here</a></td>
+                <td><a href="<?php if(!empty($image['Document']['filename2'])) { echo $this->webroot . $image['Document']['filename2']; } else { echo "javascript: void();"; } ?>" target="_blank">click here</a></td>
                 <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td>Caste Certificate</td>
-                <td><a href="<?php if(!empty($image['Document']['filename3'])) { echo $this->webroot . $image['Document']['filename3']; } else { echo ""; } ?>" target="_blank">click here</a></td>
+                <td><a href="<?php if(!empty($image['Document']['filename3'])) { echo $this->webroot . $image['Document']['filename3']; } else { echo "javascript: void();"; } ?>" target="_blank">click here</a></td>
                 <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td>Signature</td>
                 <td><img src="<?php if(!empty($image['Document']['filename4'])) { echo $this->webroot . $image['Document']['filename4']; } else { echo ""; } ?>" alt="Signature" height="50px" width="132px"/></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <div class="submit">
+                        <a href="<?php echo $this->webroot; ?>form/options" id="continue_bt" class="button_ct" style="font-size: 20px;">Continue</a>
+                    </div>
+                </td>
+                <td>
+                </td>
                 <td></td>
             </tr>
         </table>

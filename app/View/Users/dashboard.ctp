@@ -10,8 +10,11 @@
         <tr>
             <td><?php echo $this->Form->input('email'); ?></td>
         </tr>
-        <tr>
+        <!--<tr>
             <td>&nbsp;(DD/MM/YYYY)<?php echo $this->Form->input('dob', array('label' => 'Date of Birth')); ?></td>
+        </tr>-->
+        <tr>
+            <td><?php echo $this->Form->input('password', array('label' => 'Password')); ?></td>
         </tr>
         <!--
         <tr>
@@ -24,7 +27,13 @@
 <?php echo $this->Form->end(__('Login')); ?>
 <?php echo $this->Html->link(
             'Register!!',
-            '/Form/register',
+            '/users/register',
             array('target' => '_blank')
+      ); ?>
+<br/>
+<br/>
+ <?php echo $this->Html->link(
+            'Forgot Password',
+            '/users/forgotpassword'
       ); ?>
 </div>

@@ -2,12 +2,12 @@
 
 class FormController extends AppController {
 
-    var $components = array('Captcha.Captcha'=>array('Model'=>'Signup', 
-                        'field'=>'security_code'));//'Captcha.Captcha'
+    //var $components = array('Captcha.Captcha'=>array('Model'=>'Signup', 
+    //                    'field'=>'security_code'));//'Captcha.Captcha'
 
-    var $uses = array('Signup', 'Student', 'Registereduser','Choice','Branch', 'Document', 'Subject','BranchSubject');                
+    var $uses = array('Student','Choice','Branch', 'Document', 'Subject','BranchSubject');                
     
-    public $helpers = array('Captcha.Captcha');
+    //public $helpers = array('Captcha.Captcha');
     
     
     
@@ -27,14 +27,7 @@ class FormController extends AppController {
 	
 
 
-    function captcha()  {
-        $this->autoRender = false;
-        $this->layout='ajax';
-        if(!isset($this->Captcha))	{ //if you didn't load in the header
-            $this->Captcha = $this->Components->load('Captcha.Captcha'); //load it
-        }
-        $this->Captcha->create();
-    }
+    
     
     public function generalinformation() {
            //$applicants = $this->Applicant->find('all', array(
@@ -44,64 +37,7 @@ class FormController extends AppController {
             //}
     }
         
-        public function register() {
-            if(!empty($this->data['Registereduser'])) {
-                $this->Signup->setCaptcha('security_code', $this->Captcha->getCode('Signup.security_code')); //getting from component and passing to model to make proper validation check
-                $this->Signup->set($this->request->data);
-                if ($this->Signup->validates()) {
-                    $segments = explode('/', $this->data['Registereduser']['dob']);
-                    if (count($segments) !== 3 || !preg_match("/^[0-3][0-9]\/[0-1][0-9]\/[0-9]{4}$/", $this->data['Registereduser']['dob'])) {
-                        $this->Session->setFlash('Date of Birth is not in correct format.');
-                        return false;
-                    }
-                    list($dd,$mm,$yyyy) = $segments;
-                    if (!checkdate((int)$mm,(int)$dd,(int)$yyyy)) {
-                        $this->Session->setFlash('Date of Birth is not in correct format.');
-                        return false;
-                    }
-                    if(!filter_var($this->data['Registereduser']['email'], FILTER_VALIDATE_EMAIL)) {
-                        $this->Session->setFlash('Email Id is not in correct format.');
-                        return false;
-                    }
-                    if (!preg_match("/^[789]\d{9}$/",$this->data['Registereduser']['mobile_no'])) {
-                        $this->Session->setFlash('Mobile number is not correct. Please enter a valid 10 digit mobile number.');
-                        return false; 
-                    }
-                    $registered_user = $this->Registereduser->find('all', array(
-                                'conditions' => array('Registereduser.email' => trim($this->data['Registereduser']['email']),
-                                                      'Registereduser.dob' => trim($this->data['Registereduser']['dob']))
-                                                    ));
-                    if(count($registered_user) != 0) {
-                        $this->Session->setFlash('Email / Date of Birth is already registered.');
-                        return false;
-                    }
-                    $this->Student->create();
-                    //$this->Student->set(array(
-                    //    'advertisement_no' => 'T-01 (2016)'));
-                    if(!$this->Student->save(array(), false)){
-                        debug($this->Student->validationErrors); die();
-                    }
-                    if($this->Student->save(null, false) && $this->Registereduser->save($this->data['Registereduser'])) {
-                        $this->Session->write('std_id', $this->Student->getLastInsertID());
-                        $this->Session->write('registration_id', $this->Registereduser->getLastInsertID());
-                        $this->Student->id = $this->Session->read('std_id');
-                        $this->Student->saveField('reg_id', $this->Session->read('registration_id'));
-                        $this->Registereduser->id = $this->Session->read('registration_id');
-                        $this->Registereduser->saveField('std_id', $this->Session->read('std_id'));
-                        $this->Session->setFlash('You have successfully registered.');
-                        //$this->redirect(array('controller' => 'form', 'action' => 'pay'));
-			$this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
-                    }
-                    else {
-                        $this->Session->setFlash('There was an error in Registration.');
-                    }
-                }
-                else {
-                    $this->Session->setFlash('Data Validation Failure', 'default', array('class' =>
-                        'cake-error'));
-                }
-            }
-        }
+        
         
         public function studentdetails() {
             if(!empty($this->data['Student'])) {
@@ -183,6 +119,10 @@ class FormController extends AppController {
             }
             else if(count($images) > 1) {
                 $this->Session->setFlash('An error has occured. Please contact Support.');
+            }
+            else {
+                $this->Session->setFlash('Upload the mandatory documents');
+                $this->redirect(array('controller'=>'form', 'action' => 'uploaddocuments'));
             }
         }
         
@@ -282,10 +222,10 @@ class FormController extends AppController {
         }
         
         public function pay() {
-                $arr = array("Male", "Female", "Transgender");
+                $arr = array("General", "SC", "ST", "OBC");
                 $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
-                if(!in_array($student['0']['Student']['gender'], $arr)) {
+                if(!in_array($student['0']['Student']['category'], $arr)) {
                     $this->Session->setFlash('Please complete the Personal Details section before payment.');
                     $this->redirect(array('controller' => 'form', 'action' => 'studentdetails'));
                 }
@@ -401,32 +341,54 @@ class FormController extends AppController {
 					$secureHash = strtoupper(hash($HASHING_METHOD , $hashData));
 				}
 			} else {
-				echo '<h1>Error!</h1>';
-				echo '<p>Hash validation failed</p>';
+				//echo '<h1>Error!</h1>';
+				//echo '<p>Hash validation failed</p>';
+                            $this->set('error_mesg', "Hash validation failed");
 			}
 		} else {
-			echo '<h1>Error!</h1>';
-			echo '<p>Invalid response</p>';
+			//echo '<h1>Error!</h1>';
+			//echo '<p>Invalid response</p>';
+                        $this->set('error_mesg', "Invalid response.");
 		}
 	}
 
 	public function options() {
             $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
-            
-            if(!empty($student['0']['Student']['response_code']) && $student['0']['Student']['response_code'] == "0") {
+            $choice_arr = $this->Choice->find('all', array(
+                    'conditions' => array('Choice.std_id' => $this->Session->read('std_id')),
+                    'order' => array('Choice.pref_order ASC')));
+            /*if(!empty($student['0']['Student']['response_code']) && $student['0']['Student']['response_code'] == "0") {
                 $this->Session->setFlash('Payment not completed.');
                 $this->redirect(array('controller' => 'form', 'action' => 'prepay'));
-            }
+            }*/
+            
             //$this->Session->write('options_locked', $student['0']['Student']['options_locked']);
-            $this->set('optionsLocked', ($student['0']['Student']['options_locked'] == "1") ? "1" : "0");
+            //$this->set('optionsLocked', ($student['0']['Student']['options_locked'] == "1") ? "1" : "0");
+            
             if(!empty($this->data['Choice'])) {
-                if(!empty($this->data['modified']) && $this->data['modified'] == 'true') {
+                /*if(!empty($this->data['modified']) && $this->data['modified'] == 'true') {
                     $choices = $this->Choice->deleteAll( array('Choice.std_id' => $this->Session->read('std_id')));
+                }*/
+                //print_r($this->data['Choice']);
+                $foundEmpty = false;
+                //print_r($this->data['Choice']); return false;
+                foreach ($this->data['Choice'] as $key => $value) {
+                    if($this->data['Choice'][$key]['subject'] === "- select -") {
+                        $foundEmpty = true;
+                    }
+                    if($foundEmpty === true && $this->data['Choice'][$key]['subject'] !== "- select -") {
+                        $this->Session->setFlash('Please fill the preferences in order.');
+                        return false;
+                    }
+                    if(count($choice_arr) === 5) {
+                        $this->request->data['Choice'][$key]['id'] = $choice_arr[$key]['Choice']['id'];
+                    }
                 }
-                
+                //print_r($this->data['Choice']);
                 if($this->Choice->saveMany($this->data['Choice'])) { 
-                    $this->redirect(array('controller' => 'form', 'action' => 'lockoptions'));
+                    //return false;
+                    $this->redirect(array('controller' => 'form', 'action' => 'printoptions'));
                     //return true;
                 }
                 else {
@@ -437,9 +399,7 @@ class FormController extends AppController {
                 //return false;
             }
             //$temp = $this->Session->read('applicant_id');
-            $choice_arr = $this->Choice->find('all', array(
-                    'conditions' => array('Choice.std_id' => $this->Session->read('std_id')),
-                    'order' => array('Choice.pref_order ASC')));
+            
             //$misc = $this->Applicant->find('all', array(
             //        'conditions' => array('Applicant.id' => $this->Session->read('applicant_id'))));
             //print_r($this->Session->read('applicant_id'));
@@ -451,45 +411,33 @@ class FormController extends AppController {
                 //$educationId_arr[$key] = $value['Education']['id'];
                 $choice_data[$key] = $choice_arr[$key]['Choice'];
             }
-            $branchlist = $this->Branch->find('list', array(
-                                                'conditions' => array(
-                                                    'college_code' => 1
-                                                ),    
-                                                'fields' => array('Branch.branch_code','Branch.branch_name')));
-            $subjectlist = $this->Subject->find('list', array(
-                                                'conditions' => array(
-                                                    'college_code' => 1
-                                                ),    
-                                                'fields' => array('Subject.subject_code','Subject.subject_name')));
             
-            $subjectbranch = $this->BranchSubject->find('list', array(    
-                                                'fields' => array('BranchSubject.subject_code','BranchSubject.branch_code')));
+            //$branchlist = $this->Branch->find('list', array(
+            //                                    'conditions' => array(
+            //                                        'college_code' => 1
+            //                                    ),    
+            //                                    'fields' => array('Branch.branch_code','Branch.branch_name')));
+            //$subjectlist = $this->Subject->find('list', array(
+            //                                    'conditions' => array(
+            //                                        'college_code' => 1
+            //                                    ),    
+            //                                    'fields' => array('Subject.subject_code','Subject.subject_name')));
+            
+            //$subjectbranch = $this->BranchSubject->find('list', array(    
+            //                                    'fields' => array('BranchSubject.subject_code','BranchSubject.branch_code')));
             //foreach ($branchlist as $key)
             $this->request->data = array('Choice' => $choice_data);
-            $this->set('branchArr', $branchlist);
-            $this->set('subjectArr', $subjectlist);
-            $this->set('subjectBrArr', $subjectbranch);
+            //$this->set('branchArr', $branchlist);
+            //$this->set('subjectArr', $subjectlist);
+            //$this->set('subjectBrArr', $subjectbranch);
         }
         
-        public function lockoptions() {
+        public function printoptions() {
             //print_r($this->data);
             $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             
             //$this->Session->write('options_locked', $student['0']['Student']['options_locked']);
-            if(!empty($this->Session->read('options_locked')) && $this->Session->read('options_locked') == "1") {
-                $this->Session->setFlash('The options have been locked.');
-                $this->redirect(array('controller' => 'form', 'action' => 'options'));
-            }
-                
-            if(!empty($this->data) && $this->data['lockoptions'] == "true") {
-                $this->Student->id = $this->Session->read('std_id');
-                if (!empty($this->Student->id)) {
-                    $this->Student->saveField('options_locked', "1");
-                    //$this->Session->write('options_locked', "1");
-            	}
-            	$this->redirect(array('controller' => 'form', 'action' => 'options'));
-            }
             
             $choice_arr = $this->Choice->find('all', array(
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id')),
@@ -503,14 +451,8 @@ class FormController extends AppController {
             foreach($choice_arr as $key => $value) {
                 $choice_data[$key] = $choice_arr[$key]['Choice'];
             }
-            $branchlist = $this->Branch->find('list', array(
-                                                'conditions' => array(
-                                                    'college_code' => 1
-                                                ),    
-                                                'fields' => array('Branch.branch_code','Branch.branch_name')));
+            
             $this->request->data = array('Choice' => $choice_data);
-            $this->set('branchArr', $branchlist);
-            $this->set('showLockButton', ($student['0']['Student']['options_locked'] == "1") ? "1" : "0");
         }
         
         public function print_bfs() {

@@ -83,6 +83,7 @@
     <td><input type="checkbox" id="declaration" name="declaration"></input></td>
     <td></td>
 </tr>
+<!--
 <tr>
     <td></td>
     <td><span style="font-weight: bold; font-size: 20px; color:#0a0;">Post Applied For: *</span>
@@ -94,7 +95,7 @@
                 <option value="assistantprofessor">Assistant Professor</option>
             </select></td>
     <td></td>
-</tr>
+</tr>-->
 <!--
 <tr>
     <td></td>
@@ -118,6 +119,7 @@
     <td></td>
 </tr>
 -->
+<!--
 <tr>
     <td></td>
     <td><span style="font-weight: bold; font-size: 20px; color:#0a0;">Centre: *</span>
@@ -155,7 +157,7 @@
     </td>
     <td></td>
     <td></td>
-</tr>
+</tr>-->
 <tr>
     <td></td>
     <td><div style="text-align: center; font-size: 20px;">

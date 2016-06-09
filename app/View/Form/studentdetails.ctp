@@ -67,6 +67,7 @@
                 )); ?></td>
                 <td><?php echo $this->Form->input('Student.comm_address', array('label' => 'Communication Address:', 'maxlength' => '200')); ?></td>
             </tr>
+            <!--
             <tr>
                 <td><?php echo $this->Form->input('Student.subject1', array(
                     'options' => array( 
@@ -145,6 +146,7 @@
                 <td><?php echo $this->Form->input('Student.rollno3', array('label' => 'Roll No.', 'maxlength' => '100')); ?></td>
                 <td><?php echo $this->Form->input('Student.score3', array('label' => 'Score', 'maxlength' => '100')); ?></td>
             </tr>
+            -->
             <tr>
                 <td><?php
                         echo $this->Form->input('Student.pg_result', array(
@@ -157,21 +159,23 @@
                     <table id="pg_result_marks">
                         <tr>
                             <td>Marks (%): </td>
-                            <td><?php echo $this->Form->input('Student.pg_marks', array('label' => false, 'maxlength' => '100')); ?></td>
+                            <td><?php echo $this->Form->input('Student.pg_marks', array('label' => false, 'maxlength' => '100', 'required' => false)); ?></td>
                         </tr>
                     </table>
                 </td>
+                <td><?php echo $this->Form->input('Student.rollno', array('label' => 'Roll No.', 'maxlength' => '20')); ?></td>
             </tr>
             <tr>
-                <td><?php echo $this->Form->input('Student.gate_year_of_passing', array('label' => 'GATE - Year of Passing', 'maxlength' => '50')); ?></td>
-                <td><?php echo $this->Form->input('Student.gate_rollno', array('label' => 'GATE - Roll No.', 'maxlength' => '50')); ?></td>
-                <td><?php echo $this->Form->input('Student.gate_score', array('label' => 'GATE - Score', 'maxlength' => '50')); ?></td>
+                <td width="40%"><?php echo $this->Form->input('Student.gate_year_of_passing', array('label' => 'GATE/GPAT - Year of Passing', 'maxlength' => '50')); ?></td>
+                <td width="30%"><?php echo $this->Form->input('Student.gate_rollno', array('label' => 'GATE/GPAT - Roll No.', 'maxlength' => '50')); ?></td>
+                <td width="30%"><?php echo $this->Form->input('Student.gate_score', array('label' => 'GATE/GPAT - Score', 'maxlength' => '50')); ?></td>
             </tr>
+            <!--
             <tr>
                 <td><?php echo $this->Form->input('Student.gpat_year_of_passing', array('label' => 'GPAT - Year of Passing', 'maxlength' => '50')); ?></td>
                 <td><?php echo $this->Form->input('Student.gpat_rollno', array('label' => 'GPAT - Roll No.', 'maxlength' => '50')); ?></td>
                 <td><?php echo $this->Form->input('Student.gpat_score', array('label' => 'GPAT - Score', 'maxlength' => '50')); ?></td>
-            </tr>
+            </tr>-->
             <tr>
                 <td><?php echo $this->Form->input('Student.any_other_info', array('label' => 'Any Other Information', 'maxlength' => '200')); ?></td>
             </tr>
@@ -291,27 +295,30 @@
     $(document).ready(function () {
         if($("#pg_result option:selected").text() === "Yes") {
             $('#pg_result_marks').css('display', 'table');
+            $('#pg_result_marks').css('visibility', 'visible');
         }
         else {
             var elem = $("input[name='data[Student][pg_marks]']");
             if(elem.attr('class') && elem.attr('class').indexOf("form-error") != -1) {
                 $("#pg_result").val("Yes");
                 $('#pg_result_marks').css('display', 'table');
+                $('#pg_result_marks').css('visibility', 'visible');
             }
             else {
-                $('#pg_result_marks').css('display', 'none');
+                $('#pg_result_marks').css('visibility', 'hidden');
             }
         }
         
         $("select[name='data[Student][pg_result]']").change(function(){
             if($(this).val() === 'No') {
                 $('#pg_result_marks').each(function(){
-                    $(this).css('display','none');
+                    $(this).css('visibility','hidden');
                 });
             }
             else {
                 $('#pg_result_marks').each(function(){
                     $(this).css('display','table');
+                    $('#pg_result_marks').css('visibility', 'visible');
                 });
             }
         });

@@ -236,6 +236,7 @@ class Student extends AppModel {
                 'message' => 'This field has crossed allowed limit.'
             )
         ),
+        /*
         'subject1' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
@@ -272,6 +273,21 @@ class Student extends AppModel {
                  'rule'      => '/^[0-9]+$/i',
                  'message'   => 'Only digits allowed',
             )
+        ),*/
+        'rollno' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'length' => array (
+                'rule' => array('maxLength', 10),
+                'message' => 'This field has crossed allowed limit. Only 10 digits allowed'
+            ),
+            'pattern'=>array(
+                 'rule'      => '/^[0-9]+$/i',
+                 'message'   => 'Only digits allowed',
+            )
         ),
         'pg_result' => array(
             'notempty' => array(
@@ -283,7 +299,9 @@ class Student extends AppModel {
         'pg_marks' => array(
             'pattern'=>array(
                  'rule'      => '/^[0-9.]+$/i',
-                 'message'   => 'Only numbers are allowed',
+                 'required'  => false,
+                 'allowEmpty' => true,
+                 'message'   => 'Only numbers are allowed'
             )
         )
         /*

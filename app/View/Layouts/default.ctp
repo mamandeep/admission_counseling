@@ -50,7 +50,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     
                     
                     <?php
-                        if($this->Session->check('registration_id')) {
+                        if($this->Session->check('registration_id') && $this->Session->check('std_id')) {
                            // user is logged in, show logout..user menu etc
                          /* ?><span style="padding: 1px 10px;"><?php echo $this->Html->link(('Step 1'), array('first')); 
 			  ?></span><span style="padding: 1px 10px;"><?php
