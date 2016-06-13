@@ -59,7 +59,9 @@ class FormController extends AppController {
                     'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             $this->request->data = $student['0'];
             $this->set('dbYear', $student['0']['Student']['year_of_cucet']);
-            $this->set('pg_result', $student['0']['Student']['pg_result']);
+            $this->set('ug_result', $student['0']['Student']['ug_result']);
+            $this->set('pwd', $student['0']['Student']['pwd']);
+            $this->set('bgroup', $student['0']['Student']['blood_group']);
         }
         
         public function uploaddocuments() {
@@ -358,6 +360,11 @@ class FormController extends AppController {
             $choice_arr = $this->Choice->find('all', array(
                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id')),
                     'order' => array('Choice.pref_order ASC')));
+            $choice_data = array();
+            foreach($choice_arr as $key => $value) {
+                //$educationId_arr[$key] = $value['Education']['id'];
+                $choice_data[$key] = $choice_arr[$key]['Choice'];
+            }
             /*if(!empty($student['0']['Student']['response_code']) && $student['0']['Student']['response_code'] == "0") {
                 $this->Session->setFlash('Payment not completed.');
                 $this->redirect(array('controller' => 'form', 'action' => 'prepay'));
@@ -379,6 +386,7 @@ class FormController extends AppController {
                     }
                     if($foundEmpty === true && $this->data['Choice'][$key]['subject'] !== "- select -") {
                         $this->Session->setFlash('Please fill the preferences in order.');
+                        $this->request->data = array('Choice' => $choice_data);
                         return false;
                     }
                     if(count($choice_arr) === 5) {
@@ -406,11 +414,7 @@ class FormController extends AppController {
             //if(count($education_arr) == 7 || count($education_arr) == 12) {
                 //$this->request->data = $education_arr;
             //$educationId_arr = array();
-            $choice_data = array();
-            foreach($choice_arr as $key => $value) {
-                //$educationId_arr[$key] = $value['Education']['id'];
-                $choice_data[$key] = $choice_arr[$key]['Choice'];
-            }
+            
             
             //$branchlist = $this->Branch->find('list', array(
             //                                    'conditions' => array(
@@ -453,6 +457,7 @@ class FormController extends AppController {
             }
             
             $this->request->data = array('Choice' => $choice_data);
+            $this->set('student',$student['0']);
         }
         
         public function print_bfs() {
@@ -510,13 +515,15 @@ class FormController extends AppController {
 	}
 
 	public function final_submit() {
-		$this->Applicant->id = $this->Session->read('applicant_id');
-                if (!empty($this->Applicant->id)) {
-                	$this->Applicant->saveField('final_submit', "1");
+		$this->Student->id = $this->Session->read('std_id');
+                if (!empty($this->Student->id)) {
+                	$this->Student->saveField('final_submit', 1);
+                        $this->redirect(array('controller' => 'form', 'action' => 'printoptions'));
             	}
-		//$this->Session->delete('applicant_id');
-            	$this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
-		//$this->redirect(array('controller' => 'users', 'action' => 'logout'));
+                else {
+                    $this->Session->setFlash('Your session is invalid.');
+                    $this->redirect(array('controller' => 'users', 'action' => 'logout'));
+                }
 	}
 
 	function getPostAppliedFor() {

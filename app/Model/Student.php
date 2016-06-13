@@ -289,19 +289,37 @@ class Student extends AppModel {
                  'message'   => 'Only digits allowed',
             )
         ),
-        'pg_result' => array(
+        'ug_result' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 'required'   => true,
                 'message' => 'This field cannot be left blank'
             )
         ),
-        'pg_marks' => array(
+        'ug_marks' => array(
             'pattern'=>array(
                  'rule'      => '/^[0-9.]+$/i',
                  'required'  => false,
                  'allowEmpty' => true,
                  'message'   => 'Only numbers are allowed'
+            )
+        ),
+        'blood_group' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            )
+        ),
+        'blood_group' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Value not selected'
             )
         )
         /*

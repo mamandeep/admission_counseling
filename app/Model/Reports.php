@@ -2,10 +2,10 @@
 
 class Reports extends AppModel {
     
-    var $useTable = false;
+    public $useTable = 'reports';
     
     var $validate = array(
-        'applicant_id' => array(
+        /*'applicant_id' => array(
             'numeric' => array(
                 'rule' => 'numeric',
                 'message' => 'Please enter only numbers',
@@ -20,11 +20,9 @@ class Reports extends AppModel {
                 'allowEmpty' => false,
                 'message' => 'Letters and numbers only'
             )
-        )
+        )*/
     );
     
-    
-
 }
 
 ?>

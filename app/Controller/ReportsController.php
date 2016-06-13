@@ -1,6 +1,8 @@
 <?php
 
 App::uses('ConnectionManager', 'Model');
+App::import('Vendor', 'PHPExcel', array('file' => 'PHPExcel'.DS.'PHPExcel.php'));
+App::import('Vendor', 'PHPExcel_IOFactory', array('file' => 'PHPExcel'.DS.'PHPExcel'.DS.'IOFactory.php'));
 
 class ReportsController extends AppController {
 
@@ -66,16 +68,14 @@ class ReportsController extends AppController {
                 }*/
         }
         if(!empty($this->data['Reports'])) {
-            $id = $this->data['Reports']['applicant_id'];
+            $this->request->data['Reports']['std_id'] = $this->Session->read('std_id');
+            $this->request->data['Reports']['reg_id'] = $this->Session->read('registration_id');
             //$this->print_applicant_form();
-            $type = $this->data['Reports']['type'];
+            $center = $this->data['Reports']['centre'];
+            $category = $this->data['Reports']['category'];
+            $this->generateList($center, $category);
             //print_r($id . $type); return false;
-            if($type == "Teaching") {
-                $this->redirect(array('controller' => 'reports', 'action' => 'print_bfs', $id));
-            }
-            else if($type == "NonTeaching") {
-                $this->redirect(array('controller' => 'reports', 'action' => 'print_bfs_nt', $id));
-            }
+            
         }
     }
     
@@ -190,6 +190,41 @@ class ReportsController extends AppController {
         header('Content-Disposition: attachment; filename='.$fileName);
         echo $fileContent;
         exit;
+    }
+    
+    private function generateList($center, $category) {
+        $objPhpExcel = new PHPExcel();
+        $objPhpExcel->setActiveSheetIndex(0);
+        $rowCount = 1;
+        
+        $db = ConnectionManager::getDataSource('default');
+        $sql =  "select s1.id, s1.name, s1.email, s1.mobile_no, s1.father_name, s1.mother_name,
+                s1.dob, s1.aadhaar_no, s1.category, s1.blood_group, s1.hostel_accommodation,
+                s1.pwd, s1.blindness_pertge, s1.hearing_pertge, s1.locomotor_pertge,
+                s1.kashmiri_mig, s1.ward_of_def, s1.comm_address, s1.rollno,s1.ug_result,
+                s1.ug_course, s1.ug_univ, s1.ug_marks, s1.ug_max_marks, s1.gate_gpat_year_of_passing,
+                s1.gate_gpat_rollno, s1.gate_gpat_score, s1.any_other_info, s1.created,
+                s1.modified, s1.response_code, s1.payment_amount, s1.payment_date_created,
+                s1.payment_id, s1.payment_transaction_id, s1.final_submit,
+                MAX(IF(ch.pref_order = '1', ch.preference, NULL)) AS pref_1,
+                MAX(IF(ch.pref_order = '2', ch.preference, NULL)) AS pref_2,
+                MAX(IF(ch.pref_order = '3', ch.preference, NULL)) AS pref_3,
+                MAX(IF(ch.pref_order = '4', ch.preference, NULL)) AS pref_4,
+                MAX(IF(ch.pref_order = '5', ch.preference, NULL)) AS pref_5,
+                MAX(IF(ch.pref_order = '1', ch.centre, NULL)) AS center_1,
+                MAX(IF(ch.pref_order = '2', ch.centre, NULL)) AS center_2,
+                MAX(IF(ch.pref_order = '3', ch.centre, NULL)) AS center_3,
+                MAX(IF(ch.pref_order = '4', ch.centre, NULL)) AS center_4, 
+                MAX(IF(ch.pref_order = '5', ch.centre, NULL)) AS center_5
+                from students s1
+                left outer join choices as ch
+                on s1.id = ch.std_id
+                group by ch.std_id
+                order by s1.id asc";
+        
+        
+        $result = $db->query($sql);
+        //print_r($result);
     }
     
     private function cleanData(&$str)

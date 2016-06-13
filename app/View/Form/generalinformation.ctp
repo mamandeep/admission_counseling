@@ -4,42 +4,15 @@
 <table width="650px" style="table-layout: fixed; margin: 0 auto;">
 <tr>
     <td width="20%"></td>
-    <td width="50%"><span class="generalinfoheader">Advertisement</span>
-    <br/>For Advertisement: <a href="<?php echo $this->webroot . '/files/CUP Recruietment TNT-01(2016 Notice.jpg'; ?>" target="_blank">click here</a>
-    <br/>For Corrigendum: <a href="<?php echo $this->webroot . '/files/CGDM.jpg'; ?>" target="_blank">click here</a>
-    <br/>For Teaching Positions, General Instructions and Essential Information: <a href="<?php echo $this->webroot . '/files/Teaching_advt.pdf'; ?>" target="_blank">click here</a>
+    <td width="50%"><span class="generalinfoheader">General Information</span>
+    <br/>Counseling Schedule: <a href="<?php echo $this->webroot . '/files/CUP Recruietment TNT-01(2016 Notice.jpg'; ?>" target="_blank">click here</a>
+    <br/>General Instructions and Essential Information for Online Counseling: <a href="<?php echo $this->webroot . '/files/Teaching_advt.pdf'; ?>" target="_blank">click here</a>
+    <br/>E-Brochure <a href="<?php echo $this->webroot . '/files/Teaching_advt.pdf'; ?>" target="_blank">click here</a>
+    <br/>The fee structure of each Course : <a href="http://www.ugc.ac.in/pdfnews/8539300_English.pdf" target="_blank">click here</a>
     <br/></td>
     <!--<td width="30%"><span class="generalinfoheader">Educational Qualifications</span></td>
     <td width="20%"><span class="generalinfoheader">Advertisement</span></td>-->
     <td><?php if(!empty($this->Session->read('admin')) && $this->Session->read('admin') == "1") { ?> For Reports: <a href="javascript: showReports();" target="_blank">click here</a> <?php } ?></td>
-</tr>
-<tr>
-    <td></td>
-    <td><span class="generalinfoheader">Educational Qualifications</span>
-    <br/>Essential Qualifications   for Professors, Associate Professors, and Assistant Professors: <br/>
-         As per <a href="http://www.ugc.ac.in/oldpdf/regulations/revised_finalugcregulationfinal10.pdf" target="_blank">“UGC regulations on minimum qualifications for appointment of teachers and other academic staff in universities and colleges and measures for the maintenance of standards in higher education 2010“</a> 
-        <br/>and 
-        <br/><a href="http://www.ugc.ac.in/pdfnews/8539300_English.pdf" target="_blank">the 2nd Amendments to the regulation issued in June 2013</a> and University rules.
-        <br/>
-        <a href="http://www.ncte-india.org/regulation2014/english/appendix5.pdf" target="_blank">NCTE Regulation 2014</a>
-    <br/></td>
-    <td></td>
-</tr>
-<tr>
-    <td></td>
-    <td width="60%"><span class="generalinfoheader">General Information</span></td>
-    <td></td>
-</tr>
-<tr>
-    <td></td>
-    <td>The fee for SC/ST/PWD applicants is Rs. 250 and for others fee is Rs. 750. 
-        <br/>
-        The last date of online application form is 06<sup>th</sup> June, 2016 1700 hrs
-        <br/>
-        The last date for signed copy submission is 12<sup>th</sup> June, 2016 1700 hrs
-    
-    </td>
-    <td></td>
 </tr>
 <tr>
     <td></td>
@@ -65,6 +38,30 @@
     <td></td>
     <td>Billing Address is the address of Credit/Debit card holder.</td>
     <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td><span class="generalinfoheader">Eligibility Criteria & Seat Distribution</span>
+    <br/>Educational Qualifications for each Course: <a href="http://www.ugc.ac.in/oldpdf/regulations/revised_finalugcregulationfinal10.pdf" target="_blank">click here</a><br/>
+    <br/>Seat Distribution in Each Course: <a href="http://www.ugc.ac.in/pdfnews/8539300_English.pdf" target="_blank">click here</a> 
+    <br/></td>
+    <td></td>
+</tr>
+<!--
+<tr>
+    <td></td>
+    <td width="60%"></td>
+    <td></td>
+</tr>-->
+<tr>
+    <td></td>
+    <td><span class="generalinfoheader">Important Dates</span>
+        <br/> The registration of online counseling starts from 20<sup>th</sup> June, 2016 0900 hrs
+        <br/>
+        The last date of online counseling form is 28<sup>th</sup> June, 2016 1700 hrs
+        <br/>
+    </td>
     <td></td>
 </tr>
 <!--
@@ -206,6 +203,7 @@
             }
         });
     });
+    
     function showReports() {
         currentForm = $('#pprompt');
         //currentForm.submit();
@@ -219,7 +217,7 @@
         //$('#continue_bt').prop('disabled', true);
         $('#declaration').prop('checked', false);
 
-        $('#area, #post_applied_for, #declaration, #centre').on('change', function() {
+        /*$('#area, #post_applied_for, #declaration, #centre').on('change', function() {
             if($('#post_applied_for').val() === 'none' || $('#area').val() === 'none' || 
                 $('#declaration').is(':checked') == false || $('#centre').val() === 'none') {
                     $('#post_selected_elig').css("display","none");
@@ -232,16 +230,14 @@
                 $('#post_selected_elig').css("display","block");
                 //$('#continue_bt').prop('disabled', false);
             }
-        });
+        });*/
 
         $('#continue_bt').on('click', function(e){
-            /*if($('#post_applied_for').find(":selected").val() === 'none' || 
-                $('#area').find(":selected").val() === 'none' || $('#centre').find(":selected").val() === 'none'
-                || $('#declaration').is(':checked') == false) {
+            if($('#declaration').is(':checked') == false) {
                 e.preventDefault();
-                alert('Please select General Conditions to Apply (Tick Box), Post Applied For, School and Centre to continue.');
+                alert('Please select General Conditions to Apply (Tick Box) to continue.');
             }
-            else {*/
+            else {
                 e.preventDefault();
                 //window.location.href = '<?php echo $this->webroot; ?>multi_step_form/wizard/first?post=' + 
                 //                $('#post_applied_for').find(":selected").text() + '&area=' + 
@@ -249,7 +245,7 @@
                 //                $('#centre').find(":selected").text();
                 
                 window.location.href = '<?php echo $this->webroot; ?>form/studentdetails';
-            //}
+            }
         });
         
         

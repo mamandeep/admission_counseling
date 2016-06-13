@@ -237,7 +237,14 @@ class UsersController extends AppController {
             //$this->ozekiSend('+91' . $registered_user['0']['Registereduser']['mobile_no'], 'Dear '.$registered_user['0']['Registereduser']['first_name'].'! Your One-Time password is: '.$_SESSION['otp'], false);
             
             //$response = $this->smsSend(/*$registered_user['0']['Registereduser']['mobile_no']*/ "9463069882", 'Dear '.$registered_user['0']['Registereduser']['first_name'].'! Your One-Time password is: '.$_SESSION['otp']);
-            $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'Dear '.$registered_user['0']['Registereduser']['first_name'].'! Your One-Time password is: '.$_SESSION['otp']);
+            $response = "";
+            if($this->is_connected()) {
+                $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'Dear '.$registered_user['0']['Registereduser']['first_name'].'! Your One-Time password is: '.$_SESSION['otp']);
+            }
+            else {
+                $this->Session->setFlash('OTP could not be sent at this time. Please contact support');
+                return false;
+            }
             
             if(!empty($response)) {
                 $this->Registereduser->create();
@@ -248,6 +255,21 @@ class UsersController extends AppController {
             
             $this->redirect(array('controller' => 'users', 'action' => 'changepassword'));
         }
+    }
+    
+    private function is_connected() {
+        $connected = @fsockopen("www.smsjust.com", 80);
+        $is_conn = false;
+        
+        if($connected) {
+            $is_conn = true;
+            fclose($connected);
+        }
+        else {
+            $is_conn = false;
+        }
+        
+        return $is_conn;
     }
     
     public function changepassword() {
