@@ -17,12 +17,13 @@
                 <td><img src="<?php if(!empty($image['Document']['filename'])) { echo $this->webroot . $image['Document']['filename']; } else { echo ""; } ?>" alt="Passport Size Photograph" height="132px" width="132px"/></td>
                 <td></td>
             </tr>
+            <!--
             <tr>
                 <td></td>
                 <td>Date of Birth Certificate</td>
                 <td><a href="<?php if(!empty($image['Document']['filename2'])) { echo $this->webroot . $image['Document']['filename2']; } else { echo "javascript: void();"; } ?>" target="_blank">click here</a></td>
                 <td></td>
-            </tr>
+            </tr>-->
             <tr>
                 <td></td>
                 <td>Caste Certificate</td>

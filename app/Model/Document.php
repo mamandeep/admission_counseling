@@ -1,5 +1,7 @@
 <?php
 
+App::uses('CakeSession', 'Model/Datasource');
+
 class Document extends AppModel {
 
     public $useTable = 'document';
@@ -34,6 +36,7 @@ class Document extends AppModel {
                 'last' => TRUE,
             )
         ),
+        /*
         'filename2' => array(
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::uploadError
             'uploadError' => array(
@@ -62,7 +65,7 @@ class Document extends AppModel {
                 'allowEmpty' => TRUE,
                 'last' => TRUE,
             )
-        ),
+        ),*/
         'filename3' => array(
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::uploadError
             'uploadError' => array(
@@ -175,7 +178,8 @@ class Document extends AppModel {
 
             // build full filename
             //$filename = WWW_ROOT . $this->uploadDir . DS . Inflector::slug(sha1(pathinfo($check['filename']['name'], PATHINFO_FILENAME))) . '.' . pathinfo($check['filename']['name'], PATHINFO_EXTENSION);
-            $filename = WWW_ROOT . $this->uploadDir . DS . $this->generateRandomString() . '.' . pathinfo($check['filename']['name'], PATHINFO_EXTENSION);
+            //$filename = WWW_ROOT . $this->uploadDir . DS . $this->generateRandomString() . '.' . pathinfo($check['filename']['name'], PATHINFO_EXTENSION);
+            $filename = WWW_ROOT . $this->uploadDir . DS . CakeSession::read('std_id') . '_photo.' . pathinfo($check['filename']['name'], PATHINFO_EXTENSION);
 
             // @todo check for duplicate filename
             // try moving file
@@ -188,7 +192,7 @@ class Document extends AppModel {
                 $this->data[$this->alias]['filepath'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
             }
         }
-        
+        /*
         if (!empty($check['filename2']['tmp_name'])) {
 
             // check file is uploaded
@@ -211,7 +215,7 @@ class Document extends AppModel {
                 $this->data[$this->alias]['filepath2'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
             }
         }
-        
+        */
         if (!empty($check['filename3']['tmp_name'])) {
 
             // check file is uploaded
@@ -221,7 +225,7 @@ class Document extends AppModel {
 
             // build full filename
             //$filename = WWW_ROOT . $this->uploadDir . DS . Inflector::slug(sha1(pathinfo($check['filename']['name'], PATHINFO_FILENAME))) . '.' . pathinfo($check['filename']['name'], PATHINFO_EXTENSION);
-            $filename = WWW_ROOT . $this->uploadDir . DS . $this->generateRandomString() . '.' . pathinfo($check['filename3']['name'], PATHINFO_EXTENSION);
+            $filename = WWW_ROOT . $this->uploadDir . DS . CakeSession::read('std_id') . '_castecert.' . pathinfo($check['filename3']['name'], PATHINFO_EXTENSION);
 
             // @todo check for duplicate filename
             // try moving file
@@ -244,7 +248,7 @@ class Document extends AppModel {
 
             // build full filename
             //$filename = WWW_ROOT . $this->uploadDir . DS . Inflector::slug(sha1(pathinfo($check['filename']['name'], PATHINFO_FILENAME))) . '.' . pathinfo($check['filename']['name'], PATHINFO_EXTENSION);
-            $filename = WWW_ROOT . $this->uploadDir . DS . $this->generateRandomString() . '.' . pathinfo($check['filename4']['name'], PATHINFO_EXTENSION);
+            $filename = WWW_ROOT . $this->uploadDir . DS . CakeSession::read('std_id') . '_signature.' . pathinfo($check['filename4']['name'], PATHINFO_EXTENSION);
 
             // @todo check for duplicate filename
             // try moving file
@@ -257,7 +261,7 @@ class Document extends AppModel {
                 $this->data[$this->alias]['filepath4'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
             }
         }
-        
+        /*
         if (!empty($check['filename5']['tmp_name'])) {
 
             // check file is uploaded
@@ -279,7 +283,7 @@ class Document extends AppModel {
                 // save the file path relative from WWW_ROOT e.g. uploads/example_filename.jpg
                 $this->data[$this->alias]['filepath5'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
             }
-        }
+        }*/
 
         return TRUE;
     }
@@ -298,12 +302,12 @@ class Document extends AppModel {
             $this->data[$this->alias]['filename'] = $this->data[$this->alias]['filepath'];
                
         }
-        
+        /*
         if (!empty($this->data[$this->alias]['filepath2'])) {
             $this->data[$this->alias]['type2'] = $this->data[$this->alias]['filename2']['type'];
             $this->data[$this->alias]['size2'] = $this->data[$this->alias]['filename2']['size'];
             $this->data[$this->alias]['filename2'] = $this->data[$this->alias]['filepath2'];
-        }
+        }*/
         
         if (!empty($this->data[$this->alias]['filepath3'])) {
             $this->data[$this->alias]['type3'] = $this->data[$this->alias]['filename3']['type'];
@@ -316,12 +320,12 @@ class Document extends AppModel {
             $this->data[$this->alias]['size4'] = $this->data[$this->alias]['filename4']['size'];
             $this->data[$this->alias]['filename4'] = $this->data[$this->alias]['filepath4'];
         }
-        
+        /*
         if (!empty($this->data[$this->alias]['filepath5'])) {
             $this->data[$this->alias]['type5'] = $this->data[$this->alias]['filename5']['type'];
             $this->data[$this->alias]['size5'] = $this->data[$this->alias]['filename5']['size'];
             $this->data[$this->alias]['filename5'] = $this->data[$this->alias]['filepath5'];
-        }
+        }*/
         
         return parent::beforeSave($options);
     }
@@ -331,18 +335,20 @@ class Document extends AppModel {
 	if (!empty($this->data[$this->alias]['filename']['error']) && $this->data[$this->alias]['filename']['error']==4 && $this->data[$this->alias]['filename']['size']==0) {
 		unset($this->data[$this->alias]['filename']);
 	}
+        /*
         if (!empty($this->data[$this->alias]['filename2']['error']) && $this->data[$this->alias]['filename2']['error']==4 && $this->data[$this->alias]['filename2']['size']==0) {
                 unset($this->data[$this->alias]['filename2']);
-	}
+	}*/
         if (!empty($this->data[$this->alias]['filename3']['error']) && $this->data[$this->alias]['filename3']['error']==4 && $this->data[$this->alias]['filename3']['size']==0) {
                 unset($this->data[$this->alias]['filename3']);
 	}
         if (!empty($this->data[$this->alias]['filename4']['error']) && $this->data[$this->alias]['filename4']['error']==4 && $this->data[$this->alias]['filename4']['size']==0) {
                 unset($this->data[$this->alias]['filename4']);
 	}
+        /*
         if (!empty($this->data[$this->alias]['filename5']['error']) && $this->data[$this->alias]['filename5']['error']==4 && $this->data[$this->alias]['filename5']['size']==0) {
                 unset($this->data[$this->alias]['filename5']);
-	}
+	}*/
 
 	parent::beforeValidate($options);
     }

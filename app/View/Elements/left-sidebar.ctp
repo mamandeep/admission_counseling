@@ -1,7 +1,10 @@
 <div>Navigation</div>
 <div>
     <div class="nav-menu-link">
-        <a href="<?php echo $this->webroot; ?>form/studentdetails"> Personal Details</a>
+        <a href="<?php echo $this->webroot; ?>form/generalinformation">General Information</a>
+    </div>
+    <div class="nav-menu-link">
+        <a href="<?php echo $this->webroot; ?>form/studentdetails">Details</a>
     </div>
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/uploaddocuments">Upload Documents</a>

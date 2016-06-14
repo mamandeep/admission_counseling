@@ -20,12 +20,13 @@ echo $this->Form->create('Document', array('id' => 'Image_Details', 'url' => Rou
             <td class="table_headertxt misc_col1" style="padding-top: 17px;">Upload NOC, if you are working in a Government Organization. If not, upload Form 16 (.jpg format, min size 10 kb, max size 200 kb)</td>
             <td><?php echo $this->Form->input('filename2', array('label' => false, 'type' => 'file')); ?></td>
         </tr>-->
+        <!--
         <tr>
             <td class="table_headertxt misc_col1" style="padding-top: 17px;">Date of Birth Certificate - 10<sup>th</sup> / 11<sup>th</sup> / 10+2 Certificate - where DOB is mentioned (.jpg/.png/.gif/.pdf format, min size 10 kb, max size 200 kb)
             <span style="color: red;">MANDATORY</span> 
             </td>
             <td><?php echo $this->Form->input('filename2', array('label' => false, 'type' => 'file')); ?></td>
-        </tr>
+        </tr>-->
         <tr>
             <td class="table_headertxt misc_col1" style="padding-top: 17px;">Caste Certificate, as per Central Govt. List (.jpg/.png/.gif/.pdf format, min size 10 kb, max size 200 kb)</td>
             <td><?php echo $this->Form->input('filename3', array('label' => false, 'type' => 'file')); ?></td>

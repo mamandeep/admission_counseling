@@ -233,7 +233,7 @@ class Student extends AppModel {
             ),
             'length' => array (
                 'rule' => array('maxLength', 200),
-                'message' => 'This field has crossed allowed limit.'
+                'message' => 'The length of this field is beyond max allowed limit.'
             )
         ),
         /*
@@ -321,6 +321,35 @@ class Student extends AppModel {
                  'rule'      => '/^[a-z ]+$/i',
                  'message'   => 'Value not selected'
             )
+        ),
+        'state_domicile' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Value not selected'
+            )
+        ),
+        'nationality' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            )
+        ),
+        'perm_address' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'length' => array (
+                'rule' => array('maxLength', 200),
+                'message' => 'The length of this field is beyond max allowed limit.'
+            )
         )
         /*
         'year_of_cucet' => array(
@@ -379,7 +408,7 @@ class Student extends AppModel {
         else
             return false;
     }
-
+    
 }
 
 ?>

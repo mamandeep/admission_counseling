@@ -67,7 +67,6 @@ class FormController extends AppController {
         public function uploaddocuments() {
             if(!empty($this->data['Document'])) {
                 if(!empty($this->data['Document']['filename']['error']) && $this->data['Document']['filename']['error'] == 4
-                && !empty($this->data['Document']['filename2']['error']) && $this->data['Document']['filename2']['error'] == 4
                 && !empty($this->data['Document']['filename3']['error']) && $this->data['Document']['filename3']['error'] == 4
                 && !empty($this->data['Document']['filename4']['error']) && $this->data['Document']['filename4']['error'] == 4
                )
@@ -76,8 +75,8 @@ class FormController extends AppController {
                 if ($this->Document->save($this->data['Document'])) {
                     $this->Session->setFlash('Your documents have been submitted successfully.');
                     $this->redirect(array('controller'=>'form', 'action' => 'previewdocuments'));
-                    return true;
                 }
+                
                 return false;
             }
             
@@ -105,13 +104,11 @@ class FormController extends AppController {
             
             if(count($images) == 1) {
                 //$this->request->data = $images['0'];
-                if(empty($images['0']['Document']['filename']) || empty($images['0']['Document']['filename2']) 
+                if(empty($images['0']['Document']['filename']) 
                     || empty($images['0']['Document']['filename4']))
                 {
                     if(empty($images['0']['Document']['filename']))
                         $this->Session->setFlash('Photograph is mandatory');
-                    if(empty($images['0']['Document']['filename2']))
-                        $this->Session->setFlash('Date of Birth Certificate is mandatory');
                     if(empty($images['0']['Document']['filename4']))
                         $this->Session->setFlash('Signature is mandatory');
                     $this->redirect(array('controller'=>'form', 'action' => 'uploaddocuments'));
@@ -446,6 +443,18 @@ class FormController extends AppController {
             $choice_arr = $this->Choice->find('all', array(
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id')),
                                     'order' => array('Choice.pref_order ASC')));
+            $image = $this->Document->find('all', array(
+                    'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
+            
+            if(count($image) > 1) {
+                $this->Session->setFlash('An error occurred in uploading documents. Please contact support.');
+                return false;
+            }
+            else if(count($image) == 0) {
+                $this->Session->setFlash('Documents not uploaded.');
+                $this->redirect(array('controller' => 'form', 'action' => 'uploaddocuments'));
+            }
+            
             if(count($choice_arr) == 0) {
                 $this->Session->setFlash('No Preferences given.');
                 $this->redirect(array('controller' => 'form', 'action' => 'options'));
@@ -458,6 +467,9 @@ class FormController extends AppController {
             
             $this->request->data = array('Choice' => $choice_data);
             $this->set('student',$student['0']);
+            $this->set('image', $image['0']);
+            $this->set('data_set', 'true');
+            
         }
         
         public function print_bfs() {

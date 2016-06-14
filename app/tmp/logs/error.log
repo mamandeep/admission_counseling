@@ -29128,3 +29128,13 @@ Stack Trace:
 #9 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(ReportsController), Object(CakeRequest))
 #10 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #11 {main}
+2016-06-13 16:51:34 Error: Fatal Error (1): Call to a member function read() on a non-object in [C:\wamp\www\admission_counseling\app\Model\Document.php, line 180]
+2016-06-13 16:51:34 Error: [FatalErrorException] Call to a member function read() on a non-object
+Request URL: /admission_counseling/form/uploaddocuments
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Call to a membe...', 'C:\\wamp\\www\\adm...', 180)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to a membe...', 'C:\\wamp\\www\\adm...', 180, Array)
+#2 C:\wamp\www\admission_counseling\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Call to a membe...', 'C:\\wamp\\www\\adm...', 180, Array)
+#3 C:\wamp\www\admission_counseling\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

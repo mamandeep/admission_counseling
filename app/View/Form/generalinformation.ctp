@@ -6,8 +6,8 @@
     <td width="20%"></td>
     <td width="50%"><span class="generalinfoheader">General Information</span>
     <br/>Counseling Schedule: <a href="<?php echo $this->webroot . '/files/CUP Recruietment TNT-01(2016 Notice.jpg'; ?>" target="_blank">click here</a>
-    <br/>General Instructions and Essential Information for Online Counseling: <a href="<?php echo $this->webroot . '/files/Teaching_advt.pdf'; ?>" target="_blank">click here</a>
-    <br/>E-Brochure <a href="<?php echo $this->webroot . '/files/Teaching_advt.pdf'; ?>" target="_blank">click here</a>
+    <br/>General Instructions and Essential Information for Online Counseling: <a href="<?php echo $this->webroot . 'files/Important Instruction for adm-2016.pdf'; ?>" target="_blank">click here</a>
+    <!--<br/>E-Brochure <a href="<?php echo $this->webroot . 'files/handbook 2016.pdf'; ?>" target="_blank">click here</a>-->
     <br/>The fee structure of each Course : <a href="http://www.ugc.ac.in/pdfnews/8539300_English.pdf" target="_blank">click here</a>
     <br/></td>
     <!--<td width="30%"><span class="generalinfoheader">Educational Qualifications</span></td>
@@ -43,8 +43,8 @@
 <tr>
     <td></td>
     <td><span class="generalinfoheader">Eligibility Criteria & Seat Distribution</span>
-    <br/>Educational Qualifications for each Course: <a href="http://www.ugc.ac.in/oldpdf/regulations/revised_finalugcregulationfinal10.pdf" target="_blank">click here</a><br/>
-    <br/>Seat Distribution in Each Course: <a href="http://www.ugc.ac.in/pdfnews/8539300_English.pdf" target="_blank">click here</a> 
+    <br/>Educational Qualifications for each Course: <a href="<?php echo $this->webroot . 'files/PUNJAB Eligibility Criteria-CUCET2016.pdf'; ?>" target="_blank">click here</a><br/>
+    <br/>Seat Distribution in Each Course: <a href="<?php echo $this->webroot . 'files/PUNJAB Eligibility Criteria-CUCET2016.pdf'; ?>" target="_blank">click here</a> 
     <br/></td>
     <td></td>
 </tr>
@@ -75,7 +75,7 @@
 </tr>-->
 <tr>
     <td></td>
-    <td><label>I have read the General Conditions to Apply and <a href="<?php echo $this->webroot . '/files/Refund Policy.pdf'; ?>">Payment & Refund Policy</a>: (Tick the box to continue) <span>*</span></label>
+    <td><label>I have read the General Conditions to Apply and <a href="<?php echo $this->webroot . 'files/Refund Policy.pdf'; ?>">Payment & Refund Policy</a>: (Tick the box to continue) <span>*</span></label>
     </td>
     <td><input type="checkbox" id="declaration" name="declaration"></input></td>
     <td></td>

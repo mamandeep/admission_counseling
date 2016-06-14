@@ -53,6 +53,59 @@
                 )); ?></td>
             </tr>
             <tr>
+                <td>
+                    <?php echo $this->Form->input('Student.state_domicile', array(
+                    'options' => array( 
+                                       'Andaman and Nicobar Islands' => 'Andaman and Nicobar Islands',
+                                        'Andhra Pradesh' => 'Andhra Pradesh',
+                                        'Arunachal Pradesh' => 'Arunachal Pradesh',
+                                        'Assam' => 'Assam',
+                                        'Bihar' => 'Bihar',
+                                        'Chandigarh' => 'Chandigarh',
+                                        'Chhattisgarh' => 'Chhattisgarh',
+                                        'Dadra and Nagar Haveli' => 'Dadra and Nagar Haveli',
+                                        'Daman and Diu' => 'Daman and Diu',
+                                        'National Capital Territory of Delhi' => 'National Capital Territory of Delhi',
+                                        'Goa' => 'Goa',
+                                        'Gujarat' => 'Gujarat',
+                                        'Haryana' => 'Haryana',
+                                        'Himachal Pradesh' => 'Himachal Pradesh',
+                                        'Jammu and Kashmir' => 'Jammu and Kashmir',
+                                        'Jharkhand' => 'Jharkhand',
+                                        'Karnataka' => 'Karnataka',
+                                        'Kerala' => 'Kerala',
+                                        'Lakshadweep' => 'Lakshadweep',
+                                        'Madhya Pradesh' => 'Madhya Pradesh',
+                                        'Maharashtra' => 'Maharashtra',
+                                        'Manipur' => 'Manipur',
+                                        'Meghalaya' => 'Meghalaya',
+                                        'Mizoram' => 'Mizoram',
+                                        'Nagaland' => 'Nagaland',
+                                        'Odisha' => 'Odisha',
+                                        'Puducherry' => 'Puducherry',
+                                        'Punjab' => 'Punjab',
+                                        'Rajasthan' => 'Rajasthan',
+                                        'Sikkim' => 'Sikkim',
+                                        'Tamil Nadu' => 'Tamil Nadu',
+                                        'Telangana' => 'Telangana',
+                                        'Tripura' => 'Tripura',
+                                        'Uttar Pradesh' => 'Uttar Pradesh',
+                                        'Uttarakhand' => 'Uttarakhand',
+                                        'West Bengal' => 'West Bengal'
+                                       ),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'State of Domicile'
+                )); ?>
+                </td>
+                <td>
+                    <?php echo $this->Form->input('Student.nationality', array('label' => 'Nationality:', 'maxlength' => '100')); ?>
+                </td>
+                <td>
+                    <?php echo $this->Form->input('Student.perm_address', array('label' => 'Permanent Address:', 'maxlength' => '300')); ?>
+                </td>
+            </tr>
+            <tr>
                 <td><?php echo $this->Form->input('Student.ward_of_def', array(
                     'options' => array('Yes' => 'Yes', 'No' => 'No'),
                     'empty' => array('- select -' => '- select -'),
@@ -92,86 +145,6 @@
                 </table>
                 </td>
             </tr>
-            <!--
-            <tr>
-                <td><?php echo $this->Form->input('Student.subject1', array(
-                    'options' => array( 
-                                        'Subject 1' => 'Subject 1',
-                                        'Subject 2' => 'Subject 2',
-                                        'Subject 3' => 'Subject 3',
-                                        'Subject 4' => 'Subject 4',
-                                        'Subject 5' => 'Subject 5',
-                                        'Subject 6' => 'Subject 6',
-                                        'Subject 7' => 'Subject 7',
-                                        'Subject 8' => 'Subject 8',
-                                        'Subject 9' => 'Subject 9',
-                                        'Subject 10' => 'Subject 10',
-                                        'Subject 11' => 'Subject 11',
-                                        'Subject 12' => 'Subject 12',
-                                        'Subject 13' => 'Subject 13',
-                                        'Subject 14' => 'Subject 14',
-                                        'Subject 15' => 'Subject 15' 
-                                       ),
-                    'empty' => array('- select -' => '- select -'),
-                    'style' => 'width: 100%;',
-                    'label' => 'Subject appeared in'
-                )); ?></td>
-                <td><?php echo $this->Form->input('Student.rollno1', array('label' => 'Roll No.', 'maxlength' => '100')); ?></td>
-                <td><?php echo $this->Form->input('Student.score1', array('label' => 'Score', 'maxlength' => '100')); ?></td>
-            </tr>
-            <tr>
-                <td><?php echo $this->Form->input('Student.subject2', array(
-                    'options' => array( 
-                                        'Subject 1' => 'Subject 1',
-                                        'Subject 2' => 'Subject 2',
-                                        'Subject 3' => 'Subject 3',
-                                        'Subject 4' => 'Subject 4',
-                                        'Subject 5' => 'Subject 5',
-                                        'Subject 6' => 'Subject 6',
-                                        'Subject 7' => 'Subject 7',
-                                        'Subject 8' => 'Subject 8',
-                                        'Subject 9' => 'Subject 9',
-                                        'Subject 10' => 'Subject 10',
-                                        'Subject 11' => 'Subject 11',
-                                        'Subject 12' => 'Subject 12',
-                                        'Subject 13' => 'Subject 13',
-                                        'Subject 14' => 'Subject 14',
-                                        'Subject 15' => 'Subject 15' 
-                                       ),
-                    'empty' => array('- select -' => '- select -'),
-                    'style' => 'width: 100%;',
-                    'label' => 'Subject appeared in'
-                )); ?></td>
-                <td><?php echo $this->Form->input('Student.rollno2', array('label' => 'Roll No.', 'maxlength' => '100')); ?></td>
-                <td><?php echo $this->Form->input('Student.score2', array('label' => 'Score', 'maxlength' => '100')); ?></td>
-            </tr>
-            <tr>
-                <td><?php echo $this->Form->input('Student.subject3', array(
-                    'options' => array( 
-                                        'Subject 1' => 'Subject 1',
-                                        'Subject 2' => 'Subject 2',
-                                        'Subject 3' => 'Subject 3',
-                                        'Subject 4' => 'Subject 4',
-                                        'Subject 5' => 'Subject 5',
-                                        'Subject 6' => 'Subject 6',
-                                        'Subject 7' => 'Subject 7',
-                                        'Subject 8' => 'Subject 8',
-                                        'Subject 9' => 'Subject 9',
-                                        'Subject 10' => 'Subject 10',
-                                        'Subject 11' => 'Subject 11',
-                                        'Subject 12' => 'Subject 12',
-                                        'Subject 13' => 'Subject 13',
-                                        'Subject 14' => 'Subject 14',
-                                        'Subject 15' => 'Subject 15' 
-                                       ),
-                    'empty' => array('- select -' => '- select -'),
-                    'style' => 'width: 100%;',
-                    'label' => 'Subject appeared in'
-                )); ?></td>
-                <td><?php echo $this->Form->input('Student.rollno3', array('label' => 'Roll No.', 'maxlength' => '100')); ?></td>
-                <td><?php echo $this->Form->input('Student.score3', array('label' => 'Score', 'maxlength' => '100')); ?></td>
-            </tr>
-            -->
             <tr>
                 <td><?php echo $this->Form->input('Student.rollno', array('label' => 'CUCET Roll No.', 'maxlength' => '20')); ?></td>
                 <td colspan="2"><?php echo $this->Form->input('Student.aadhaar_no', array('label' => 'Aadhaar Number: (xxxx xxxx xxxx)', 'maxlength' => '500')); ?></td>
@@ -214,7 +187,7 @@
                         'options' => array('Yes' => 'Yes',
                                            'No' => 'No'),
                         'selected' => (isset($hostel_acco) ? $hostel_acco : 'No'),
-                        'label' => 'Hostel Accommodation',
+                        'label' => 'Whether Hostel Accommodation required?',
                         'id' => 'hostel_acco'
                     )); ?></td>
                 <td></td>
