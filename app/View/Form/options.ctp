@@ -95,8 +95,8 @@
                 <th width="5%">Preference Order</th>
                 <th width="20%">Paper Code</th>
                 <th width="10%">Score</th>
-                <th width="35%">Course Preference</th>
-                <th width="30%">Name of the Center</th>
+                <th width="35%">Programme Preference</th>
+                <th width="30%">Name of the Centre</th>
             </tr>
         </thead>
         <tbody>
@@ -150,7 +150,7 @@
         </tbody>
     </table>
 </fieldset>
-<div class="main_content_header">Before applying please check your eligibility on General Information page.</div>
+<div style="font-size: 20px; font-weight: bold; color: red;">Before applying please check your eligibility against each Programme on General Information page.</div>
 <div class="submit">
     <?php echo $this->Form->submit('Save', array('id' => 'formSubmit' , 'div' => false)); ?>
 </div>

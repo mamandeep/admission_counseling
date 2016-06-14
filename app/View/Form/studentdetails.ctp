@@ -38,7 +38,7 @@
                 <td colspan="2"><?php echo $this->Form->input('Student.mother_mobile', array('label' => 'Mother\'s Mobile No.:', 'maxlength' => '100')); ?></td>
             </tr>
             <tr>
-                <td><?php echo $this->Form->input('Student.dob', array('label' => 'Date of Birth:', 'maxlength' => '100')); ?></td>
+                <td><?php echo $this->Form->input('Student.dob', array('label' => 'Date of Birth (DD/MM/YYYY):', 'maxlength' => '100')); ?></td>
                 <td><?php echo $this->Form->input('Student.category', array(
                     'options' => array('General' => 'General', 'SC' => 'SC', 'ST' => 'ST', 'OBC' => 'OBC'),
                     'empty' => array('- select -' => '- select -'),
@@ -107,16 +107,32 @@
             </tr>
             <tr>
                 <td><?php echo $this->Form->input('Student.ward_of_def', array(
-                    'options' => array('Yes' => 'Yes', 'No' => 'No'),
+                    'options' => array('No' => 'No', 'Yes' => 'Yes'),
                     'empty' => array('- select -' => '- select -'),
                     'style' => 'width: 100%;',
-                    'label' => 'Ward of Defense Personnel'
+                    'label' => 'Ward/widow of Defense Personnel'
                 )); ?></td>
-                <td colspan="2"><?php echo $this->Form->input('Student.comm_address', array('label' => 'Communication Address:', 'maxlength' => '200')); ?></td>
+                <td><?php echo $this->Form->input('Student.ward_of_ffighter', array(
+                    'options' => array('No' => 'No', 'Yes' => 'Yes'),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Ward of Freedom Fighter'
+                )); ?></td>
+                <td><?php echo $this->Form->input('Student.comm_address', array('label' => 'Communication Address:', 'maxlength' => '200')); ?></td>
+            </tr>
+            <tr>
+                <td><?php echo $this->Form->input('Student.gender', array(
+                    'options' => array('Male' => 'Male', 'Female' => 'Female', 'Other' => 'Other'),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Sex'
+                )); ?></td>
+                <td></td>
+                <td></td>
             </tr>
             <tr><td colspan="3"><?php echo $this->Form->input('Student.pwd', array(
                     'options' => array('Yes' => 'Yes', 'No' => 'No'),
-                    'selected' => (isset($pwd) ? $pwd : 'No'),
+                    'empty' => array('- select -' => '- select -'),
                     'style' => 'width: 30%;',
                     'label' => 'Differently Abled',
                     'id' => 'pwd_select'
@@ -142,7 +158,7 @@
                         <td><?php echo $this->Form->input('Student.locomotor', array('label' => false, 'maxlength' => '500')); ?></td>
                         <td><?php echo $this->Form->input('Student.locomotor_pertge', array('label' => false, 'maxlength' => '500')); ?></td>
                     </tr>
-                </table>
+                </table>  
                 </td>
             </tr>
             <tr>
@@ -150,28 +166,33 @@
                 <td colspan="2"><?php echo $this->Form->input('Student.aadhaar_no', array('label' => 'Aadhaar Number: (xxxx xxxx xxxx)', 'maxlength' => '500')); ?></td>
             </tr>
             <tr>
-                <td colspan="3"><?php
+                <td><?php
                         echo $this->Form->input('Student.ug_result', array(
                         'options' => array('Yes' => 'Yes',
                                            'No' => 'No'),
-                        'selected' => (isset($ug_result) ? $ug_result : 'No'),
-                        'label' => 'Is UG Result declared?',
+                        'empty' => array('- select -' => '- select -'),
+                        'label' => 'Is the result of Qualifying Examination declared?',
                         'id' => 'ug_result'
                     )); ?>
-                    <table id="ug_result_details">
+                </td>
+                <td colspan="2"><div id="exp_date_result"><?php echo $this->Form->input('Student.exp_date_result', array('label' => 'Expected Date of declaration of Results (DD/MM/YYYY):',
+                                                                                               'maxlength' => '20'
+                                                                                               )); ?> </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><table id="ug_result_details">
                         <tr>
                             <td><?php echo $this->Form->input('Student.ug_course', array('label' => 'Course', 'maxlength' => '100', 'required' => false)); ?></td>
                             <td><?php echo $this->Form->input('Student.ug_univ', array('label' => 'University/College', 'maxlength' => '100', 'required' => false)); ?></td>
                             <td><?php echo $this->Form->input('Student.ug_marks', array('label' => 'Marks Obtained', 'maxlength' => '100', 'required' => false)); ?></td>
                             <td><?php echo $this->Form->input('Student.ug_max_marks', array('label' => 'Maximum Marks', 'maxlength' => '100', 'required' => false)); ?></td>
                         </tr>
-                    </table>
-                </td>
+                    </table></td>
             </tr>
             <tr>
                 <td><?php echo $this->Form->input('Student.blood_group', array(
-                        'options' => array('- select -' => '- select -',
-                                           'O Negative' => 'O Negative',
+                        'options' => array('O Negative' => 'O Negative',
                                            'O Positive' => 'O Positive',
                                            'A Negative' => 'A Negative',
                                            'A Positive' => 'A Positive',
@@ -179,7 +200,7 @@
                                            'B Positive' => 'B Positive',
                                            'AB Negative' => 'AB Negative',
                                            'AB Positive' => 'AB Positive'),
-                        'selected' => (isset($bgroup) ? $bgroup : '- select -'),
+                        'empty' => array('- select -' => '- select -'),
                         'id' => 'blood_group',
                         'label' => 'Blood Group'
                     )); ?></td>
@@ -341,6 +362,7 @@
         if($("#ug_result option:selected").text() === "Yes") {
             $('#ug_result_details').css('display', 'table');
             $('#ug_result_details').css('visibility', 'visible');
+            $('#exp_date_result').css('visibility', 'hidden');
         }
         else {
             var elem = $("input[name='data[Student][ug_marks]']");
@@ -352,6 +374,7 @@
             else {
                 $('#ug_result_details').css('visibility', 'hidden');
             }
+            $('#exp_date_result').css('visibility', 'visible');
         }
         
         $("input[name='data[Student][aadhaar_no]']").focusout(function(){
@@ -376,12 +399,14 @@
                 $('#ug_result_details').each(function(){
                     $(this).css('visibility','hidden');
                 });
+                $('#exp_date_result').css('visibility', 'visible');
             }
-            else {
+            else if($(this).val() === 'Yes'){
                 $('#ug_result_details').each(function(){
                     $(this).css('display','table');
                     $('#ug_result_details').css('visibility', 'visible');
                 });
+                $('#exp_date_result').css('visibility', 'hidden');
             }
         });
     });

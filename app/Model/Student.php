@@ -165,14 +165,29 @@ class Student extends AppModel {
                 'rule' => array('maxLength', 20),
                 'message' => 'This field has crossed allowed limit.'
             )
-        ),
+        ),*/
         'gender' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 'required'   => true,
                 'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Value not selected'
             )
-        ),*/
+        ),
+        'ward_of_ffighter' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Value not selected'
+            )
+        ),
         'category' => array(
             'notempty' => array(
                 'rule' => array('notempty'),

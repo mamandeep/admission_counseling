@@ -54,10 +54,10 @@
           </select></td>
 	   </tr>
         <tr>
-            <th colspan="2">Billing Address</th>
+            <th>Billing Address</th>
+            <th style="font-size: 14px; color: red; font-weight: bold;">Billing Address is the address of Credit/Debit card holder.</th>
         </tr>
-
-	    <tr>
+	<tr>
             <td class="fieldName"><span class="error">*</span> Name</td>
             <td align="left">
                 <input name="name" type="text" value="" /></td>

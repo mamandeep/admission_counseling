@@ -13,7 +13,7 @@
         <a href="<?php echo $this->webroot; ?>form/previewdocuments">Preview Documents</a>
     </div>
     <div class="nav-menu-link">
-        <a href="<?php echo $this->webroot; ?>form/options">Select Preferences</a>
+        <a href="<?php echo $this->webroot; ?>form/options">Select Preferences (Options)</a>
     </div>
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/printoptions">Print Options</a>

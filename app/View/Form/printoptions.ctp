@@ -44,7 +44,7 @@
       <div id="contentContainer" style="width: 650px; max-width: 650px; margin-left: 100px;">
         <p style="font-size: 28px; font-weight: bold; text-align: center">CENTRAL UNIVERSITY OF PUNJAB</p>
         <p style="font-size: 12px; font-weight: bold; text-align: center">(Established vide Act no 25(2009) of Parliament)</p>
-        <p style="font-size: 28px; font-weight: bold; text-align: center">Online Application Form for Admission Counseling</p>
+        <p style="font-size: 28px; font-weight: bold; text-align: center">Online Application Form for Admission Counselling</p>
         <table id="onlineformdata"  class="print_table" style="table-layout:fixed;">
             <tr>
                 <td width="40%" class="print_headers">Name</td>
@@ -56,12 +56,13 @@
                 <td width="40%" class="print_value"><?php echo $student['Student']['id'] ?></td>
                 <td width="20%"><img src="<?php if(!empty($image['Document']['filename4'])) { echo $this->webroot . '/' . $image['Document']['filename4']; } else { echo ""; } ?>" alt="Signature" height="50px" width="132px"></td>
             </tr>
+            <!--
             <tr>
                 <td class="print_headers">Details of application fee</td>
                 <td style="word-wrap: normal;" class="print_value">Transaction ID:<?php echo $student['Student']['payment_transaction_id']?> Date:<?php echo $student['Student']['payment_date_created']?> Amount:<?php echo $student['Student']['payment_amount']?>
                 </td>
             </tr>
-            <br />
+            <br />-->
             <!--
             <tr>
                 <td class="print_headers">Name of the Applicant</td>
@@ -206,8 +207,8 @@
                 <td class="print_value"><?php echo $student['Student']['any_other_info'] ?></td>
             </tr>
             <tr>
-              <td width="40%" style="font-weight: bold;">Name of the Center</td>
-              <td width="40%" style="font-weight: bold;">Name of the Course</td>
+              <td width="40%" style="font-weight: bold;">Name of the Centre</td>
+              <td width="40%" style="font-weight: bold;">Name of the Programme</td>
               <td width="20%" style="font-weight: bold;">Preference Order</td>
             </tr>
             <?php //print_r($this->request->data['Choice']); 
@@ -224,7 +225,7 @@
             }
             else { ?>
                 <tr>
-                    <td>No Center Selected</td>
+                    <td>No Centre Selected</td>
                     <td>No Branch Selected</td>
                     <td>No Preference Order Selected</td>
                 </tr>    

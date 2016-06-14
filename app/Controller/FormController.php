@@ -58,10 +58,10 @@ class FormController extends AppController {
             $student = $this->Student->find('all', array(
                     'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             $this->request->data = $student['0'];
-            $this->set('dbYear', $student['0']['Student']['year_of_cucet']);
-            $this->set('ug_result', $student['0']['Student']['ug_result']);
-            $this->set('pwd', $student['0']['Student']['pwd']);
-            $this->set('bgroup', $student['0']['Student']['blood_group']);
+            //$this->set('dbYear', $student['0']['Student']['year_of_cucet']);
+            //$this->set('ug_result', $student['0']['Student']['ug_result']);
+            //$this->set('pwd', $student['0']['Student']['pwd']);
+            //$this->set('bgroup', $student['0']['Student']['blood_group']);
         }
         
         public function uploaddocuments() {
