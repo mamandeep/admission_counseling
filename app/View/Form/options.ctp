@@ -150,7 +150,7 @@
         </tbody>
     </table>
 </fieldset>
-
+<div class="main_content_header">Before applying please check your eligibility on General Information page.</div>
 <div class="submit">
     <?php echo $this->Form->submit('Save', array('id' => 'formSubmit' , 'div' => false)); ?>
 </div>

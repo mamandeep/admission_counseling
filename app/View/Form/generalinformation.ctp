@@ -5,10 +5,10 @@
 <tr>
     <td width="20%"></td>
     <td width="50%"><span class="generalinfoheader">General Information</span>
-    <br/>Counseling Schedule: <a href="<?php echo $this->webroot . '/files/CUP Recruietment TNT-01(2016 Notice.jpg'; ?>" target="_blank">click here</a>
+    <br/>Counseling Schedule: <a href="<?php echo $this->webroot . 'files/CUPB_counselling_ schedule.pdf'; ?>" target="_blank">click here</a>
     <br/>General Instructions and Essential Information for Online Counseling: <a href="<?php echo $this->webroot . 'files/Important Instruction for adm-2016.pdf'; ?>" target="_blank">click here</a>
     <!--<br/>E-Brochure <a href="<?php echo $this->webroot . 'files/handbook 2016.pdf'; ?>" target="_blank">click here</a>-->
-    <br/>The fee structure of each Course : <a href="http://www.ugc.ac.in/pdfnews/8539300_English.pdf" target="_blank">click here</a>
+    <br/>The fee structure of each Course : <a href="<?php echo $this->webroot . 'files/Fee Structure 2016.jpg'; ?>" target="_blank">click here</a>
     <br/></td>
     <!--<td width="30%"><span class="generalinfoheader">Educational Qualifications</span></td>
     <td width="20%"><span class="generalinfoheader">Advertisement</span></td>-->
