@@ -29327,3 +29327,265 @@ Request URL: /admission_counseling/js/underscore-min.map
 Stack Trace:
 #0 F:\Xampp\htdocs\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2016-06-16 01:44:19 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 01:54:47 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:23:59 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:27:53 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:28:11 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:29:36 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:29:49 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:45:22 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:45:26 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dave' at line 1
+Request URL: /admission_counseling/form/prepayment
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\wamp\www\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('dave', Array)
+#2 C:\wamp\www\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('dave', Array, Array)
+#3 C:\wamp\www\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(611): DboSource->fetchAll('dave', Array, Array)
+#4 C:\wamp\www\admission_counseling\lib\Cake\Model\Model.php(827): DboSource->query('dave', Array, Object(Student))
+#5 C:\wamp\www\admission_counseling\app\Controller\FormController.php(140): Model->__call('dave', Array)
+#6 C:\wamp\www\admission_counseling\app\Controller\FormController.php(140): Student->dave(Array)
+#7 [internal function]: FormController->prepayment()
+#8 C:\wamp\www\admission_counseling\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(FormController), Array)
+#9 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(FormController), Object(CakeRequest))
+#11 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-06-16 02:45:26 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:47:16 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:47:18 Error: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dave' at line 1
+Request URL: /admission_counseling/form/prepayment
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(460): PDOStatement->execute(Array)
+#1 C:\wamp\www\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(426): DboSource->_execute('dave', Array)
+#2 C:\wamp\www\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(668): DboSource->execute('dave', Array, Array)
+#3 C:\wamp\www\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(611): DboSource->fetchAll('dave', Array, Array)
+#4 C:\wamp\www\admission_counseling\lib\Cake\Model\Model.php(827): DboSource->query('dave', Array, Object(Student))
+#5 C:\wamp\www\admission_counseling\app\Controller\FormController.php(140): Model->__call('dave', Array)
+#6 C:\wamp\www\admission_counseling\app\Controller\FormController.php(140): Student->dave(Array)
+#7 [internal function]: FormController->prepayment()
+#8 C:\wamp\www\admission_counseling\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(FormController), Array)
+#9 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(FormController), Object(CakeRequest))
+#11 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2016-06-16 02:47:18 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:47:56 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:48:00 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:48:36 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:49:33 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:49:36 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:50:00 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:50:05 Error: [MissingActionException] Action FormController::rtgs() could not be found.
+Exception Attributes: array (
+  'controller' => 'FormController',
+  'action' => 'rtgs',
+)
+Request URL: /admission_counseling/form/rtgs
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(FormController), Object(CakeRequest))
+#2 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-06-16 02:50:06 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 02:55:00 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /admission_counseling/js/underscore-min.map
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-06-16 05:40:25 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+',
+  'enabled' => true,
+)
+Request URL: /admission_counseling/users/dashboard
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp\www\admission_counseling\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp\www\admission_counseling\lib\Cake\Model\Model.php(3617): ConnectionManager::getDataSource('default')
+#3 C:\wamp\www\admission_counseling\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp\www\admission_counseling\lib\Cake\Model\Model.php(3644): Model->setSource('users')
+#5 C:\wamp\www\admission_counseling\lib\Cake\Model\Model.php(1387): Model->getDataSource()
+#6 C:\wamp\www\admission_counseling\lib\Cake\View\Helper\FormHelper.php(215): Model->schema()
+#7 C:\wamp\www\admission_counseling\lib\Cake\View\Helper\FormHelper.php(468): FormHelper->_introspectModel('User', 'fields')
+#8 C:\wamp\www\admission_counseling\app\View\Users\dashboard.ctp(3): FormHelper->create('User')
+#9 C:\wamp\www\admission_counseling\lib\Cake\View\View.php(961): include('C:\\wamp\\www\\adm...')
+#10 C:\wamp\www\admission_counseling\lib\Cake\View\View.php(923): View->_evaluate('C:\\wamp\\www\\adm...', Array)
+#11 C:\wamp\www\admission_counseling\lib\Cake\View\View.php(473): View->_render('C:\\wamp\\www\\adm...')
+#12 C:\wamp\www\admission_counseling\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#13 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#14 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#15 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#16 {main}
+2016-06-16 11:16:29 Error: [MissingActionException] Action FormController::genernalinformation() could not be found.
+Exception Attributes: array (
+  'controller' => 'FormController',
+  'action' => 'genernalinformation',
+)
+Request URL: /admission_counseling/form/genernalinformation
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(FormController), Object(CakeRequest))
+#2 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2016-06-16 11:16:47 Error: [MissingActionException] Action FormController::genernalinformation() could not be found.
+Exception Attributes: array (
+  'controller' => 'FormController',
+  'action' => 'genernalinformation',
+)
+Request URL: /admission_counseling/form/genernalinformation
+Stack Trace:
+#0 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp\www\admission_counseling\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(FormController), Object(CakeRequest))
+#2 C:\wamp\www\admission_counseling\app\webroot\index.php(118): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

@@ -19,6 +19,6 @@
         <a href="<?php echo $this->webroot; ?>form/printoptions">Print Options</a>
     </div>
     <div class="nav-menu-link">
-        <a href="<?php echo $this->webroot; ?>form/prepay">Payment Details</a>
+        <a href="<?php echo $this->webroot; ?>form/prepayment">Payment Details</a>
     </div>
 </div>

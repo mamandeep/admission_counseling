@@ -126,50 +126,84 @@ class FormController extends AppController {
         }
         
         public function prepayment() {
-        if (!empty($this->data['Applicant']['id']) && !empty($this->data['Applicant']['email']) 
-                && !empty($this->data['Applicant']['date_of_birth'])) { 
-            $segments = explode('/', $this->data['Applicant']['date_of_birth']);
-            if (count($segments) !== 3 || !preg_match("/^[0-3][0-9]\/[0-1][0-9]\/[0-9]{4}$/", $this->data['Applicant']['date_of_birth'])) {
-                $this->Session->setFlash('Date of Birth is not in correct format.');
+        if (!empty($this->data['Student'])) { 
+            $std_id = trim($this->data['Student']['id']);
+            $student = $this->Student->find('all', array(
+                'conditions' => array('Student.id' => $std_id)));
+            if (count($student) != 1) {
+                $this->Session->setFlash('An error occurred. Please contact support.');
                 return false;
-            }
-            list($dd,$mm,$yyyy) = $segments;
-            if (!checkdate((int)$mm,(int)$dd,(int)$yyyy)) {
-                $this->Session->setFlash('Date of Birth is not in correct format.');
-                return false;
-            }
-            if(!filter_var($this->data['Applicant']['email'], FILTER_VALIDATE_EMAIL)) {
-                $this->Session->setFlash('Email Id is not in correct format.');
-                return false;
-            }
-            $applicant_id = trim($this->data['Applicant']['id']);
-            $registered_user = $this->Registereduser->find('all', array(
-                'conditions' => array('Registereduser.applicant_id' => $applicant_id,
-                    'Registereduser.email' => trim($this->data['Applicant']['email']),
-                    'Registereduser.dob' => trim($this->data['Applicant']['date_of_birth']))));
-            $applicants = $this->Applicant->find('all', array(
-                'conditions' => array('Applicant.id' => $applicant_id)));
-            if (count($registered_user) == 1 && count($applicants) == 1 
-                    && $applicants['0']['Applicant']['response_code'] != "0") {
-                $this->Session->write('applicant_id', $applicant_id);
-                $this->redirect(array('controller' => 'form', 'action' => 'pay'));
-            } else if(count($registered_user) == 1 && count($applicants) == 1 
-                    && $applicants['0']['Applicant']['response_code'] == "0") {
-                // Is the below message fine for showing to applicants
-                $this->Session->setFlash('Payment has been done. Enter credentials to login.');
-                $this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
+            } 
+            
+            if($this->Student->save($this->data, false)) {
+                // redirect to online or rtgs depending upon value
+                if($this->data['Student']['payment_mode'] === "Online (Credit Card/Debit Card/Netbanking)") {
+                    $this->redirect(array('controller' => 'form', 'action' => 'prepay'));
+                }
+                else if($this->data['Student']['payment_mode'] === "RTGS"){
+                    $this->redirect(array('controller' => 'form', 'action' => 'rtgs'));
+                }
+                else {
+                    $this->Session->setFlash('Please select a value.');
+                    return false;
+                }
             }
             else {
-                $this->Session->setFlash('Details entered are not valid.');
+                $this->Session->setFlash('There was an error in submitted data.');
                 return false;
             }
         }
-        else if(strcmp(Router::url(array('controller' => 'Form','action' => 'register'), true), $this->referer()) !== 0) {
+        
+        $student = $this->Student->find('all', array(
+                            'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+        
+        $images = $this->Document->find('all', array(
+                    'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
+        
+        if($student['0']['Student']['response_code'] == "0" || (!empty($student['0']['Student']['rtgs_ac_no']) && !empty($images['0']['Document']['filename5']))) {
+            $this->Session->setFlash('Payment complete.');
+            $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+        }
+        $this->request->data = $student['0'];
+        /*else if(strcmp(Router::url(array('controller' => 'Form','action' => 'register'), true), $this->referer()) !== 0) {
             $this->Session->setFlash('Details entered are not complete.');
             return false;
-        }
+        }*/
     }
 
+    public function rtgs() {
+        if(!empty($this->data['Document'])) {
+                if(!empty($this->data['Document']['filename5']['error']) && $this->data['Document']['filename5']['error'] == 4) {
+                $this->Session->setFlash('There was an error in uploading the document.');
+                    return true;
+                }
+
+                if ($this->Document->save($this->data['Document'])) {
+                    $this->Session->setFlash('Your document has been submitted successfully.');
+                    $this->redirect(array('controller'=>'form', 'action' => 'generalinformation'));
+                }
+                
+                return false;
+            }
+            
+            /*$param ="";
+            if(isset($this->params['url']['ct'])) 
+                $param = $this->params['url']['ct'];
+            if($param == "1") {
+                $this->redirect(array('controller'=>'form', 'action' => 'previewdocuments'));
+            }*/
+            
+            $images = $this->Document->find('all', array(
+                    'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
+            
+            if(count($images) == 1) {
+                $this->request->data = $images['0'];
+            }
+            else if(count($images) > 1) {
+                $this->Session->setFlash('An error has occured. Please contact Support.');
+            }
+    }
+    
     public function appliedposts() { 
             /*$posts_applied = $this->Post->find('all', array(
                         'conditions' => array('Post.registration_id' => $this->Session->read('registration_id'))));

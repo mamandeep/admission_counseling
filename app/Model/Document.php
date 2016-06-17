@@ -134,6 +134,17 @@ class Document extends AppModel {
             ),
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::mimeType
             'mimeType' => array(
+                'rule' => array('mimeType', array('image/gif','image/png', 'image/jpeg', 'image/jpg')),
+                'message' => 'Invalid file, only Jpg/Jpeg Images are to be uploaded',
+                'required' => FALSE,
+                'allowEmpty' => TRUE,
+            ),
+            'fileSize'=> array(
+                'rule' => array('fileSize', '<=', '200KB'),
+                'message' => 'Image must be less than 200KB.',
+                'allowEmpty' => true
+            ),
+            /*'mimeType' => array(
                 'rule' => array('mimeType', array('application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')),
                 'message' => 'Invalid file, only Word document allowed',
                 'required' => FALSE,
@@ -143,7 +154,7 @@ class Document extends AppModel {
                 'rule' => array('fileSize', '<=', '500KB'),
                 'message' => 'Document must be less than 500 KB.',
                 'allowEmpty' => true
-            ),
+            ),*/
             // custom callback to deal with the file upload
             'processUpload' => array(
                 'rule' => 'processUpload',
@@ -261,7 +272,7 @@ class Document extends AppModel {
                 $this->data[$this->alias]['filepath4'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
             }
         }
-        /*
+        
         if (!empty($check['filename5']['tmp_name'])) {
 
             // check file is uploaded
@@ -271,7 +282,8 @@ class Document extends AppModel {
 
             // build full filename
             //$filename = WWW_ROOT . $this->uploadDir . DS . Inflector::slug(sha1(pathinfo($check['filename']['name'], PATHINFO_FILENAME))) . '.' . pathinfo($check['filename']['name'], PATHINFO_EXTENSION);
-            $filename = WWW_ROOT . $this->uploadDir . DS . $this->generateRandomString() . '.' . pathinfo($check['filename5']['name'], PATHINFO_EXTENSION);
+            //$filename = WWW_ROOT . $this->uploadDir . DS . $this->generateRandomString() . '.' . pathinfo($check['filename5']['name'], PATHINFO_EXTENSION);
+            $filename = WWW_ROOT . $this->uploadDir . DS . CakeSession::read('std_id') . '_rtgs.' . pathinfo($check['filename5']['name'], PATHINFO_EXTENSION);
 
             // @todo check for duplicate filename
             // try moving file
@@ -283,7 +295,7 @@ class Document extends AppModel {
                 // save the file path relative from WWW_ROOT e.g. uploads/example_filename.jpg
                 $this->data[$this->alias]['filepath5'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
             }
-        }*/
+        }
 
         return TRUE;
     }
@@ -320,12 +332,12 @@ class Document extends AppModel {
             $this->data[$this->alias]['size4'] = $this->data[$this->alias]['filename4']['size'];
             $this->data[$this->alias]['filename4'] = $this->data[$this->alias]['filepath4'];
         }
-        /*
+        
         if (!empty($this->data[$this->alias]['filepath5'])) {
             $this->data[$this->alias]['type5'] = $this->data[$this->alias]['filename5']['type'];
             $this->data[$this->alias]['size5'] = $this->data[$this->alias]['filename5']['size'];
             $this->data[$this->alias]['filename5'] = $this->data[$this->alias]['filepath5'];
-        }*/
+        }
         
         return parent::beforeSave($options);
     }
@@ -345,10 +357,10 @@ class Document extends AppModel {
         if (!empty($this->data[$this->alias]['filename4']['error']) && $this->data[$this->alias]['filename4']['error']==4 && $this->data[$this->alias]['filename4']['size']==0) {
                 unset($this->data[$this->alias]['filename4']);
 	}
-        /*
+        
         if (!empty($this->data[$this->alias]['filename5']['error']) && $this->data[$this->alias]['filename5']['error']==4 && $this->data[$this->alias]['filename5']['size']==0) {
                 unset($this->data[$this->alias]['filename5']);
-	}*/
+	}
 
 	parent::beforeValidate($options);
     }

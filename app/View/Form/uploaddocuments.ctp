@@ -1,5 +1,3 @@
-<script>
-</script>
 <div id="wrapper">
   <div id="sidebar"><?php echo $this->element('left-sidebar');?></div>
   <div id="maincontent">
