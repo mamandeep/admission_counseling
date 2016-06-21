@@ -899,4 +899,10 @@ div#maincontent {
   #printLOptions {
     visibility: hidden;
   }
+  
+}
+
+.glabel {
+    padding: 10px;
+    font-size: 16px;
 }

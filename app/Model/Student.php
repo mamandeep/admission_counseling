@@ -60,7 +60,7 @@ class Student extends AppModel {
                 'message' => 'This field has crossed allowed limit.'
             ),
             'pattern'=>array(
-                 'rule'      => '/^[a-z ]+$/i',
+                 'rule'      => '/^[a-z .]+$/i',
                  'message'   => 'Only letters allowed'
             )
         ),
@@ -77,17 +77,19 @@ class Student extends AppModel {
             )
         ),*/
         'father_mobile' => array(
-            'notempty' => array(
+            /*'notempty' => array(
                 'rule' => array('notempty'),
                 'required'   => true,
                 'message' => 'This field cannot be left blank'
-            ),
+            ),*/
             'length' => array (
                 'rule' => array('maxLength', 10),
+                'allowEmpty' => true,
                 'message' => 'This field has crossed allowed limit. Only 10 digits allowed.'
             ),
             'pattern'=>array(
                  'rule'      => '/^[789][0-9]{9}$/i',
+                 'allowEmpty' => true,
                  'message'   => 'Only valid 10 digit mobile number allowed'
             )
         ),
@@ -119,6 +121,23 @@ class Student extends AppModel {
             )
         ),*/
         'mother_mobile' => array(
+            /*'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),*/
+            'length' => array (
+                'rule' => array('maxLength', 10),
+                'allowEmpty' => true,
+                'message' => 'This field has crossed allowed limit. Only 10 digits allowed.'
+            ),
+            'pattern'=>array(
+                 'rule'      => '/^[789][0-9]{9}$/i',
+                 'allowEmpty' => true,
+                 'message'   => 'Only valid 10 digit mobile number allowed'
+            )
+        ),
+        'emergency_mobile' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 'required'   => true,
@@ -131,6 +150,36 @@ class Student extends AppModel {
             'pattern'=>array(
                  'rule'      => '/^[789][0-9]{9}$/i',
                  'message'   => 'Only valid 10 digit mobile number allowed'
+            )
+        ),
+        'emergency_name' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'length' => array(
+                'rule' => array('maxLength', 50),
+                'message' => 'This field has crossed allowed limit.'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z .]+$/i',
+                 'message'   => 'Only letters allowed'
+            )
+        ),
+        'emergency_relationship' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'length' => array(
+                'rule' => array('maxLength', 30),
+                'message' => 'This field has crossed allowed limit.'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Only letters allowed'
             )
         ),
         'dob' => array(
@@ -324,9 +373,13 @@ class Student extends AppModel {
                 'rule' => array('notempty'),
                 'required'   => true,
                 'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Value not selected'
             )
         ),
-        'blood_group' => array(
+        'allergic' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 'required'   => true,
@@ -337,7 +390,18 @@ class Student extends AppModel {
                  'message'   => 'Value not selected'
             )
         ),
-        'state_domicile' => array(
+        'allergic' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required'   => true,
+                'message' => 'This field cannot be left blank'
+            ),
+            'pattern' => array(
+                 'rule'      => '/^[a-z ]+$/i',
+                 'message'   => 'Value not selected'
+            )
+        ),
+        'other_diseases' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 'required'   => true,

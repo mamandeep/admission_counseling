@@ -10,12 +10,8 @@ class UsersController extends AppController {
     var $uses = array('Signup', 'Registereduser', 'Student');
     
     var $coc = array("aman_k2007@hotmail.com");
-    var $ozeki_user = "admin";
-    var $ozeki_password = "qwe123";
-    var $ozeki_url = "http://127.0.0.1:9501/api?";
-    var $OTPValidity = "30"; // in minutes
     
-    public $helpers = array('Captcha.Captcha');
+    public $helpers = array('Captcha.Captcha', 'SMS');
     
     public $paginate = array(
         'limit' => 25,
@@ -257,21 +253,6 @@ class UsersController extends AppController {
         }
     }
     
-    private function is_connected() {
-        $connected = @fsockopen("www.smsjust.com", 80);
-        $is_conn = false;
-        
-        if($connected) {
-            $is_conn = true;
-            fclose($connected);
-        }
-        else {
-            $is_conn = false;
-        }
-        
-        return $is_conn;
-    }
-    
     public function changepassword() {
         if(!empty($this->data['Registereduser'])) {
             $registered_user = $this->Registereduser->find('all', array(
@@ -312,128 +293,6 @@ class UsersController extends AppController {
         }
     }
     
-    private function getOTPTimeGap($reg_user){
-        $generted_time = new DateTime($reg_user['0']['Registereduser']['otp_timestamp'], new DateTimeZone("Asia/Calcutta"));
-        $now = new DateTime();
-        
-        $diff = $now->diff($generted_time);
-        
-        $hours = $diff->h;
-        $hours = $hours + ($diff->days * 24);
-        $minutes = $diff->i;
-        $minutes = $minutes + ($hours * 60);
-        
-        return $minutes;
-        
-    }
-    
-    private function httpRequest($url){
-        $pattern = "/http...([0-9a-zA-Z-.]*).([0-9]*).(.*)/";
-        print_r($url);
-        preg_match($pattern,$url,$args);
-        print_r($args);
-        $in = "";
-        $fp = fsockopen("$args[1]", $args[2], $errno, $errstr, 30);
-        if (!$fp) {
-           return("$errstr ($errno)");
-        } else {
-            $out = "GET /$args[3] HTTP/1.1\r\n";
-            $out .= "Host: $args[1]:$args[2]\r\n";
-            $out .= "User-agent: Ozeki PHP client\r\n";
-            $out .= "Accept: */*\r\n";
-            $out .= "Connection: Close\r\n\r\n";
-
-            fwrite($fp, $out);
-            while (!feof($fp)) {
-               $in.=fgets($fp, 128);
-            }
-        }
-        fclose($fp);
-        return($in);
-    }
-    
-    private function ozekiSend($phone, $msg, $debug=false){
-        global $ozeki_user,$ozeki_password,$ozeki_url;
-        $url = 'username='. $this->ozeki_user;
-        $url.= '&password='. $this->ozeki_password;
-        $url.= '&action=sendmessage';
-        $url.= '&messagetype=SMS:TEXT';
-        $url.= '&recipient='.urlencode($phone);
-        $url.= '&messagedata='.urlencode($msg);
-
-        $urltouse =  $this->ozeki_url.$url;
-        //if ($debug) { echo "Request: <br>$urltouse<br><br>"; }
-
-        //Open the URL to send the message
-        $response = $this->httpRequest($urltouse);
-        if ($debug) {
-             echo "Response: <br><pre>".
-             str_replace(array("<",">"),array("&lt;","&gt;"),$response).
-             "</pre><br>"; }
-        return($response);
-    }
-    
-    private function smsSend($mobile_no, $message) {
-        //$username = urlencode("u1810"); 
-        $username = urlencode("cuplib"); 
-        $password = urlencode("cuplib@123");
-        //$msg_token = urlencode("fP9oW6"); 
-        //$sender_id = urlencode("BBSBEC"); // optional (compulsory in transactional sms) 
-        $sender_id = urlencode("CUPEXM");
-        $message = urlencode($message); 
-        $mobile = urlencode($mobile_no); 
-
-        //$api = "http://manage.sarvsms.com/api/send_transactional_sms.php?username=".$username."&msg_token=".$msg_token."&sender_id=".$sender_id."&message=".$message."&mobile=".$mobile.""; 
-
-        $api = "http://www.smsjust.com/sms/user/urlsms.php?username=".$username."&pass=".$password."&senderid=".$sender_id."&dest_mobileno=".$mobile."&message=".$message."&response=Y";
-        $response = file_get_contents($api);
-
-        return $response; 
-    }
-    
-    public function post() {
-        $username = urlencode("u1810"); 
-        $msg_token = urlencode("fP9oW6"); 
-        $sender_id = urlencode("BBSBEC"); // optional (compulsory in transactional sms) 
-        $message = urlencode($message); 
-        $mobile = urlencode($mobile_no); 
-
-        $api = "http://manage.sarvsms.com/api/send_transactional_sms.php?username=".$username."&msg_token=".$msg_token."&sender_id=".$sender_id."&message=".$message."&mobile=".$mobile.""; 
-        $ACTION_URL = "http://203.129.203.243/sms/user/XMLAPI/send.php";
-        $this->set('ACTION_URL',$ACTION_URL);
-        $data = "<message-submit-request>
-            <username>".$username."</username>
-            <password>XXXXXX</password>
-            <sender-id>".$sender_id."</sender-id>
-            <MType>TXT</MType>
-            <message-text>
-            <text>hi test message 1</text>
-            <to>9890XXXXXX</to>
-            </message-text>
-            <message-text>
-            <text>hi test message 2</text>
-            <to>9823XXXXXX</to>
-            </message-text>
-            <message-text>
-            <text>hi test message 3</text>
-            <to>9375XXXXXX</to>
-            </message-text>
-            </message-submit-request>";
-        $this->set('data', $data);
-    }
-    
-    private function ozekiOTP($length = 8, $chars = 'abcdefghijklmnopqrstuvwxyz1234567890')
-    {
-        $chars_length = (strlen($chars) - 1);
-        $string = $chars{rand(0, $chars_length)};
-        for ($i = 1; $i < $length; $i = strlen($string))
-        {
-            $r = $chars{rand(0, $chars_length)};
-            if ($r != $string{$i - 1}) $string .=  $r;
-        }
-        return $string;
-        
-    }
     /*public function add() {
         if ($this->request->is('post')) {
             $this->User->create();

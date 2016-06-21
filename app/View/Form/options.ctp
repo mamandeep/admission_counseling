@@ -44,6 +44,7 @@
                       'PGQP47' => array('M.A. Economics' => 'Centre for Economic Studies'),
                       'PGQP48' => array('M.Sc. Geology' => 'Centre for Geography and Geology')
             );
+        /*
         $eligibilty =  array('PGQP02' => array('L.L.M' => 'Centre for Law'),
                       'PGQP03' => array('M.A. Education' => 'Centre for Education',
                                         'M.Ed.' => 'Centre for Education'),
@@ -83,7 +84,7 @@
                       'PGQP43' => array('M.A. Political Science' => 'Centre for South and Central Asian Studies (Including Historical Studies)'),
                       'PGQP47' => array('M.A. Economics' => 'Centre for Economic Studies'),
                       'PGQP48' => array('M.Sc. Geology' => 'Centre for Geography and Geology')
-            );
+            );*/
 ?>
     <input type="hidden" name="glob_userId" id="glob_userId" value="<?php echo $this->Session->read('std_id'); ?>" />
     <input type="hidden" name="modified" id="modified" value="false" />
@@ -150,7 +151,7 @@
         </tbody>
     </table>
 </fieldset>
-<div style="font-size: 20px; font-weight: bold; color: red;">Before applying please check your eligibility against each Programme on General Information page.</div>
+<div style="font-size: 20px; font-weight: bold; color: red;">Before applying please check your <a href="<?php echo $this->webroot . 'files/PUNJAB Eligibility Criteria-CUCET2016.pdf'; ?>" >eligibility</a> against each Programme on General Information page.</div>
 <div class="submit">
     <?php echo $this->Form->submit('Save', array('id' => 'formSubmit' , 'div' => false)); ?>
 </div>

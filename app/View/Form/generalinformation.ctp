@@ -5,47 +5,22 @@
 <tr>
     <td width="20%"></td>
     <td width="50%"><span class="generalinfoheader">General Information</span>
-    <br/>Counseling Schedule: <a href="<?php echo $this->webroot . 'files/CUPB_counselling_ schedule.pdf'; ?>" target="_blank">click here</a>
-    <br/>General Instructions and Essential Information for Online Counseling: <a href="<?php echo $this->webroot . 'files/Important Instruction for adm-2016.pdf'; ?>" target="_blank">click here</a>
-    <!--<br/>E-Brochure <a href="<?php echo $this->webroot . 'files/handbook 2016.pdf'; ?>" target="_blank">click here</a>-->
-    <br/>The fee structure of each Course : <a href="<?php echo $this->webroot . 'files/Fee Structure 2016.jpg'; ?>" target="_blank">click here</a>
-    <br/></td>
+        <div class="glabel">Counselling Schedule: <a href="<?php echo $this->webroot . 'files/CUPB_counselling_ schedule.pdf'; ?>" >click here</a></div>
+        <div class="glabel">Important Instructions: <a href="<?php echo $this->webroot . 'files/Important Instruction for adm-2016.pdf'; ?>" >click here</a></div>
+        <div class="glabel">How to Register & Fill the Counselling Form: <a href="<?php echo $this->webroot . 'files/guidelines_for_filling_form.pdf'; ?>" >click here</a></div>
+        <!--<br/>E-Brochure <a href="<?php echo $this->webroot . 'files/handbook 2016.pdf'; ?>" target="_blank">click here</a>-->
+        <div class="glabel">The fee structure of each Course : <a href="<?php echo $this->webroot . 'files/Fee Structure 2016.jpg'; ?>" >click here</a></div>
+    </td>
     <!--<td width="30%"><span class="generalinfoheader">Educational Qualifications</span></td>
     <td width="20%"><span class="generalinfoheader">Advertisement</span></td>-->
     <td><?php if(!empty($this->Session->read('admin')) && $this->Session->read('admin') == "1") { ?> For Reports: <a href="javascript: showReports();" target="_blank">click here</a> <?php } ?></td>
 </tr>
 <tr>
     <td></td>
-    <td>If the candidate is selected, she/he will be required to submit Aadhaar within one month of joining.</td>
-    <td></td>
-    <td></td>
-</tr>
-<!--
-<tr>
-    <td></td>
-    <td>In case of payment failure, the final submission of application will not take place. The candidate will not be able to print the form.</td>
-    <td></td>
-    <td></td>
-</tr>-->
-<!--
-<tr>
-    <td></td>
-    <td>If payment fails, it will be automatically refunded to the same account.</td>
-    <td></td>
-    <td></td>
-</tr>-->
-<tr>
-    <td></td>
-    <td>Billing Address is the address of Credit/Debit card holder.</td>
-    <td></td>
-    <td></td>
-</tr>
-<tr>
-    <td></td>
     <td><span class="generalinfoheader">Eligibility Criteria & Seat Distribution</span>
-    <br/>Educational Qualifications for each Course: <a href="<?php echo $this->webroot . 'files/PUNJAB Eligibility Criteria-CUCET2016.pdf'; ?>" target="_blank">click here</a><br/>
-    <br/>Seat Distribution in Each Course: <a href="<?php echo $this->webroot . 'files/PUNJAB Eligibility Criteria-CUCET2016.pdf'; ?>" target="_blank">click here</a> 
-    <br/></td>
+        <div class="glabel">Educational Qualifications for each Course: <a href="<?php echo $this->webroot . 'files/PUNJAB Eligibility Criteria-CUCET2016.pdf'; ?>" >click here</a></div>
+        <div class="glabel">Seat Distribution in each Course: <a href="<?php echo $this->webroot . 'files/Allocation of Reserved seats Admission 2016-17.pdf'; ?>" >click here</a></div>
+    </td>
     <td></td>
 </tr>
 <!--
@@ -57,10 +32,8 @@
 <tr>
     <td></td>
     <td><span class="generalinfoheader">Important Dates</span>
-        <br/> The registration of online counseling starts from 20<sup>th</sup> June, 2016 0900 hrs
-        <br/>
-        The last date of online counseling form is 28<sup>th</sup> June, 2016 1700 hrs
-        <br/>
+        <div class="glabel">The registration of online counseling starts from 20<sup>th</sup> June, 2016 0900 hrs</div>
+        <div class="glabel">The last date of online counseling form is 28<sup>th</sup> June, 2016 1700 hrs</div>
     </td>
     <td></td>
 </tr>
@@ -72,12 +45,13 @@
     </td>
     <td></td>
     <td></td>
-</tr>-->
+</tr>
+<a href="<?php echo $this->webroot . 'files/Refund Policy.pdf'; ?>">Payment & Refund Policy</a>-->
 <tr>
     <td></td>
-    <td><label>I have read the General Conditions to Apply and <a href="<?php echo $this->webroot . 'files/Refund Policy.pdf'; ?>">Payment & Refund Policy</a>: (Tick the box to continue) <span>*</span></label>
+    <td><label style="color: red;">I have read the Important Instructions and Eligibility Criteria: (Tick the box to continue) <span>*</span></label>
     </td>
-    <td><input type="checkbox" id="declaration" name="declaration"></input></td>
+    <td><input type="checkbox" id="declaration" name="declaration" style="width: 30px;height: 30px; cursor: pointer;"></input></td>
     <td></td>
 </tr>
 <!--
@@ -211,26 +185,8 @@
     }
     
     $(document).ready(function() {
-        $('#post_applied_for').val('none');
-        $('#area').val('none');
-        $('#centre').val('none');
         //$('#continue_bt').prop('disabled', true);
         $('#declaration').prop('checked', false);
-
-        /*$('#area, #post_applied_for, #declaration, #centre').on('change', function() {
-            if($('#post_applied_for').val() === 'none' || $('#area').val() === 'none' || 
-                $('#declaration').is(':checked') == false || $('#centre').val() === 'none') {
-                    $('#post_selected_elig').css("display","none");
-                    //$('#continue_bt').prop('disabled',true);
-            }
-            else {
-                $('#post_selected_elig').empty();
-                $('#post_selected_elig').append($('#' + $('#post_applied_for').val() + 
-                                                '_' + $('#area').val()).clone().css('display','block'));
-                $('#post_selected_elig').css("display","block");
-                //$('#continue_bt').prop('disabled', false);
-            }
-        });*/
 
         $('#continue_bt').on('click', function(e){
             if($('#declaration').is(':checked') == false) {
@@ -268,7 +224,7 @@
                 $('#continue_bt').prop('disabled', false);
             }
             else {
-                $('#continue_bt').prop('disabled',true);
+                //$('#continue_bt').prop('disabled',true);
             }
         });
 

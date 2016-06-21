@@ -18,7 +18,9 @@
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/printoptions">Print Options</a>
     </div>
+    <?php if(!empty($this->Session->read('eligible_for_payment')) && $this->Session->read('eligible_for_payment') == "1") {?>
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/prepayment">Payment Details</a>
     </div>
+    <?php } ?>
 </div>

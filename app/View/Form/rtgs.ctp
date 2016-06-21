@@ -3,11 +3,11 @@
   <div id="maincontent">
 <?php
 echo $this->Form->create('Document', array('id' => 'Image_Details', 'url' => Router::url( null, true ), 'type' => 'file')); ?>
-<div class="main_content_header">Upload Documents</div>
+<div class="main_content_header">Upload Document</div>
 <div id="contentContainer">
     <table>
         <tr>
-            <td class="table_headertxt misc_col1" style="padding-top: 17px;">Upload scanned image of RTGS payment (.jpg format, min size 10 kb, max size 200 kb)
+            <td class="table_headertxt misc_col1" style="padding-top: 17px;">Upload scanned image of RTGS payment (jpg/jpeg/gif/png/pdf format, min size 10 kb, max size 200 kb)
                 <?php echo $this->Form->input('Document.id', array('type' => 'hidden'));
                       echo $this->Form->input('Document.std_id', array('type' => 'hidden', 'value' => $this->Session->read('std_id')));   ?>
             <span style="color: red;">MANDATORY</span>    

@@ -18,7 +18,7 @@ class Document extends AppModel {
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::mimeType
             'mimeType' => array(
                 'rule' => array('mimeType', array('image/gif','image/png', 'image/jpeg', 'image/jpg')),
-                'message' => 'Invalid file, only Jpg/Jpeg Images are to be uploaded',
+                'message' => 'Invalid file, only jpg/jpeg/png/gif Images are to be uploaded',
                 'required' => FALSE,
                 'allowEmpty' => TRUE,
             ),
@@ -36,7 +36,7 @@ class Document extends AppModel {
                 'last' => TRUE,
             )
         ),
-        /*
+        
         'filename2' => array(
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::uploadError
             'uploadError' => array(
@@ -48,7 +48,7 @@ class Document extends AppModel {
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::mimeType
             'mimeType' => array(
                 'rule' => array('mimeType', array('image/gif','image/png', 'image/jpeg', 'image/jpg', 'application/pdf')),
-                'message' => 'Invalid file, only Jpg/Jpeg/gif/png/pdf files are to be uploaded',
+                'message' => 'Invalid file, only jpg/jpeg/gif/png/pdf files are to be uploaded',
                 'required' => FALSE,
                 'allowEmpty' => TRUE,
             ),
@@ -65,7 +65,7 @@ class Document extends AppModel {
                 'allowEmpty' => TRUE,
                 'last' => TRUE,
             )
-        ),*/
+        ),
         'filename3' => array(
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::uploadError
             'uploadError' => array(
@@ -77,7 +77,7 @@ class Document extends AppModel {
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::mimeType
             'mimeType' => array(
                 'rule' => array('mimeType', array('image/gif','image/png', 'image/jpeg', 'image/jpg', 'application/pdf')),
-                'message' => 'Invalid file, only Jpg/Jpeg/gif/png/pdf files allowed',
+                'message' => 'Invalid file, only jpg/jpeg/gif/png/pdf files allowed',
                 'required' => FALSE,
                 'allowEmpty' => TRUE,
             ),
@@ -106,7 +106,7 @@ class Document extends AppModel {
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::mimeType
             'mimeType' => array(
                 'rule' => array('mimeType', array('image/gif','image/png', 'image/jpeg', 'image/jpg')),
-                'message' => 'Invalid file, only Jpg/Jpeg images allowed',
+                'message' => 'Invalid file, only jpg/jpeg/png/gif images allowed',
                 'required' => FALSE,
                 'allowEmpty' => TRUE,
             ),
@@ -134,8 +134,48 @@ class Document extends AppModel {
             ),
             // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::mimeType
             'mimeType' => array(
-                'rule' => array('mimeType', array('image/gif','image/png', 'image/jpeg', 'image/jpg')),
-                'message' => 'Invalid file, only Jpg/Jpeg Images are to be uploaded',
+                'rule' => array('mimeType', array('image/gif','image/png', 'image/jpeg', 'image/jpg', 'application/pdf')),
+                'message' => 'Invalid file, only jpg/jpeg/gif/png/pdf files allowed',
+                'required' => FALSE,
+                'allowEmpty' => TRUE,
+            ),
+            'fileSize'=> array(
+                'rule' => array('fileSize', '<=', '200KB'),
+                'message' => 'Image must be less than 200KB.',
+                'allowEmpty' => true
+            ),
+            /*'mimeType' => array(
+                'rule' => array('mimeType', array('application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')),
+                'message' => 'Invalid file, only Word document allowed',
+                'required' => FALSE,
+                'allowEmpty' => TRUE,
+            ),
+            'fileSize'=> array(
+                'rule' => array('fileSize', '<=', '500KB'),
+                'message' => 'Document must be less than 500 KB.',
+                'allowEmpty' => true
+            ),*/
+            // custom callback to deal with the file upload
+            'processUpload' => array(
+                'rule' => 'processUpload',
+                'message' => 'Something went wrong processing your file',
+                'required' => FALSE,
+                'allowEmpty' => TRUE,
+                'last' => TRUE,
+            )
+        ),
+        'filename6' => array(
+            // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::uploadError
+            'uploadError' => array(
+                'rule' => 'uploadError',
+                'message' => 'Something went wrong with the file upload',
+                'required' => FALSE,
+                'allowEmpty' => TRUE,
+            ),
+            // http://book.cakephp.org/2.0/en/models/data-validation.html#Validation::mimeType
+            'mimeType' => array(
+                'rule' => array('mimeType', array('image/gif','image/png', 'image/jpeg', 'image/jpg', 'application/pdf')),
+                'message' => 'Invalid file, only jpg/jpeg/gif/png/pdf files allowed',
                 'required' => FALSE,
                 'allowEmpty' => TRUE,
             ),
@@ -203,7 +243,7 @@ class Document extends AppModel {
                 $this->data[$this->alias]['filepath'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
             }
         }
-        /*
+        
         if (!empty($check['filename2']['tmp_name'])) {
 
             // check file is uploaded
@@ -213,7 +253,7 @@ class Document extends AppModel {
 
             // build full filename
             //$filename = WWW_ROOT . $this->uploadDir . DS . Inflector::slug(sha1(pathinfo($check['filename']['name'], PATHINFO_FILENAME))) . '.' . pathinfo($check['filename']['name'], PATHINFO_EXTENSION);
-            $filename = WWW_ROOT . $this->uploadDir . DS . $this->generateRandomString() . '.' . pathinfo($check['filename2']['name'], PATHINFO_EXTENSION);
+            $filename = WWW_ROOT . $this->uploadDir . DS . CakeSession::read('std_id') . '_dateofbirth.' . pathinfo($check['filename2']['name'], PATHINFO_EXTENSION);
 
             // @todo check for duplicate filename
             // try moving file
@@ -226,7 +266,7 @@ class Document extends AppModel {
                 $this->data[$this->alias]['filepath2'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
             }
         }
-        */
+       
         if (!empty($check['filename3']['tmp_name'])) {
 
             // check file is uploaded
@@ -296,6 +336,29 @@ class Document extends AppModel {
                 $this->data[$this->alias]['filepath5'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
             }
         }
+        
+        if (!empty($check['filename6']['tmp_name'])) {
+
+            // check file is uploaded
+            if (!is_uploaded_file($check['filename6']['tmp_name'])) {
+                return FALSE;
+            }
+
+            // build full filename
+            //$filename = WWW_ROOT . $this->uploadDir . DS . Inflector::slug(sha1(pathinfo($check['filename']['name'], PATHINFO_FILENAME))) . '.' . pathinfo($check['filename']['name'], PATHINFO_EXTENSION);
+            $filename = WWW_ROOT . $this->uploadDir . DS . CakeSession::read('std_id') . '_scorecard.' . pathinfo($check['filename6']['name'], PATHINFO_EXTENSION);
+
+            // @todo check for duplicate filename
+            // try moving file
+            if (!move_uploaded_file($check['filename6']['tmp_name'], $filename)) {
+                return FALSE;
+
+                // file successfully uploaded
+            } else {
+                // save the file path relative from WWW_ROOT e.g. uploads/example_filename.jpg
+                $this->data[$this->alias]['filepath6'] = str_replace(DS, "/", str_replace(WWW_ROOT, "", $filename));
+            }
+        }
 
         return TRUE;
     }
@@ -314,12 +377,12 @@ class Document extends AppModel {
             $this->data[$this->alias]['filename'] = $this->data[$this->alias]['filepath'];
                
         }
-        /*
+        
         if (!empty($this->data[$this->alias]['filepath2'])) {
             $this->data[$this->alias]['type2'] = $this->data[$this->alias]['filename2']['type'];
             $this->data[$this->alias]['size2'] = $this->data[$this->alias]['filename2']['size'];
             $this->data[$this->alias]['filename2'] = $this->data[$this->alias]['filepath2'];
-        }*/
+        }
         
         if (!empty($this->data[$this->alias]['filepath3'])) {
             $this->data[$this->alias]['type3'] = $this->data[$this->alias]['filename3']['type'];
@@ -339,6 +402,12 @@ class Document extends AppModel {
             $this->data[$this->alias]['filename5'] = $this->data[$this->alias]['filepath5'];
         }
         
+        if (!empty($this->data[$this->alias]['filepath6'])) {
+            $this->data[$this->alias]['type6'] = $this->data[$this->alias]['filename6']['type'];
+            $this->data[$this->alias]['size6'] = $this->data[$this->alias]['filename6']['size'];
+            $this->data[$this->alias]['filename6'] = $this->data[$this->alias]['filepath6'];
+        }
+        
         return parent::beforeSave($options);
     }
     
@@ -347,10 +416,11 @@ class Document extends AppModel {
 	if (!empty($this->data[$this->alias]['filename']['error']) && $this->data[$this->alias]['filename']['error']==4 && $this->data[$this->alias]['filename']['size']==0) {
 		unset($this->data[$this->alias]['filename']);
 	}
-        /*
+        
         if (!empty($this->data[$this->alias]['filename2']['error']) && $this->data[$this->alias]['filename2']['error']==4 && $this->data[$this->alias]['filename2']['size']==0) {
                 unset($this->data[$this->alias]['filename2']);
-	}*/
+	}
+        
         if (!empty($this->data[$this->alias]['filename3']['error']) && $this->data[$this->alias]['filename3']['error']==4 && $this->data[$this->alias]['filename3']['size']==0) {
                 unset($this->data[$this->alias]['filename3']);
 	}
@@ -360,6 +430,10 @@ class Document extends AppModel {
         
         if (!empty($this->data[$this->alias]['filename5']['error']) && $this->data[$this->alias]['filename5']['error']==4 && $this->data[$this->alias]['filename5']['size']==0) {
                 unset($this->data[$this->alias]['filename5']);
+	}
+        
+        if (!empty($this->data[$this->alias]['filename6']['error']) && $this->data[$this->alias]['filename6']['error']==4 && $this->data[$this->alias]['filename6']['size']==0) {
+                unset($this->data[$this->alias]['filename6']);
 	}
 
 	parent::beforeValidate($options);

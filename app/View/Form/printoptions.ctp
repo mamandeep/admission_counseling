@@ -42,6 +42,10 @@
       <?php if($data_set === 'true') { ?>
       <div class="main_content_header"><input type="button" id="printLOptions" value="Print" onclick="window.print()" /></div>
       <div id="contentContainer" style="width: 650px; max-width: 650px; margin-left: 100px;">
+        <?php if(isset($student) && $student['Student']['final_submit'] == "1" ) { ?>
+            <div class="main_content_header">Your form has been submitted successfully.</div>
+            <br/>
+        <?php } ?>
         <p style="font-size: 28px; font-weight: bold; text-align: center">CENTRAL UNIVERSITY OF PUNJAB</p>
         <p style="font-size: 12px; font-weight: bold; text-align: center">(Established vide Act no 25(2009) of Parliament)</p>
         <p style="font-size: 28px; font-weight: bold; text-align: center">Online Application Form for Admission Counselling</p>
@@ -49,12 +53,12 @@
             <tr>
                 <td width="40%" class="print_headers">Name</td>
                 <td width="40%" class="print_value"><?php echo $student['Student']['name'] ?></td>
-                <td width="20%"><img src="<?php if(!empty($image['Document']['filename'])) { echo $this->webroot . '/' . $image['Document']['filename']; } else { echo ""; } ?>" alt="Passport Size Photograph" height="132px" width="132px"></td>
+                <td width="20%"><img src="<?php if(!empty($image['Document']['filename']) && file_exists(WWW_ROOT . DS . $image['Document']['filename'])) { echo $this->webroot . '/' . $image['Document']['filename']; } else { echo ""; } ?>" alt="Passport Size Photograph" height="132px" width="132px"></td>
             </tr>
             <tr>
                 <td width="40%" class="print_headers">Application Number</td>
                 <td width="40%" class="print_value"><?php echo $student['Student']['id'] ?></td>
-                <td width="20%"><img src="<?php if(!empty($image['Document']['filename4'])) { echo $this->webroot . '/' . $image['Document']['filename4']; } else { echo ""; } ?>" alt="Signature" height="50px" width="132px"></td>
+                <td width="20%"><img src="<?php if(!empty($image['Document']['filename4']) && file_exists(WWW_ROOT . DS . $image['Document']['filename4'])) { echo $this->webroot . '/' . $image['Document']['filename4']; } else { echo ""; } ?>" alt="Signature" height="50px" width="132px"></td>
             </tr>
             <!--
             <tr>
@@ -145,6 +149,33 @@
                 <td class="print_headers">Mother's Mobile No.</td>
                 <td class="print_value"><?php echo $student['Student']['mother_mobile']?></td>
             </tr>
+            <tr>
+                <td class="print_headers">Emergency Contact Name</td>
+                <td class="print_value"><?php echo $student['Student']['emergency_name'] ?></td>
+            </tr>
+            <tr>
+                <td class="print_headers">Emergency Contact No.</td>
+                <td class="print_value"><?php echo $student['Student']['emergency_mobile'] ?></td>
+            </tr>
+            <tr>
+                <td class="print_headers">Emergency Contact Relationship</td>
+                <td class="print_value"><?php echo $student['Student']['emergency_relationship'] ?></td>
+            </tr>
+            <!--
+            <?php if(!empty($student['Student']['emergency_name2']) && !empty($student['Student']['emergency_mobile2'])) { ?>
+                <tr>
+                    <td class="print_headers">Emergency Contact Name</td>
+                    <td class="print_value"><?php echo $student['Student']['emergency_name2'] ?></td>
+                </tr>
+                <tr>
+                    <td class="print_headers">Emergency Contact No.</td>
+                    <td class="print_value"><?php echo $student['Student']['emergency_mobile2'] ?></td>
+                </tr>
+                <tr>
+                    <td class="print_headers">Emergency Contact Relationship</td>
+                    <td class="print_value"><?php echo $student['Student']['emergency_relationship2'] ?></td>
+                </tr>
+            <?php } ?> -->
             <!--
             <tr>
                 <td class="print_headers">Marital Status: </td>
@@ -193,6 +224,14 @@
                 <td class="print_value"><?php echo $student['Student']['hostel_accommodation']?></td>
             </tr>
             <tr>
+                <td class="print_headers">Do you suffer from any kind of allergy?</td>
+                <td class="print_value"><?php echo $student['Student']['allergic']?></td>
+            </tr>
+            <tr>
+                <td class="print_headers">Do you have any other diseases? (HIV/AIDS/TB)</td>
+                <td class="print_value"><?php echo $student['Student']['other_diseases']?></td>
+            </tr>
+            <tr>
                 <td class="print_headers">Communication Address</td>
                 <td class="print_value"><?php echo $student['Student']['comm_address']?>
                 </td>
@@ -212,6 +251,7 @@
               <td width="20%" style="font-weight: bold;">Preference Order</td>
             </tr>
             <?php //print_r($this->request->data['Choice']); 
+                $optionSelected = false;
             if(is_array($this->request->data['Choice']) && count($this->request->data['Choice']) > 0) {
                 for ($key = 0; $key < count($this->request->data['Choice']); $key++) {
                     if($this->request->data['Choice'][$key]['subject'] !== "- select -") {
@@ -220,8 +260,16 @@
                         echo "<td>" . $this->request->data['Choice'][$key]['preference'] . "</td>";
                         echo "<td>" . $this->request->data['Choice'][$key]['pref_order'] . "</td>";
                         echo "</tr>";
+                        $optionSelected = true;
                     }
                 }
+                if($optionSelected == false) { ?>
+                    <tr>
+                        <td>No Centre Selected</td>
+                        <td>No Branch Selected</td>
+                        <td>No Preference Order Selected</td>
+                    </tr>
+                <?php }
             }
             else { ?>
                 <tr>
@@ -258,7 +306,7 @@
               <br/>
               <?php if(isset($student) && $student['Student']['final_submit'] != "1" ) { ?>
                 <div class="print_required">
-                    Declaration <input type="checkbox" id="declaration" name="declaration"></input> 
+                    Declaration <input type="checkbox" id="declaration" name="declaration" style="width: 30px;height: 30px; cursor: pointer;"></input> 
                 </div>
                 <br/><br/>
                 <?php } ?>
@@ -276,24 +324,30 @@
 </div>
 <script>
     $('document').ready(function () {
-        $('#finalsubmit').prop('disabled', true);
+        //$('#finalsubmit').prop('disabled', true);
 
         $('#declaration').change(function () {
             if ($(this).is(':checked')) {
                 $('#finalsubmit').prop('disabled', false);
             }
             else {
-                $('#finalsubmit').prop('disabled', true);
+                //$('#finalsubmit').prop('disabled', true);
             }
         });
 
         $("#finalsubmit").click(function(e) {
-            if(!confirm("Are you sure you have read all the above Terms and Conditions?")) {
+            if($('#declaration').is(':checked') == false) {
                 e.preventDefault();
+                alert('Please select Declaration to continue.');
             }
             else {
-                e.preventDefault();
-                window.location.href = '<?php echo $this->webroot; ?>form/final_submit';
+                if(!confirm("Are you sure you have read all the above Terms and Conditions?")) {
+                    e.preventDefault();
+                }
+                else {
+                    e.preventDefault();
+                    window.location.href = '<?php echo $this->webroot; ?>form/final_submit';
+                }
             }
         });
     });

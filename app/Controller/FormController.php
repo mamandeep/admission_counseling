@@ -5,9 +5,9 @@ class FormController extends AppController {
     //var $components = array('Captcha.Captcha'=>array('Model'=>'Signup', 
     //                    'field'=>'security_code'));//'Captcha.Captcha'
 
-    var $uses = array('Student','Choice','Branch', 'Document', 'Subject','BranchSubject');                
+    var $uses = array('Registereduser', 'Student','Choice','Branch', 'Document', 'Subject','BranchSubject');                
     
-    //public $helpers = array('Captcha.Captcha');
+    public $helpers = array('SMS');
     
     
     
@@ -58,17 +58,21 @@ class FormController extends AppController {
             $student = $this->Student->find('all', array(
                     'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             $this->request->data = $student['0'];
+            $this->Session->write('eligible_for_payment',$student['0']['Student']['eligible_for_payment']);
             //$this->set('dbYear', $student['0']['Student']['year_of_cucet']);
             //$this->set('ug_result', $student['0']['Student']['ug_result']);
             //$this->set('pwd', $student['0']['Student']['pwd']);
             //$this->set('bgroup', $student['0']['Student']['blood_group']);
+            $this->set('hostel_acco', $student['0']['Student']['hostel_accommodation']);
         }
         
         public function uploaddocuments() {
             if(!empty($this->data['Document'])) {
                 if(!empty($this->data['Document']['filename']['error']) && $this->data['Document']['filename']['error'] == 4
+                && !empty($this->data['Document']['filename2']['error']) && $this->data['Document']['filename2']['error'] == 4
                 && !empty($this->data['Document']['filename3']['error']) && $this->data['Document']['filename3']['error'] == 4
                 && !empty($this->data['Document']['filename4']['error']) && $this->data['Document']['filename4']['error'] == 4
+                && !empty($this->data['Document']['filename6']['error']) && $this->data['Document']['filename6']['error'] == 4
                )
                 return true;
 
@@ -105,12 +109,15 @@ class FormController extends AppController {
             if(count($images) == 1) {
                 //$this->request->data = $images['0'];
                 if(empty($images['0']['Document']['filename']) 
+                    || empty($images['0']['Document']['filename2'])
                     || empty($images['0']['Document']['filename4']))
                 {
                     if(empty($images['0']['Document']['filename']))
-                        $this->Session->setFlash('Photograph is mandatory');
+                        $this->Session->setFlash('Photograph is compulsory');
+                    if(empty($images['0']['Document']['filename2']))
+                        $this->Session->setFlash('Date of Birth certificate is compulsory');
                     if(empty($images['0']['Document']['filename4']))
-                        $this->Session->setFlash('Signature is mandatory');
+                        $this->Session->setFlash('Signature is compulsory');
                     $this->redirect(array('controller'=>'form', 'action' => 'uploaddocuments'));
                 }
                 $this->set('image', $images['0']);
@@ -562,9 +569,13 @@ class FormController extends AppController {
 
 	public function final_submit() {
 		$this->Student->id = $this->Session->read('std_id');
+                $registered_user = $this->Registereduser->find('all', array(
+                                'conditions' => array('Registereduser.std_id' => $this->Session->read('std_id'),
+                                                      )));
                 if (!empty($this->Student->id)) {
-                	$this->Student->saveField('final_submit', 1);
-                        $this->redirect(array('controller' => 'form', 'action' => 'printoptions'));
+                    $this->Student->saveField('final_submit', 1);
+                    $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'Your application form has been successfully received with Applicant ID '.$this->Session->read('std_id').' for CUP cousnelling 2016-17');
+                    $this->redirect(array('controller' => 'form', 'action' => 'printoptions'));
             	}
                 else {
                     $this->Session->setFlash('Your session is invalid.');

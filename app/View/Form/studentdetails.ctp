@@ -38,6 +38,17 @@
                 <td colspan="2"><?php echo $this->Form->input('Student.mother_mobile', array('label' => 'Mother\'s Mobile No.:', 'maxlength' => '100')); ?></td>
             </tr>
             <tr>
+                <td><?php echo $this->Form->input('Student.emergency_name', array('label' => 'Emergency Contact Name:', 'maxlength' => '50')); ?></td>
+                <td><?php echo $this->Form->input('Student.emergency_mobile', array('label' => 'Emergency Contact No.:', 'maxlength' => '100')); ?></td>
+                <td><?php echo $this->Form->input('Student.emergency_relationship', array('label' => 'Relationship: (e.g. Father / Mother / Brother / Sister ...) ', 'maxlength' => '100')); ?></td>
+            </tr>
+            <!--
+            <tr>
+                <td><?php echo $this->Form->input('Student.emergency_name2', array('label' => 'Emergency Contact Name:', 'maxlength' => '50')); ?></td>
+                <td><?php echo $this->Form->input('Student.emergency_mobile2', array('label' => 'Emergency Contact No.:', 'maxlength' => '100')); ?></td>
+                <td><?php echo $this->Form->input('Student.emergency_relationship2', array('label' => 'Relationship: (e.g. Father / Mother / Brother / Sister ...) ', 'maxlength' => '100')); ?></td>
+            </tr>-->
+            <tr>
                 <td><?php echo $this->Form->input('Student.dob', array('label' => 'Date of Birth (DD/MM/YYYY):', 'maxlength' => '100')); ?></td>
                 <td><?php echo $this->Form->input('Student.category', array(
                     'options' => array('General' => 'General', 'SC' => 'SC', 'ST' => 'ST', 'OBC' => 'OBC'),
@@ -212,6 +223,20 @@
                         'id' => 'hostel_acco'
                     )); ?></td>
                 <td></td>
+            </tr>
+            <tr>
+                <td><?php echo $this->Form->input('Student.allergic', array(
+                    'options' => array('No' => 'No', 'Yes' => 'Yes'),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Do you suffer from any kind of allergy?'
+                )); ?></td>
+                <td colspan="2"><?php echo $this->Form->input('Student.other_diseases', array(
+                    'options' => array('No' => 'No', 'Yes' => 'Yes'),
+                    'empty' => array('- select -' => '- select -'),
+                    'style' => 'width: 100%;',
+                    'label' => 'Do you have any other diseases? (HIV/AIDS/TB)'
+                )); ?></td>
             </tr>
             <tr>
                 <td width="40%"><?php echo $this->Form->input('Student.gate_gpat_year_of_passing', array('label' => 'GATE/GPAT - Year of Passing', 'maxlength' => '50')); ?></td>
