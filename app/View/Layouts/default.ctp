@@ -49,7 +49,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                         <br/>
                         <label style="font-size: 18px; font-weight: bold; padding-left: 50px;">NAAC Accredited 'A' Grade University. NIRF Rank 65 out of 3565.</label>
                         <br/>
-                        <div class='marquee' style="overflow-x: hidden; width: 600px; margin-left: 0px; font-size: 16px;">Last Date to Apply Online 28<sup>th</sup> June, 2016. For any query please contact: +91-9646269330, 0164-2864109, 0164-2864139</div>
+                        <div class='marquee' style="overflow-x: hidden; width: 600px; margin-left: 0px; font-size: 16px;">Last Date to Apply Online 28<sup>th</sup> June, 2016. For any query please contact: +91-9464269330, 0164-2864109, 0164-2864139</div>
 
                         <?php
                             if($this->Session->check('registration_id') && $this->Session->check('std_id')) {

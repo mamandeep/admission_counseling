@@ -132,12 +132,11 @@
 <tr>
     <td></td>
     <td><div style="text-align: center; font-size: 20px;">
-        <?php //if(isset($applicant) && $applicant['Applicant']['final_submit'] != "1" ) {
-              echo $this->Form->create('Temp', array('id' => 'Continue_Form', 'url' => Router::url( '/multi_step_form/wizard/first', true ))); 
+        <?php 
+              echo $this->Form->create('Temp', array('id' => 'Continue_Form', 'url' => Router::url( '/form/studentdetails', true ))); 
               echo $this->Form->submit('Continue to Application Form', array('div' => false, 'id' => 'continue_bt' ));
               echo $this->Form->end(); 
-            //} ?>
-        <!--<a href="<?php echo $this->webroot; ?>multi_step_form/wizard/first" class="button" id="continue_bt">Continue</a>-->
+             ?>
     </div>
     </td>
     <td><!--<div style="text-align: center; font-size: 20px;"><?php if(isset($applicant) && $applicant['Applicant']['final_submit'] == "1" ) {
@@ -195,11 +194,6 @@
             }
             else {
                 e.preventDefault();
-                //window.location.href = '<?php echo $this->webroot; ?>multi_step_form/wizard/first?post=' + 
-                //                $('#post_applied_for').find(":selected").text() + '&area=' + 
-                //                $('#area').find(":selected").text() + '&centre=' +
-                //                $('#centre').find(":selected").text();
-                
                 window.location.href = '<?php echo $this->webroot; ?>form/studentdetails';
             }
         });
