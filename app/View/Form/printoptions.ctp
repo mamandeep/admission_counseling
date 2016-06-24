@@ -39,7 +39,7 @@
 <div id="wrapper">
   <div id="sidebar"><?php echo $this->element('left-sidebar');?></div>
   <div id="maincontent" class="section-to-print">
-      <?php if($data_set === 'true') { ?>
+      <?php if(isset($data_set) && $data_set === 'true') { ?>
       <div class="main_content_header"><input type="button" id="printLOptions" value="Print" onclick="window.print()" /></div>
       <div id="contentContainer" style="width: 650px; max-width: 650px; margin-left: 100px;">
         <?php if(isset($student) && $student['Student']['final_submit'] == "1" ) { ?>
