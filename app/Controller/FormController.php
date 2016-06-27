@@ -94,12 +94,22 @@ class FormController extends AppController {
             $images = $this->Document->find('all', array(
                     'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
             
-            if(count($images) == 1) {
-                $this->request->data = $images['0'];
-            }
-            else if(count($images) > 1) {
-                $this->Session->setFlash('An error has occured. Please contact Support.');
-            }
+             if(count($images) > 1) { 
+                 $this->Session->setFlash('An error has occured in uploading documents. Please contact Support.'); 
+                 return false; 
+             } 
+             else if(count($images) == 0) { 
+                 $this->Document->create(); 
+                 $this->Document->set(array( 
+                     'std_id' => $this->Session->read('std_id'))); 
+                 $this->Document->save(); 
+                 $this->Document->id = $this->Document->getLastInsertId(); 
+                 $images = $this->Document->find('all', array(
+                    'conditions' => array('Document.std_id' => $this->Session->read('std_id')))); 
+             } 
+             
+            $this->request->data = $images['0'];
+            
         }
         
         public function previewdocuments() {
