@@ -36,10 +36,33 @@ class FormController extends AppController {
             //    $this->set('applicant', $applicants['0']);
             //}
     }
+    
+    private function isClosed() {
+        $current_datetime = new DateTime();
+        $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-06-28 23:59:59", new DateTimeZone('Asia/Calcutta'));
+        
+        //print_r($current_datetime->format('Y-m-d-H-i-s'));
+        //print_r($close_datetime->format('Y-m-d-H-i-s'));
+        
+        if ($current_datetime > $close_datetime) {
+            //exit("The Application Form is closed at this time.");
+            //if($current_datetime > $close_datetime) { 
+                $this->Session->setFlash('Application Form is closed.');
+                return true;
+            //}
+            //$this->redirect(array('controller' => 'users', 'action' => 'logout'));
+        }
+        
+        return false;
+    }
         
         
         
         public function studentdetails() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
             if(!empty($this->data['Student'])) {
                 $this->Student->create();    
                 $this->Student->set($this->data);
@@ -67,6 +90,9 @@ class FormController extends AppController {
         }
         
         public function uploaddocuments() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
             if(!empty($this->data['Document'])) {
                 if(!empty($this->data['Document']['filename']['error']) && $this->data['Document']['filename']['error'] == 4
                 && !empty($this->data['Document']['filename2']['error']) && $this->data['Document']['filename2']['error'] == 4
@@ -113,6 +139,9 @@ class FormController extends AppController {
         }
         
         public function previewdocuments() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
             $images = $this->Document->find('all', array(
                     'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
             
@@ -143,6 +172,9 @@ class FormController extends AppController {
         }
         
         public function prepayment() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
         if (!empty($this->data['Student'])) { 
             $std_id = trim($this->data['Student']['id']);
             $student = $this->Student->find('all', array(
@@ -189,6 +221,9 @@ class FormController extends AppController {
     }
 
     public function rtgs() {
+        if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
         if(!empty($this->data['Document'])) {
                 if(!empty($this->data['Document']['filename5']['error']) && $this->data['Document']['filename5']['error'] == 4) {
                 $this->Session->setFlash('There was an error in uploading the document.');
@@ -266,12 +301,18 @@ class FormController extends AppController {
         }
 
 	public function prepay() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
             $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             $this->set('payment_status', $student['0']['Student']['response_code']);
         }
         
         public function pay() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
                 $arr = array("General", "SC", "ST", "OBC");
                 $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
@@ -293,6 +334,9 @@ class FormController extends AppController {
 	}
 
 	public function post() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
 		//print_r($this->request->data);
 		$HASHING_METHOD = 'sha512'; // md5,sha1
 		$ACTION_URL = "https://secure.ebs.in/pg/ma/payment/request/";
@@ -403,6 +447,9 @@ class FormController extends AppController {
 	}
 
 	public function options() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
             $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             $choice_arr = $this->Choice->find('all', array(
@@ -485,6 +532,9 @@ class FormController extends AppController {
         }
         
         public function printoptions() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
             //print_r($this->data);
             $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
@@ -524,6 +574,7 @@ class FormController extends AppController {
         }
         
         public function print_bfs() {
+            
             $this->layout = false;
             $this->set('data_set', 'false');
             $applicants = $this->Applicant->find('all', array(
@@ -578,6 +629,9 @@ class FormController extends AppController {
 	}
 
 	public function final_submit() {
+            if($this->isClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
 		$this->Student->id = $this->Session->read('std_id');
                 $registered_user = $this->Registereduser->find('all', array(
                                 'conditions' => array('Registereduser.std_id' => $this->Session->read('std_id'),
