@@ -48,7 +48,7 @@ class FormController extends AppController {
         if ($current_datetime > $close_datetime) {
             //exit("The Application Form is closed at this time.");
             //if($current_datetime > $close_datetime) { 
-                $this->Session->setFlash('Application Form is closed.');
+                $this->Session->setFlash('Application Form is closed. Seat Allocation is Open');
                 return true;
             //}
             //$this->redirect(array('controller' => 'users', 'action' => 'logout'));
@@ -63,8 +63,12 @@ class FormController extends AppController {
             if($this->isClosed()) {
                 $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
             }
+            $student = $this->Student->find('all', array(
+                    'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+            
             if(!empty($this->data['Student'])) {
-                $this->Student->create();    
+                $this->Student->create();
+                $this->Student->id = $student['0']['id'];
                 $this->Student->set($this->data);
                 if($this->Student->validates()) {
                     if($this->Student->save())
@@ -78,8 +82,7 @@ class FormController extends AppController {
                     return false;
                 }
             }
-            $student = $this->Student->find('all', array(
-                    'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+            
             $this->request->data = $student['0'];
             $this->Session->write('eligible_for_payment',$student['0']['Student']['eligible_for_payment']);
             //$this->set('dbYear', $student['0']['Student']['year_of_cucet']);
@@ -172,9 +175,6 @@ class FormController extends AppController {
         }
         
         public function prepayment() {
-            if($this->isClosed()) {
-                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
-            }
         if (!empty($this->data['Student'])) { 
             $std_id = trim($this->data['Student']['id']);
             $student = $this->Student->find('all', array(
@@ -208,9 +208,9 @@ class FormController extends AppController {
         
         $images = $this->Document->find('all', array(
                     'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
-        
-        if($student['0']['Student']['response_code'] == "0" || (!empty($student['0']['Student']['rtgs_ac_no']) && !empty($images['0']['Document']['filename5']))) {
-            $this->Session->setFlash('Payment complete.');
+        //print_r($student['0']['Student']['payment_mode']); return false;
+        if($student['0']['Student']['response_code'] == "0" || (!empty($student['0']['Student']['payment_mode']) && $student['0']['Student']['payment_mode'] != "NULL" && !empty($student['0']['Student']['rtgs_ac_no']) && !empty($images['0']['Document']['filename5']))) {
+            $this->Session->setFlash('Payment process is complete.');
             $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
         }
         $this->request->data = $student['0'];
@@ -221,9 +221,9 @@ class FormController extends AppController {
     }
 
     public function rtgs() {
-        if($this->isClosed()) {
-                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
-            }
+        $student = $this->Student->find('all', array(
+                            'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+        //print_r($this->Session->read('seat_allocated'));
         if(!empty($this->data['Document'])) {
                 if(!empty($this->data['Document']['filename5']['error']) && $this->data['Document']['filename5']['error'] == 4) {
                 $this->Session->setFlash('There was an error in uploading the document.');
@@ -231,8 +231,14 @@ class FormController extends AppController {
                 }
 
                 if ($this->Document->save($this->data['Document'])) {
-                    $this->Session->setFlash('Your document has been submitted successfully.');
-                    $this->redirect(array('controller'=>'form', 'action' => 'generalinformation'));
+                    $this->Student->create();
+                    $this->Student->id = $student['0']['Student']['id'];
+                    if (!empty($this->Student->id)) {
+                        $this->Session->setFlash('Your document has been submitted successfully. Seat has been allocated to you.');
+                        $this->Student->saveField('seat_allocated', $this->Session->read('seat_allocated'));
+                        $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+                    }
+                    //$this->redirect(array('controller'=>'form', 'action' => 'generalinformation'));
                 }
                 
                 return false;
@@ -301,18 +307,12 @@ class FormController extends AppController {
         }
 
 	public function prepay() {
-            if($this->isClosed()) {
-                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
-            }
             $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             $this->set('payment_status', $student['0']['Student']['response_code']);
         }
         
         public function pay() {
-            if($this->isClosed()) {
-                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
-            }
                 $arr = array("General", "SC", "ST", "OBC");
                 $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
@@ -320,15 +320,54 @@ class FormController extends AppController {
                     $this->Session->setFlash('Please complete the Personal Details section before payment.');
                     $this->redirect(array('controller' => 'form', 'action' => 'studentdetails'));
                 }
-                      
+                $amount = array('L.L.M' => '8025',
+                            'M.A. Education' => '8025',
+                            'M.Ed.' => '12520', 
+                            'M.A. English' => '8025',
+                            'M.A. Hindi' => '8025',
+                            'M.A. Punjabi' => '8025',
+                            'M.A. History' => '8025',
+                            'M.A. Music (Vocal)' => '8025',
+                            'M.A. Music (Instrumental)' => '8025',
+                            'M.A. Fine Arts' => '8025',
+                            'M.A. Theatre' => '8025',
+                            'M.A. Geography' => '8025',
+                            'M.Sc. Geography' => '8025',
+                            'M.A. Sociology' => '8025',
+                            'M.Sc. Life Sciences (Specialization in Human Genetics)' => '9530',
+                            'M.Sc. Life Sciences (Specialization in Molecular Medicine)' => '9530',
+                            'M.Sc. Life Sciences (Specialization in Biochemistry)' => '9530',
+                            'M.Sc. Life Sciences (Specialization in Mirobial Sciences)' => '9530',
+                            'M.Sc. Life Sciences (Specialization in Animal Sciences)' => '9530',
+                            'M.Sc. Life Sciences (Specialization in Plant Sciences)' => '9530',
+                            'M.Sc. Life Sciences (Specialization in Bioinformatics)' => '9530',
+                            'M.Pharm. Pharmaceutical Sciences (Medicinal Chemistry)' => '14245',
+                            'M.Pharm. Pharmaceutical Sciences (Pharmacognosy and Phytochemistry)' => '14245',
+                            'M.Sc. Chemistry (Computational Chemistry)' => '9530',
+                            'M.Sc. Chemical Sciences (Medicinal Chemistry)' => '9530',
+                            'M.Sc. Chemistry' => '9530',
+                            'M.Sc. Mathematics' => '9530',
+                            'M.Sc. Physics (Computational Physics)' => '9530',
+                            'M.Sc. Physics' => '9530',
+                            'M.Sc. Statistics' => '9530',
+                            'M.Sc. Sports Science' => '9530',
+                            'M.Tech. Computer Science and Technology' => '14245',
+                            'M.Tech. Computer Science and Technology (Cyber Security)' => '9530',
+                            'M.Sc. in Environment Science and Technology' => '9530',
+                            'M.Tech. Food Technology' => '9530',
+                            'MBA. Agribussiness' => '12640',
+                            'M.A. Political Science' => '8025',
+                            'M.A. Economics' => '8025',
+                            'M.Sc. Geology' => '9530');      
+                $fee = $amount[$this->Session->read('seat_allocated')];
                 if($student['0']['Student']['category'] == "SC" || $student['0']['Student']['category'] == "ST" 
                         || $student['0']['Student']['pwd'] == "Yes") {
-                        $this->set('app_fee', '250');
-                        $this->Session->write('payment_amount','250');
+                        $this->set('app_fee', $fee);
+                        $this->Session->write('payment_amount', $fee);
                 }
                 else {
-                        $this->set('app_fee', '750');
-                        $this->Session->write('payment_amount','750');
+                        $this->set('app_fee', $fee);
+                        $this->Session->write('payment_amount', $fee);
                 }
                 $this->set('Student', $student['0']['Student']);
 	}
@@ -397,9 +436,11 @@ class FormController extends AppController {
 								    'payment_date_created' => $_POST['DateCreated'],
 								    'payment_id' => $_POST['PaymentID'],
 								    'payment_amount' => $_POST['Amount'],
-								    'payment_transaction_id' => $_POST['TransactionID']));
-            				if ($this->Applicant->id) {
-                				$this->Applicant->save();
+								    'payment_transaction_id' => $_POST['TransactionID'],
+                                                                    'seat_allocated' => $this->Session->read('seat_allocated')));
+            				if ($this->Student->id) {
+                                            $this->Student->save();
+                                            $this->Session->setFlash('Your payment has been successfull. Seat has been allocated to you.');
             				}
             				//$this->redirect(array('controller' => 'form', 'action' => 'appliedposts'));
 					//for demo purpose, its stored in session
@@ -573,6 +614,49 @@ class FormController extends AppController {
             
         }
         
+        public function seatallocation() {
+            //print_r($this->data);
+            $student = $this->Student->find('all', array(
+                            'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+            if(!empty($this->data['Student'])) {
+                //$this->Student->id = $student['0']['id'];
+                //if (!empty($this->Student->id)) {
+                $this->Session->write('seat_allocated', $this->data['Student']['seat_allocated']);
+                //print_r($this->Session->read('seat_allocated')); return false;
+                    //$this->Student->saveField('seat_allocated', $this->data['Student']['seat_allocated']);
+                $this->redirect(array('controller' => 'form', 'action' => 'prepayment'));
+                //}
+            }
+            //$this->Session->write('options_locked', $student['0']['Student']['options_locked']);
+            
+            $choice_arr = $this->Choice->find('all', array(
+                                    'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
+                                                          'Choice.seat_allocated' => 'yes'),
+                                    'order' => array('Choice.pref_order ASC')));
+            
+            $image = $this->Document->find('all', array(
+                    'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
+            
+            if(count($choice_arr) != 0 && count($image) == 1) {
+                //$this->Session->setFlash('No Preferences given.');
+                //$this->redirect(array('controller' => 'form', 'action' => 'options'));
+            
+                $choice_data = array();
+                foreach($choice_arr as $key => $value) {
+                    $choice_data[$key] = $choice_arr[$key]['Choice'];
+                }
+
+                $this->request->data = array('Choice' => $choice_data);
+                $this->set('student',$student['0']);
+                $this->set('image', $image['0']);
+                $this->set('data_set', 'true');
+            }
+            else {
+                $this->set('data_set', 'false');
+            }
+            
+        }
+        
         public function print_bfs() {
             
             $this->layout = false;
@@ -638,7 +722,9 @@ class FormController extends AppController {
                                                       )));
                 if (!empty($this->Student->id)) {
                     $this->Student->saveField('final_submit', 1);
-                    $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'Your application form has been successfully received with Applicant ID '.$this->Session->read('std_id').' for CUP cousnelling 2016-17');
+                    if($this->is_connected()) {
+                        $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'Your application form has been successfully received with Applicant ID '.$this->Session->read('std_id').' for CUP cousnelling 2016-17');
+                    }
                     $this->redirect(array('controller' => 'form', 'action' => 'printoptions'));
             	}
                 else {
