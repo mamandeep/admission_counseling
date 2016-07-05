@@ -13,12 +13,11 @@
                           //print_r(empty($student['Student']['response_code']));
                           //print_r($student['Student']['response_code']);
                           //print_r($student['Student']['payment_mode']);
-                          //print_r(!file_exists(WWW_ROOT . DS . $image['Document']['filename5']));
+                          //print_r(empty($image['Document']['filename5']));
                           //print_r((empty($student['Student']['response_code']) && $student['Student']['payment_mode'] == 'Online (Credit Card/Debit Card/Netbanking)'));
-                        if( ($student['Student']['response_code'] != "0" && $student['Student']['payment_mode'] == 'Online (Credit Card/Debit Card/Netbanking)')
-                             || ($student['Student']['payment_mode'] == 'RTGS' && !file_exists(WWW_ROOT . DS . $image['Document']['filename5']))  
-                             || $student['Student']['payment_mode'] == "NULL"
-                             || empty($student['Student']['payment_mode'])) {
+                        if( empty($student['Student']['payment_mode']) || ($student['Student']['response_code'] != "0" && $student['Student']['payment_mode'] == 'Online (Credit Card/Debit Card/Netbanking)')
+                             || ($student['Student']['payment_mode'] == 'RTGS' && empty($image['Document']['filename5']))  
+                             ) {
                             $seats = array();
                             if(is_array($this->request->data['Choice']) && count($this->request->data['Choice']) > 0) {    
                                 for ($key = 0; $key < count($this->request->data['Choice']); $key++) {

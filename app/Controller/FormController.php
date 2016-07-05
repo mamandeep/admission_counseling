@@ -48,7 +48,27 @@ class FormController extends AppController {
         if ($current_datetime > $close_datetime) {
             //exit("The Application Form is closed at this time.");
             //if($current_datetime > $close_datetime) { 
-                $this->Session->setFlash('Application Form is closed. Seat Allocation is Open');
+                $this->Session->setFlash('Application Form is closed. Please click on Seat Allocation.');
+                return true;
+            //}
+            //$this->redirect(array('controller' => 'users', 'action' => 'logout'));
+        }
+        
+        return false;
+    }
+    
+    private function isSeatAllocationClosed() {
+        $current_datetime = new DateTime();
+        $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-07-05 23:59:59", new DateTimeZone('Asia/Calcutta'));
+        
+        //print_r($current_datetime->format('Y-m-d-H-i-s'));
+        //print_r($close_datetime->format('Y-m-d-H-i-s'));
+        
+        if ($current_datetime > $close_datetime) {
+            //exit("The Application Form is closed at this time.");
+            //if($current_datetime > $close_datetime) { 
+                $this->Session->setFlash('Application Form is closed. Seat Allocation is closed');
                 return true;
             //}
             //$this->redirect(array('controller' => 'users', 'action' => 'logout'));
@@ -373,10 +393,7 @@ class FormController extends AppController {
 	}
 
 	public function post() {
-            if($this->isClosed()) {
-                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
-            }
-		//print_r($this->request->data);
+            //print_r($this->request->data);
 		$HASHING_METHOD = 'sha512'; // md5,sha1
 		$ACTION_URL = "https://secure.ebs.in/pg/ma/payment/request/";
 
@@ -423,13 +440,14 @@ class FormController extends AppController {
 			}
 		}
 		if (strlen($hashData) > 0) {
+			//print_r("Started");
 			$secureHash = strtoupper(hash($HASHING_METHOD , $hashData));
 	
 			if($secureHash == $_POST['SecureHash']){
-				
+				//print_r($_POST);
 				if($_POST['ResponseCode'] == 0){
 					// update response and the order's payment status as SUCCESS in to database
-					
+					//print_r("Entered Here");
 					$this->Student->create();
             				$this->Student->id = $this->Session->read('std_id');
 					$this->Student->set(array('response_code' => $_POST['ResponseCode'],
@@ -439,8 +457,13 @@ class FormController extends AppController {
 								    'payment_transaction_id' => $_POST['TransactionID'],
                                                                     'seat_allocated' => $this->Session->read('seat_allocated')));
             				if ($this->Student->id) {
-                                            $this->Student->save();
+                                            if($this->Student->save($this->Student->data, false)) {
+//print_r("Record Saved");
                                             $this->Session->setFlash('Your payment has been successfull. Seat has been allocated to you.');
+}
+else {
+	//print_r("Error in Record Saving");
+}
             				}
             				//$this->redirect(array('controller' => 'form', 'action' => 'appliedposts'));
 					//for demo purpose, its stored in session
@@ -615,7 +638,11 @@ class FormController extends AppController {
         }
         
         public function seatallocation() {
+            
             //print_r($this->data);
+            if($this->isSeatAllocationClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
             $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             if(!empty($this->data['Student'])) {
@@ -631,12 +658,14 @@ class FormController extends AppController {
             
             $choice_arr = $this->Choice->find('all', array(
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
-                                                          'Choice.seat_allocated' => 'yes'),
+                                                          'Choice.seat_allocated' => '1',
+'Choice.counselling_no' => '1',
+'Choice.cycle_no' => '1'),
                                     'order' => array('Choice.pref_order ASC')));
             
             $image = $this->Document->find('all', array(
                     'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
-            
+            //print_r($this->Session->read('std_id')); print_r(count($choice_arr)); print_r(count($image));
             if(count($choice_arr) != 0 && count($image) == 1) {
                 //$this->Session->setFlash('No Preferences given.');
                 //$this->redirect(array('controller' => 'form', 'action' => 'options'));
