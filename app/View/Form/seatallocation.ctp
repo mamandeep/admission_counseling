@@ -21,7 +21,22 @@
                             $seats = array();
                             if(is_array($this->request->data['Choice']) && count($this->request->data['Choice']) > 0) {    
                                 for ($key = 0; $key < count($this->request->data['Choice']); $key++) {
-                                    $seats[$this->request->data['Choice'][$key]['preference']] = $this->request->data['Choice'][$key]['preference'];
+                                    if($this->request->data['Choice'][$key]['open'] == 1) {
+                                        $value = $this->request->data['Choice'][$key]['preference'] . ":Open";
+                                        $seats[$value] = $value;
+                                    }
+                                    if($this->request->data['Choice'][$key]['sc'] == 1) {
+                                        $value = $this->request->data['Choice'][$key]['preference'] . ":SC";
+                                        $seats[$value] = $value;
+                                    }
+                                    if($this->request->data['Choice'][$key]['st'] == 1) {
+                                        $value = $this->request->data['Choice'][$key]['preference'] . ":ST";
+                                        $seats[$value] = $value;
+                                    }
+                                    if($this->request->data['Choice'][$key]['obc'] == 1) {
+                                        $value = $this->request->data['Choice'][$key]['preference'] . ":OBC";
+                                        $seats[$value] = $value;
+                                    }
                                 }
                             }
                     ?>
@@ -38,6 +53,10 @@
                                 )); 
                         } ?></td>
                         <td width="30%"></td>
+                    </tr>
+                    <tr> <!--check if applicant has been alloted applicant_id-->
+                        <td colspan="3" style="color: crimson; font-size: 20px;">Please choose your course from above choices</td>
+                        <td width="30%" style="color: crimson; font-size: 20px;">Course:Category</td>
                     </tr>
                     <tr> <!--check if applicant has been alloted applicant_id-->
                         <td width="30%"></td>
