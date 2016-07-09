@@ -255,9 +255,17 @@ class FormController extends AppController {
                     $this->Student->create();
                     $this->Student->id = $student['0']['Student']['id'];
                     if (!empty($this->Student->id)) {
-                        $this->Session->setFlash('Your document has been submitted successfully. Seat has been allocated to you.');
-                        $this->Student->saveField('seat_allocated', $this->Session->read('seat_allocated'));
-                        $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+                        $arr = explode(":", $this->Session->read('seat_allocated'));
+                        $this->Student->set(array(  'sa_category' => $arr[1],
+                                                    'seat_allocated' => $arr[0]));
+                        if($this->Student->save($this->Student->data, false)) {
+                            //print_r("Record Saved");
+                            $this->Session->setFlash('Your document has been submitted successfully. Seat has been allocated to you.');
+                            $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+                        }
+                        else {
+                            $this->Session->setFlash('An error has occured in seat allocation. Please contact support.');
+                        }
                     }
                     //$this->redirect(array('controller'=>'form', 'action' => 'generalinformation'));
                 }
@@ -474,12 +482,14 @@ class FormController extends AppController {
 					//print_r("Entered Here");
 					$this->Student->create();
             				$this->Student->id = $this->Session->read('std_id');
+                                        $arr = explode(":", $this->Session->read('seat_allocated'));
 					$this->Student->set(array('response_code' => $_POST['ResponseCode'],
 								    'payment_date_created' => $_POST['DateCreated'],
 								    'payment_id' => $_POST['PaymentID'],
 								    'payment_amount' => $_POST['Amount'],
 								    'payment_transaction_id' => $_POST['TransactionID'],
-                                                                    'seat_allocated' => $this->Session->read('seat_allocated')));
+                                                                    'seat_allocated' => $arr[0],
+                                                                    'sa_category' => $arr[1]));
             				if ($this->Student->id) {
                                             if($this->Student->save($this->Student->data, false)) {
 //print_r("Record Saved");
