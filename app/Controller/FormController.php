@@ -83,6 +83,7 @@ class FormController extends AppController {
             if($this->isClosed()) {
                 $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
             }
+            
             $student = $this->Student->find('all', array(
                     'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             
@@ -280,6 +281,29 @@ class FormController extends AppController {
             else if(count($images) > 1) {
                 $this->Session->setFlash('An error has occured. Please contact Support.');
             }
+    }
+    
+    public function rtgschallan() {
+        $student = $this->Student->find('all', array(
+                            'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+        //print_r($this->Session->read('seat_allocated'));
+        /*$param ="";
+        if(isset($this->params['url']['ct'])) 
+            $param = $this->params['url']['ct'];
+        if($param == "1") {
+            $this->redirect(array('controller'=>'form', 'action' => 'previewdocuments'));
+        }*/
+
+        $this->set('student', $student['0']);
+        $images = $this->Document->find('all', array(
+                'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
+
+        if(count($images) == 1) {
+            $this->request->data = $images['0'];
+        }
+        else if(count($images) > 1) {
+            $this->Session->setFlash('An error has occured. Please contact Support.');
+        }
     }
     
     public function appliedposts() { 
@@ -640,9 +664,9 @@ else {
         public function seatallocation() {
             
             //print_r($this->data);
-            if($this->isSeatAllocationClosed()) {
+            /*if($this->isSeatAllocationClosed()) {
                 $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
-            }
+            }*/
             $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             if(!empty($this->data['Student'])) {
@@ -660,7 +684,7 @@ else {
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
                                                           'Choice.seat_allocated' => '1',
 'Choice.counselling_no' => '1',
-'Choice.cycle_no' => '1'),
+'Choice.cycle_no' => '2'),
                                     'order' => array('Choice.pref_order ASC')));
             
             $image = $this->Document->find('all', array(
