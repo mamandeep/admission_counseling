@@ -19,6 +19,7 @@
                              || ($student['Student']['payment_mode'] == 'RTGS' && empty($image['Document']['filename5']))  
                              ) {
                             $seats = array();
+                            //print_r($this->request->data['Choice']);
                             if(is_array($this->request->data['Choice']) && count($this->request->data['Choice']) > 0) {    
                                 for ($key = 0; $key < count($this->request->data['Choice']); $key++) {
                                     if($this->request->data['Choice'][$key]['open'] == 1) {

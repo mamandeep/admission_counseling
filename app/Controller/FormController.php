@@ -244,12 +244,18 @@ class FormController extends AppController {
     public function rtgs() {
         $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
+        
+        $registered_user = $this->Registereduser->find('all', array(
+                                'conditions' => array('Registereduser.std_id' => $this->Session->read('std_id'),
+                                                      )));
         //print_r($this->Session->read('seat_allocated'));
         if(!empty($this->data['Document'])) {
                 if(!empty($this->data['Document']['filename5']['error']) && $this->data['Document']['filename5']['error'] == 4) {
                 $this->Session->setFlash('There was an error in uploading the document.');
                     return true;
                 }
+                
+                
 
                 if ($this->Document->save($this->data['Document'])) {
                     $this->Student->create();
@@ -261,6 +267,10 @@ class FormController extends AppController {
                         if($this->Student->save($this->Student->data, false)) {
                             //print_r("Record Saved");
                             $this->Session->setFlash('Your document has been submitted successfully. Seat has been allocated to you.');
+                            
+                            if($this->is_connected()) {
+                                $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'You have been proviosionally allocated seat in '.$arr[0].' for CUP cousnelling 2016-17');
+                            }
                             $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
                         }
                         else {
@@ -410,8 +420,9 @@ class FormController extends AppController {
                             'MBA. Agribussiness' => '12640',
                             'M.A. Political Science' => '8025',
                             'M.A. Economics' => '8025',
-                            'M.Sc. Geology' => '9530');      
-                $fee = $amount[$this->Session->read('seat_allocated')];
+                            'M.Sc. Geology' => '9530');
+                $arr = explode(":", $this->Session->read('seat_allocated'));
+                $fee = $amount[$arr[0]];
                 if($student['0']['Student']['category'] == "SC" || $student['0']['Student']['category'] == "ST" 
                         || $student['0']['Student']['pwd'] == "Yes") {
                         $this->set('app_fee', $fee);
@@ -480,6 +491,9 @@ class FormController extends AppController {
 				if($_POST['ResponseCode'] == 0){
 					// update response and the order's payment status as SUCCESS in to database
 					//print_r("Entered Here");
+                                    $registered_user = $this->Registereduser->find('all', array(
+                                                                        'conditions' => array('Registereduser.std_id' => $this->Session->read('std_id'),
+                                                                                              )));
 					$this->Student->create();
             				$this->Student->id = $this->Session->read('std_id');
                                         $arr = explode(":", $this->Session->read('seat_allocated'));
@@ -492,12 +506,15 @@ class FormController extends AppController {
                                                                     'sa_category' => $arr[1]));
             				if ($this->Student->id) {
                                             if($this->Student->save($this->Student->data, false)) {
-//print_r("Record Saved");
-                                            $this->Session->setFlash('Your payment has been successfull. Seat has been allocated to you.');
-}
-else {
-	//print_r("Error in Record Saving");
-}
+                                                //print_r("Record Saved");
+                                                if($this->is_connected()) {
+                                                    $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'You have been proviosionally allocated seat in '.$arr[0].' for CUP cousnelling 2016-17');
+                                                }
+                                                $this->Session->setFlash('Your payment has been successfull. Seat has been allocated to you.');
+                                                }
+                                                else {
+                                                        //print_r("Error in Record Saving");
+                                                }
             				}
             				//$this->redirect(array('controller' => 'form', 'action' => 'appliedposts'));
 					//for demo purpose, its stored in session
