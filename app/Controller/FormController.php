@@ -706,6 +706,9 @@ class FormController extends AppController {
                     $this->redirect(array('controller' => 'form', 'action' => 'prepayment'));
                 }
                 else {
+                    $registered_user = $this->Registereduser->find('all', array(
+                                                            'conditions' => array('Registereduser.std_id' => $this->Session->read('std_id'),
+                                                                                  )));
                     $this->Student->create();
                     $this->Student->id = $this->Session->read('std_id');
                     $arr = explode(":", $this->data['Student']['seat_allocated']);
@@ -714,6 +717,9 @@ class FormController extends AppController {
                     if ($this->Student->id) {
                         if($this->Student->save($this->Student->data, false)) {
                             $this->Session->setFlash('You have been provisionally allocated seat in ' . $arr[0]);
+                            if($this->is_connected()) {
+                                $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'You have been proviosionally allocated seat in '.$arr[0].' for CUP cousnelling 2016-17');
+                            }
                             $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
                         }
                         else {
