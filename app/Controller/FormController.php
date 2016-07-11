@@ -699,10 +699,28 @@ class FormController extends AppController {
             if(!empty($this->data['Student'])) {
                 //$this->Student->id = $student['0']['id'];
                 //if (!empty($this->Student->id)) {
-                $this->Session->write('seat_allocated', $this->data['Student']['seat_allocated']);
+                if(empty($student['0']['Student']['seat_allocated']) ||  trim($student['0']['Student']['seat_allocated']) == "") {
+                    $this->Session->write('seat_allocated', $this->data['Student']['seat_allocated']);
                 //print_r($this->Session->read('seat_allocated')); return false;
                     //$this->Student->saveField('seat_allocated', $this->data['Student']['seat_allocated']);
-                $this->redirect(array('controller' => 'form', 'action' => 'prepayment'));
+                    $this->redirect(array('controller' => 'form', 'action' => 'prepayment'));
+                }
+                else {
+                    $this->Student->create();
+                    $this->Student->id = $this->Session->read('std_id');
+                    $arr = explode(":", $this->data['Student']['seat_allocated']);
+                    $this->Student->set(array( 'seat_allocated' => $arr[0],
+                                               'sa_category' => $arr[1]));
+                    if ($this->Student->id) {
+                        if($this->Student->save($this->Student->data, false)) {
+                            $this->Session->setFlash('You have been provisionally allocated seat in ' . $arr[0]);
+                            $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+                        }
+                        else {
+                            $this->Session->setFlash('There was an error in saving the choice. Please contact Support.');
+                        }
+                    }
+                }
                 //}
             }
             //$this->Session->write('options_locked', $student['0']['Student']['options_locked']);
@@ -717,7 +735,7 @@ class FormController extends AppController {
             $image = $this->Document->find('all', array(
                     'conditions' => array('Document.std_id' => $this->Session->read('std_id'))));
             //print_r($this->Session->read('std_id')); print_r(count($choice_arr)); print_r(count($image));
-            if(count($choice_arr) != 0 && count($image) == 1) {
+            if(count($choice_arr) != 0) {
                 //$this->Session->setFlash('No Preferences given.');
                 //$this->redirect(array('controller' => 'form', 'action' => 'options'));
             

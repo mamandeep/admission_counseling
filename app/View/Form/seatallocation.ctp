@@ -16,7 +16,10 @@
                           //print_r(empty($image['Document']['filename5']));
                           //print_r((empty($student['Student']['response_code']) && $student['Student']['payment_mode'] == 'Online (Credit Card/Debit Card/Netbanking)'));
                         if( empty($student['Student']['payment_mode']) || ($student['Student']['response_code'] != "0" && $student['Student']['payment_mode'] == 'Online (Credit Card/Debit Card/Netbanking)')
-                             || ($student['Student']['payment_mode'] == 'RTGS' && empty($image['Document']['filename5']))  
+                             || ($student['Student']['payment_mode'] == 'RTGS' && empty($image['Document']['filename5']))
+                             || ($student['Student']['payment_mode'] == 'Online (Credit Card/Debit Card/Netbanking)' 
+                                     && $student['Student']['response_code'] == "0" && count($this->request->data['Choice']) > 0 
+                                     && check_sa($student['Student']['seat_allocated'], $this->request->data['Choice']))
                              ) {
                             $seats = array();
                             //print_r($this->request->data['Choice']);
@@ -95,3 +98,15 @@
         });
     });
 </script>
+
+<?php 
+    function check_sa($prev_pref, $choice_arr) {
+        $match = false;
+        for ($key = 0; $key < count($choice_arr); $key++) {
+            if(strcmp($prev_pref, $choice_arr[$key]['preference']) == 0) {
+                $match = true;
+            }
+        }
+        return !$match;
+    }
+?>
