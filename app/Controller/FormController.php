@@ -60,7 +60,7 @@ class FormController extends AppController {
     private function isSeatAllocationClosed() {
         $current_datetime = new DateTime();
         $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-        $close_datetime = new DateTime("2016-07-05 23:59:59", new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-07-12 23:59:59", new DateTimeZone('Asia/Calcutta'));
         
         //print_r($current_datetime->format('Y-m-d-H-i-s'));
         //print_r($close_datetime->format('Y-m-d-H-i-s'));
@@ -691,9 +691,9 @@ class FormController extends AppController {
         public function seatallocation() {
             
             //print_r($this->data);
-            /*if($this->isSeatAllocationClosed()) {
+            if($this->isSeatAllocationClosed()) {
                 $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
-            }*/
+            }
             $student = $this->Student->find('all', array(
                             'conditions' => array('Student.id' => $this->Session->read('std_id'))));
             if(!empty($this->data['Student'])) {
