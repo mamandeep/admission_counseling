@@ -700,21 +700,33 @@ class FormController extends AppController {
             if(!empty($this->data['Student'])) {
                 //$this->Student->id = $student['0']['id'];
                 //if (!empty($this->Student->id)) {
-                if(empty($student['0']['Student']['seat_allocated']) ||  trim($student['0']['Student']['seat_allocated']) == "") {
+                if(empty($student['0']['Student']['response_code']) || $student['0']['Student']['response_code'] != 0 
+                        || empty($student['0']['Student']['seat_allocated']) ||  trim($student['0']['Student']['seat_allocated']) == "") {
                     $this->Session->write('seat_allocated', $this->data['Student']['seat_allocated']);
-                    $this->Choice->create();
                     $arr = explode(":", $this->data['Student']['seat_allocated']);
-                    $db = $this->Choice->getDataSource();
-                    $seat = $db->value($arr[0], 'string');
-                    $category = $db->value($arr[1], 'string');
-                    if($this->Choice->updateAll(array( 'seat_allocated_bef_payment' => $seat,
-                                                       'sa_category' => $category),
-                                             array('std_id' => $this->Session->read('std_id'),
-                                                   'seat_allocated' => '1',
-                                                   'preference' => $arr[0]))) {
-                        $rowsUpdated = $this->Choice->getAffectedRows();
-                        if($rowsUpdated > 0) {
-                            $this->redirect(array('controller' => 'form', 'action' => 'prepayment'));
+                    $choice_arr = $this->Choice->find('all', array(
+                                    'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
+                                                          'Choice.seat_allocated' => '1',
+                                                          'Choice.preference' => $arr[0]),
+                                                          ));
+                    if(count($choice_arr) == 1 && $choice_arr['0']['Choice']['preference'] != $arr[0]) {
+                        $this->Choice->create();
+                        $db = $this->Choice->getDataSource();
+                        $seat = $db->value($arr[0], 'string');
+                        $category = $db->value($arr[1], 'string');
+                        if($this->Choice->updateAll(array( 'seat_allocated_bef_payment' => $seat,
+                                                           'sa_category' => $category),
+                                                 array('std_id' => $this->Session->read('std_id'),
+                                                       'seat_allocated' => '1',
+                                                       'preference' => $arr[0]))) {
+                            $rowsUpdated = $this->Choice->getAffectedRows();
+                            if($rowsUpdated > 0) {
+                                $this->redirect(array('controller' => 'form', 'action' => 'prepayment'));
+                            }
+                            else {
+                                $this->Session->setFlash('There was an error in preprocess. Please contact Support.');
+                                return false;
+                            }
                         }
                         else {
                             $this->Session->setFlash('There was an error in preprocess. Please contact Support.');
@@ -722,8 +734,7 @@ class FormController extends AppController {
                         }
                     }
                     else {
-                        $this->Session->setFlash('There was an error in preprocess. Please contact Support.');
-                        return false;
+                        $this->redirect(array('controller' => 'form', 'action' => 'prepayment'));
                     }
                 }
                 else {
@@ -780,6 +791,8 @@ class FormController extends AppController {
             else {
                 $this->set('data_set', 'false');
             }
+            $this->set('prev_seat', (!empty($student['0']['Student']['response_code']) && $student['0']['Student']['response_code'] == 0 
+                                      && !empty($student['0']['Student']['seat_allocated']) && trim($student['0']['Student']['seat_allocated']) != "" )  ?  1 : 0 );
             
         }
         

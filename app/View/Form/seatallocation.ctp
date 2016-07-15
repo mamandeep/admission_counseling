@@ -1,9 +1,9 @@
 <div id="wrapper">
   <div id="sidebar"><?php echo $this->element('left-sidebar');?></div>
   <div id="maincontent">
-        <?php
+        <?php //print_r($prev_seat);
             if(isset($data_set) && $data_set == 'true') {
-            echo $this->Form->create('Student', array('id' => 'course_list', 'url' => Router::url( null, true ))); 
+                echo $this->Form->create('Student', array('id' => 'course_list', 'url' => Router::url( null, true ))); 
             //print_r($this->request->data);
         ?>
         <div id="tabs-1">
@@ -94,6 +94,11 @@
         $('#course_list').on('submit', function(){
             if(!confirm("Have you read the minimum eligibilty criteria for the selected course/seat ?")) {
                 return false;
+            }
+            if(<?php echo $prev_seat; ?>) {
+                if(!confirm("Do you want to forfeit the previously alloacted Course: <?php echo $student['Student']['seat_allocated']; ?> ?")) {
+                    return false;
+                }
             }
         });
     });
