@@ -60,7 +60,7 @@ class FormController extends AppController {
     private function isSeatAllocationClosed() {
         $current_datetime = new DateTime();
         $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-        $close_datetime = new DateTime("2016-07-20 23:59:59", new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-07-19 23:59:59", new DateTimeZone('Asia/Calcutta'));
         
         //print_r($current_datetime->format('Y-m-d-H-i-s'));
         //print_r($close_datetime->format('Y-m-d-H-i-s'));
