@@ -60,7 +60,7 @@ class FormController extends AppController {
     private function isSeatAllocationClosed() {
         $current_datetime = new DateTime();
         $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-        $close_datetime = new DateTime("2016-07-12 23:59:59", new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-07-20 23:59:59", new DateTimeZone('Asia/Calcutta'));
         
         //print_r($current_datetime->format('Y-m-d-H-i-s'));
         //print_r($close_datetime->format('Y-m-d-H-i-s'));
@@ -690,6 +690,7 @@ class FormController extends AppController {
         
         public function seatallocation() {
             
+            //print_r(gmdate("Y-m-d\TH:i:s\Z")); 
             //print_r($this->data);
             if($this->isSeatAllocationClosed()) {
                 $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
@@ -701,9 +702,29 @@ class FormController extends AppController {
                 //if (!empty($this->Student->id)) {
                 if(empty($student['0']['Student']['seat_allocated']) ||  trim($student['0']['Student']['seat_allocated']) == "") {
                     $this->Session->write('seat_allocated', $this->data['Student']['seat_allocated']);
-                //print_r($this->Session->read('seat_allocated')); return false;
-                    //$this->Student->saveField('seat_allocated', $this->data['Student']['seat_allocated']);
-                    $this->redirect(array('controller' => 'form', 'action' => 'prepayment'));
+                    $this->Choice->create();
+                    $arr = explode(":", $this->data['Student']['seat_allocated']);
+                    $db = $this->Choice->getDataSource();
+                    $seat = $db->value($arr[0], 'string');
+                    $category = $db->value($arr[1], 'string');
+                    if($this->Choice->updateAll(array( 'seat_allocated_bef_payment' => $seat,
+                                                       'sa_category' => $category),
+                                             array('std_id' => $this->Session->read('std_id'),
+                                                   'seat_allocated' => '1',
+                                                   'preference' => $arr[0]))) {
+                        $rowsUpdated = $this->Choice->getAffectedRows();
+                        if($rowsUpdated > 0) {
+                            $this->redirect(array('controller' => 'form', 'action' => 'prepayment'));
+                        }
+                        else {
+                            $this->Session->setFlash('There was an error in preprocess. Please contact Support.');
+                            return false;
+                        }
+                    }
+                    else {
+                        $this->Session->setFlash('There was an error in preprocess. Please contact Support.');
+                        return false;
+                    }
                 }
                 else {
                     $registered_user = $this->Registereduser->find('all', array(
@@ -712,7 +733,8 @@ class FormController extends AppController {
                     $this->Student->create();
                     $this->Student->id = $this->Session->read('std_id');
                     $arr = explode(":", $this->data['Student']['seat_allocated']);
-                    $this->Student->set(array( 'seat_allocated' => $arr[0],
+                    $this->Student->set(array(  'seat_shifted' => gmdate("Y-m-d H:i:s"),
+                                                'seat_allocated' => $arr[0],
                                                'sa_category' => $arr[1]));
                     if ($this->Student->id) {
                         if($this->Student->save($this->Student->data, false)) {
