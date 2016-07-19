@@ -399,7 +399,7 @@ class FormController extends AppController {
                             'M.Sc. Life Sciences (Specialization in Human Genetics)' => '9530',
                             'M.Sc. Life Sciences (Specialization in Molecular Medicine)' => '9530',
                             'M.Sc. Life Sciences (Specialization in Biochemistry)' => '9530',
-                            'M.Sc. Life Sciences (Specialization in Mirobial Sciences)' => '9530',
+                            'M.Sc. Life Sciences (Specialization in Microbial Sciences)' => '9530',
                             'M.Sc. Life Sciences (Specialization in Animal Sciences)' => '9530',
                             'M.Sc. Life Sciences (Specialization in Plant Sciences)' => '9530',
                             'M.Sc. Life Sciences (Specialization in Bioinformatics)' => '9530',
@@ -709,7 +709,7 @@ class FormController extends AppController {
                                                           'Choice.seat_allocated' => '1',
                                                           'Choice.preference' => $arr[0]),
                                                           ));
-                    if(count($choice_arr) == 1 && $choice_arr['0']['Choice']['preference'] != $arr[0]) {
+                    if(count($choice_arr) == 1 && strcmp($choice_arr['0']['Choice']['seat_allocated_bef_payment'], $arr[0]) != 0) {
                         $this->Choice->create();
                         $db = $this->Choice->getDataSource();
                         $seat = $db->value($arr[0], 'string');
@@ -768,7 +768,7 @@ class FormController extends AppController {
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
                                                           'Choice.seat_allocated' => '1',
 'Choice.counselling_no' => '1',
-'Choice.cycle_no' => '2'),
+'Choice.cycle_no' => '3'),
                                     'order' => array('Choice.pref_order ASC')));
             
             $image = $this->Document->find('all', array(
