@@ -21,7 +21,7 @@
                       'PGQP22' => array('M.Sc. Life Sciences (Specialization in Human Genetics)' => 'Centre for Human Genetics and Molecular Medicine',
                                         'M.Sc. Life Sciences (Specialization in Molecular Medicine)' => 'Centre for Human Genetics and Molecular Medicine',
                                         'M.Sc. Life Sciences (Specialization in Biochemistry)' => 'Centre for Biochemistry and Microbial Sciences',
-                                        'M.Sc. Life Sciences (Specialization in Mirobial Sciences)' => 'Centre for Biochemistry and Microbial Sciences',
+                                        'M.Sc. Life Sciences (Specialization in Microbial Sciences)' => 'Centre for Biochemistry and Microbial Sciences',
                                         'M.Sc. Life Sciences (Specialization in Animal Sciences)' => 'Centre for Animal Sciences',
                                         'M.Sc. Life Sciences (Specialization in Plant Sciences)' => 'Centre for Plant Sciences',
                                         'M.Sc. Life Sciences (Specialization in Bioinformatics)' => 'Centre for Computational Sciences'),
