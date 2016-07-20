@@ -48,7 +48,7 @@ class FormController extends AppController {
         if ($current_datetime > $close_datetime) {
             //exit("The Application Form is closed at this time.");
             //if($current_datetime > $close_datetime) { 
-                $this->Session->setFlash('Application Form is closed. Please click on Seat Allocation.');
+                $this->Session->setFlash('Application Form is closed. Please click on Lock Option/Seat Allocation.');
                 return true;
             //}
             //$this->redirect(array('controller' => 'users', 'action' => 'logout'));
@@ -60,18 +60,26 @@ class FormController extends AppController {
     private function isSeatAllocationClosed() {
         $current_datetime = new DateTime();
         $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-        $close_datetime = new DateTime("2016-07-19 23:59:59", new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-07-21 17:59:59", new DateTimeZone('Asia/Calcutta'));
+        $open_datetime = new DateTime("2016-07-21 14:00:00", new DateTimeZone('Asia/Calcutta'));
         
-        //print_r($current_datetime->format('Y-m-d-H-i-s'));
-        //print_r($close_datetime->format('Y-m-d-H-i-s'));
-        
-        if ($current_datetime > $close_datetime) {
-            //exit("The Application Form is closed at this time.");
-            //if($current_datetime > $close_datetime) { 
+        if ($current_datetime > $close_datetime || $current_datetime < $open_datetime) {
                 $this->Session->setFlash('Application Form is closed. Seat Allocation is closed');
                 return true;
-            //}
-            //$this->redirect(array('controller' => 'users', 'action' => 'logout'));
+        }
+        
+        return false;
+    }
+    
+    private function isSeatLockingClosed() {
+        $current_datetime = new DateTime();
+        $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-07-21 10:59:59", new DateTimeZone('Asia/Calcutta'));
+        $open_datetime = new DateTime("2016-07-21 08:00:00", new DateTimeZone('Asia/Calcutta'));
+        
+        if ($current_datetime > $close_datetime || $current_datetime < $open_datetime) {
+                $this->Session->setFlash('Application Form is closed. Seat Locking is closed');
+                return true;
         }
         
         return false;
@@ -768,7 +776,7 @@ class FormController extends AppController {
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
                                                           'Choice.seat_allocated' => '1',
 'Choice.counselling_no' => '1',
-'Choice.cycle_no' => '3'),
+'Choice.cycle_no' => '5'),
                                     'order' => array('Choice.pref_order ASC')));
             
             $image = $this->Document->find('all', array(
@@ -794,6 +802,89 @@ class FormController extends AppController {
             $this->set('prev_seat', (!empty($student['0']['Student']['response_code']) && $student['0']['Student']['response_code'] == 0 
                                       && !empty($student['0']['Student']['seat_allocated']) && trim($student['0']['Student']['seat_allocated']) != "" )  ?  1 : 0 );
             
+        }
+        
+        public function lockoption() {
+            if($this->isSeatLockingClosed()) {
+                $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+            }
+            if(!empty($this->data['Student'])) {
+                $arr = explode(":", $this->data['Student']['lockoption']);
+                $choice_arr = $this->Choice->find('all', array(
+                                'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
+                                                      'Choice.pref_order' => $arr[1],
+                                                      'Choice.preference' => $arr[0]),
+                                                      ));
+                if(count($choice_arr) == 1 && strcmp($choice_arr['0']['Choice']['lockoption'], $arr[0]) != 0) {
+                    $this->Choice->create();
+                    $db = $this->Choice->getDataSource();
+                    $seat = $db->value($arr[0], 'string');
+                    $pref_order = $db->value($arr[1], 'string');
+                    if($this->Choice->updateAll(array( 'lockoption' => $seat
+                                                       ),
+                                             array('std_id' => $this->Session->read('std_id'),
+                                                   'pref_order' => $arr[1],
+                                                   ))) {
+                        $rowsUpdated = $this->Choice->getAffectedRows();
+                        if($rowsUpdated > 0) {
+                            $registered_user = $this->Registereduser->find('all', array(
+                                                            'conditions' => array('Registereduser.std_id' => $this->Session->read('std_id'),
+                                                                                  )));
+                            if($this->is_connected()) {
+                                $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'Your seat has been locked as '.$arr[0].' for CUP cousnelling 2016-17');
+                            }
+                            $this->redirect(array('controller' => 'form', 'action' => 'lockoption'));
+                        }
+                        else {
+                            $this->Session->setFlash('There was an error in locking option. Please contact Support.');
+                            return false;
+                        }
+                    }
+                    else {
+                        $this->Session->setFlash('There was an error in locking option. Please contact Support.');
+                        return false;
+                    }
+                }
+                else {
+                    $registered_user = $this->Registereduser->find('all', array(
+                                                            'conditions' => array('Registereduser.std_id' => $this->Session->read('std_id'),
+                                                                                  )));
+                    if($this->is_connected()) {
+                        $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'Your seat has been locked as '.$arr[0].' for CUP cousnelling 2016-17');
+                    }
+                    $this->redirect(array('controller' => 'form', 'action' => 'lockoption'));
+                }
+            }
+            
+            $choice_arr = $this->Choice->find('all', array(
+                                    'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
+                                                        'Choice.counselling_no' => '1',
+                                                        'Choice.cycle_no' => '4'),
+                                    'order' => array('Choice.pref_order ASC')));
+            
+            if(count($choice_arr) != 0) {
+                $choice_data = array();
+                $lockflag = 0;
+                $optionLocked = "";
+                foreach($choice_arr as $key => $value) {
+                    $choice_data[$key] = $choice_arr[$key]['Choice'];
+                    if(!empty($choice_arr[$key]['Choice']['lockoption']) && strcmp(trim($choice_arr[$key]['Choice']['lockoption']), "") != 0) {
+                        $lockflag = 1;
+                        $optionLocked = $choice_arr[$key]['Choice']['lockoption'];
+                    }
+                }
+
+                $this->request->data = array('Choice' => $choice_data);
+                //$this->set('student',$student['0']);
+                //$this->set('image', $image['0']);
+                $this->set('data_set', 'true');
+                $this->set('lockflag', $lockflag);
+                if($lockflag == 1)
+                    $this->set('optionLocked', $optionLocked);
+            }
+            else {
+                $this->set('data_set', 'false');
+            }
         }
         
         public function print_bfs() {
