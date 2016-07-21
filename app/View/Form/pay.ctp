@@ -92,7 +92,7 @@
         <tr>
             <td class="fieldName"><span class="error">*</span>Country</td>
             <td align="left">
-                                <input name="country" type="text" value="IND" />            </td>
+                                <input name="country" type="text" value="IND" readonly="readonly" />            </td>
         </tr>
 
         <tr>

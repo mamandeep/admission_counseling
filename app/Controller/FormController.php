@@ -708,8 +708,9 @@ class FormController extends AppController {
             if(!empty($this->data['Student'])) {
                 //$this->Student->id = $student['0']['id'];
                 //if (!empty($this->Student->id)) {
-                if(empty($student['0']['Student']['response_code']) || $student['0']['Student']['response_code'] != 0 
+                if(is_null($student['0']['Student']['response_code']) || $student['0']['Student']['response_code'] != 0 
                         || empty($student['0']['Student']['seat_allocated']) ||  trim($student['0']['Student']['seat_allocated']) == "") {
+                    //print_r("This is here 1"); return false;
                     $this->Session->write('seat_allocated', $this->data['Student']['seat_allocated']);
                     $arr = explode(":", $this->data['Student']['seat_allocated']);
                     $choice_arr = $this->Choice->find('all', array(
@@ -761,7 +762,7 @@ class FormController extends AppController {
                             if($this->is_connected()) {
                                 $response = $this->smsSend($registered_user['0']['Registereduser']['mobile_no'], 'You have been proviosionally allocated seat in '.$arr[0].' for CUP cousnelling 2016-17');
                             }
-                            $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
+                            $this->redirect(array('controller' => 'form', 'action' => 'seatallocation'));
                         }
                         else {
                             $this->Session->setFlash('There was an error in saving the choice. Please contact Support.');
@@ -776,7 +777,7 @@ class FormController extends AppController {
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
                                                           'Choice.seat_allocated' => '1',
 'Choice.counselling_no' => '1',
-'Choice.cycle_no' => '5'),
+'Choice.cycle_no' => '4'),
                                     'order' => array('Choice.pref_order ASC')));
             
             $image = $this->Document->find('all', array(

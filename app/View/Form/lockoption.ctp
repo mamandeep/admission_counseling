@@ -44,8 +44,12 @@
                         <td width="30%"></td>
                     </tr>
                     <tr> <!--check if applicant has been alloted applicant_id-->
-                        <td colspan="3" style="color: crimson; font-size: 20px;">Please choose your preference from above</td>
-                        <td width="30%" style="color: crimson; font-size: 20px;">for locking</td>
+                        <td colspan="3" style="color: crimson; font-size: 20px;">Please choose your preference from above for locking</td>
+                        <td width="30%" style="color: crimson; font-size: 20px;"></td>
+                    </tr>
+                    <tr> <!--check if applicant has been alloted applicant_id-->
+                        <td colspan="3" style="color: crimson; font-size: 12px;">You will not be able to change your locked preference once locked.</td>
+                        <td width="30%" style="color: crimson; font-size: 12px;"></td>
                     </tr>
                     <tr> <!--check if applicant has been alloted applicant_id-->
                         <td width="30%"></td>
