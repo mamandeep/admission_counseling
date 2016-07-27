@@ -41,6 +41,18 @@
                                         $value = $this->request->data['Choice'][$key]['preference'] . ":OBC";
                                         $seats[$value] = $value;
                                     }
+                                    if($this->request->data['Choice'][$key]['pwd'] == 1) {
+                                        $value = $this->request->data['Choice'][$key]['preference'] . ":PWD";
+                                        $seats[$value] = $value;
+                                    }
+                                    if($this->request->data['Choice'][$key]['km'] == 1) {
+                                        $value = $this->request->data['Choice'][$key]['preference'] . ":KM";
+                                        $seats[$value] = $value;
+                                    }
+                                    if($this->request->data['Choice'][$key]['wod'] == 1) {
+                                        $value = $this->request->data['Choice'][$key]['preference'] . ":WOD";
+                                        $seats[$value] = $value;
+                                    }
                                 }
                             }
                     ?>

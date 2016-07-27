@@ -60,8 +60,8 @@ class FormController extends AppController {
     private function isSeatAllocationClosed() {
         $current_datetime = new DateTime();
         $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-        $close_datetime = new DateTime("2016-07-25 17:59:59", new DateTimeZone('Asia/Calcutta'));
-        $open_datetime = new DateTime("2016-07-25 14:00:00", new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-07-27 17:59:59", new DateTimeZone('Asia/Calcutta'));
+        $open_datetime = new DateTime("2016-07-27 14:00:00", new DateTimeZone('Asia/Calcutta'));
         
         if ($current_datetime > $close_datetime || $current_datetime < $open_datetime) {
                 $this->Session->setFlash('Application Form is closed. Seat Allocation is closed');
@@ -74,8 +74,8 @@ class FormController extends AppController {
     private function isSeatLockingClosed() {
         $current_datetime = new DateTime();
         $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-        $close_datetime = new DateTime("2016-07-25 10:59:59", new DateTimeZone('Asia/Calcutta'));
-        $open_datetime = new DateTime("2016-07-25 08:00:00", new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-07-27 10:59:59", new DateTimeZone('Asia/Calcutta'));
+        $open_datetime = new DateTime("2016-07-27 08:00:00", new DateTimeZone('Asia/Calcutta'));
         
         if ($current_datetime > $close_datetime || $current_datetime < $open_datetime) {
                 $this->Session->setFlash('Application Form is closed. Seat Locking is closed');
@@ -777,7 +777,7 @@ class FormController extends AppController {
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
                                                           'Choice.seat_allocated' => '1',
 'Choice.counselling_no' => '1',
-'Choice.cycle_no' => '7'),
+'Choice.cycle_no' => '8'),
                                     'order' => array('Choice.pref_order ASC')));
             
             $image = $this->Document->find('all', array(
@@ -860,7 +860,7 @@ class FormController extends AppController {
             $choice_arr = $this->Choice->find('all', array(
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
                                                         'Choice.counselling_no' => '1',
-                                                        'Choice.cycle_no' => '7'),
+                                                        'Choice.cycle_no' => '8'),
                                     'order' => array('Choice.pref_order ASC')));
             
             if(count($choice_arr) != 0) {
