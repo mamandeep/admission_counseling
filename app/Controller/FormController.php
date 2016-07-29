@@ -60,8 +60,8 @@ class FormController extends AppController {
     private function isSeatAllocationClosed() {
         $current_datetime = new DateTime();
         $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-        $close_datetime = new DateTime("2016-07-27 17:59:59", new DateTimeZone('Asia/Calcutta'));
-        $open_datetime = new DateTime("2016-07-27 14:00:00", new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-07-28 13:59:59", new DateTimeZone('Asia/Calcutta'));
+        $open_datetime = new DateTime("2016-07-28 09:00:00", new DateTimeZone('Asia/Calcutta'));
         
         if ($current_datetime > $close_datetime || $current_datetime < $open_datetime) {
                 $this->Session->setFlash('Application Form is closed. Seat Allocation is closed');
