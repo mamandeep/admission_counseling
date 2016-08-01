@@ -94,10 +94,10 @@ class FormController extends AppController {
             
             $student = $this->Student->find('all', array(
                     'conditions' => array('Student.id' => $this->Session->read('std_id'))));
-            
+            //print_r($student);
             if(!empty($this->data['Student'])) {
                 $this->Student->create();
-                $this->Student->id = $student['0']['id'];
+                $this->Student->id = $student['0']['Student']['id'];
                 $this->Student->set($this->data);
                 if($this->Student->validates()) {
                     if($this->Student->save())
@@ -113,7 +113,7 @@ class FormController extends AppController {
             }
             
             $this->request->data = $student['0'];
-            $this->Session->write('eligible_for_payment',$student['0']['Student']['eligible_for_payment']);
+            $this->Session->write('eligible_for_payment', $student['0']['Student']['eligible_for_payment']);
             //$this->set('dbYear', $student['0']['Student']['year_of_cucet']);
             //$this->set('ug_result', $student['0']['Student']['ug_result']);
             //$this->set('pwd', $student['0']['Student']['pwd']);
