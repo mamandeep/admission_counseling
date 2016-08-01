@@ -8,7 +8,7 @@
     <tr>
         <td width="20%"></td>
         <td width="50%"><span class="generalinfoheader">General Information</span>
-            <div class="glabel">Counselling Schedule: <a href="<?php echo $this->webroot . 'files/CUPB_counselling_ schedule.pdf'; ?>" >click here</a></div>
+            <!--<div class="glabel">Counselling Schedule: <a href="<?php echo $this->webroot . 'files/CUPB_counselling_ schedule.pdf'; ?>" >click here</a></div>-->
             <div class="glabel">Important Instructions: <a href="<?php echo $this->webroot . 'files/Important Instruction for adm-2016.pdf'; ?>" >click here</a></div>
             <div class="glabel">How to Register & Fill the Counselling Form: <a href="<?php echo $this->webroot . 'files/guidelines_for_filling_form.pdf'; ?>" >click here</a></div>
             <!--<br/>E-Brochure <a href="<?php echo $this->webroot . 'files/handbook 2016.pdf'; ?>" target="_blank">click here</a>-->
@@ -35,8 +35,8 @@
     <tr>
         <td></td>
         <td><span class="generalinfoheader">Important Dates</span>
-            <div class="glabel">The registration of online counseling starts from 20<sup>th</sup> June, 2016 0900 hrs</div>
-            <div class="glabel">The last date of online counseling form is 28<sup>th</sup> June, 2016 1700 hrs</div>
+            <div class="glabel">The registration of online counseling starts from 01<sup>st</sup> August, 2016 0900 hrs</div>
+            <div class="glabel">The last date of online counseling form is 03<sup>rd</sup> August, 2016 1600 hrs</div>
         </td>
         <td></td>
     </tr>

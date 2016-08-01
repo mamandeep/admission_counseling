@@ -95,7 +95,7 @@ class UsersController extends AppController {
                         $this->Student->saveField('reg_id', $this->Session->read('registration_id'));
                         $this->Registereduser->id = $this->Session->read('registration_id');
                         $this->Registereduser->saveField('std_id', $this->Session->read('std_id'));
-                        $this->Session->setFlash('You have successfully registered.');
+                        $this->Session->setFlash('You have successfully registered. Please login and fill your Application Form to complete the Counselling process.');
                         //$this->redirect(array('controller' => 'form', 'action' => 'pay'));
 			$this->redirect(array('controller' => 'users', 'action' => 'dashboard'));
                     }
@@ -164,6 +164,11 @@ class UsersController extends AppController {
                     if(in_array($this->data['User']['email'], $this->coc) && Security::hash($this->data['User']['password'], null, true) == $password_hash) {
                         $this->Session->write('admin', "1");
                     }
+                    $reg_id = $this->Session->read('registration_id');
+                    
+                    $this->Registereduser->create();
+                    $this->Registereduser->id = $this->Session->read('registration_id');
+                    $this->Registereduser->saveField('last_login', gmdate("Y-m-d H:i:s"));
                     $this->redirect(array('controller' => 'form', 'action' => 'generalinformation'));
                 }
                 else if($count_r == 0) {

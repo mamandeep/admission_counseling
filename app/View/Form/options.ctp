@@ -93,7 +93,8 @@
     <table id="options-table">
         <thead>
             <tr>
-                <th width="5%">Preference Order</th>
+                <th>Tick</th>
+                <!--<th width="5%">Preference Order</th>-->
                 <th width="20%">Paper Code</th>
                 <th width="10%">Score</th>
                 <th width="35%">Programme Preference</th>
@@ -101,19 +102,21 @@
             </tr>
         </thead>
         <tbody>
-            <?php for($key = 0; $key < 5; $key++) { ?>
+            <?php for($key = 0; $key < 2; $key++) { ?>
             <tr>
+                <td>
+                    <input id="<?php echo $key; ?>_cb" type="checkbox" onclick='toggleRow(this);'/>
+                </td>
                 <td>
                     <?php echo $this->Form->hidden("Choice.{$key}.id");
                           echo $this->Form->hidden("Choice.{$key}.std_id", array('value' => $this->Session->read('std_id')));
                           //$selected = (isset($dbYear) && $dbYear !== "" && $year == $dbYear) ? 'selected' : '';
                           //print_r($branchArr); print_r($selected);
-                          echo $this->Form->text("Choice.{$key}.pref_order", array(
+                          echo $this->Form->input("Choice.{$key}.pref_order", array(
                                 'value' => $key + 1,
                                 'label' => false,
-                                'readonly' => 'readonly')); ?>
-                </td>
-                <td>
+                                'readonly' => 'readonly',
+                                'type' => 'hidden')); ?>
                     <?php //$selected = (isset($dbYear) && $dbYear !== "" && $year == $dbYear) ? 'selected' : '';
                             $subjectoptions = array();
                             foreach ($codeSubjectCentre as $key2 => $value2) {
@@ -129,7 +132,9 @@
                             )); ?>
                 </td>
                 <td>
-                    <?php echo $this->Form->text("Choice.{$key}.score"); ?>
+                    <?php echo $this->Form->input("Choice.{$key}.score", array(
+                                                                            'label' => false
+                                                                        )); ?>
                 </td>
                 <td>
                     <?php //$selected = (isset($dbYear) && $dbYear !== "" && $year == $dbYear) ? 'selected' : '';
@@ -148,6 +153,7 @@
                 </td>
             </tr>
             <?php } ?>
+            <tr><td colspan="5"><div style="font-size: 12px; font-weight: bold; color: red;">Kindly tick the second check-box only if preference is to be saved.</div></td></tr>
         </tbody>
     </table>
 </fieldset>
@@ -161,6 +167,21 @@
 </div>
 </div>
 <script>
+    
+    function toggleRow(cb) {
+        var row = $(cb).closest("tr");
+        var rowcells = row.find('input:not(:checkbox):not(:button), select');
+        if(cb.checked) {
+            rowcells.each(function() {
+                $(this).prop('disabled', false);
+            });
+        }
+        else {
+            rowcells.each(function() {
+                $(this).prop('disabled', true);
+            });
+        }
+    }
     
     var codeSubjectCentre = <?php echo json_encode($codeSubjectCentre) ?>;
     var dbValues = [];
@@ -217,9 +238,16 @@
         }
     } ?>
 $(document).ready(function () {    
-    for(var i=0; i< 5; i++) {
+    
+    for(var i=0; i< 2; i++) {
         var index = i;
-
+        
+        if(i == 0) {
+            $('#0_cb').trigger('click');
+            $('#0_cb').prop('disabled', true);
+        }
+        else if(dbValues.length  <= 1) $('#'+ i + '_cb').prop('checked', false).triggerHandler('click');
+        else if(dbValues.length  > 1) $('#'+ i + '_cb').prop('checked', true).triggerHandler('click');
         //$('select[name="data[Choice][' + index + '][subject]"]').on('change', loadPreferences(index));
         //$('select[name="data[Choice][' + index + '][preference]"]').on('change', loadCenter(index));
         //$('select[name="data[Choice][' + index + '][subject]"]').on('change', loadPreferences(index));

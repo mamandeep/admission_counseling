@@ -4,7 +4,7 @@
         <a href="<?php echo $this->webroot; ?>form/generalinformation">General Information</a>
     </div>
     <div class="nav-menu-link">
-        <a href="<?php echo $this->webroot; ?>form/studentdetails">Details</a>
+        <a href="<?php echo $this->webroot; ?>form/studentdetails">Application Form</a>
     </div>
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/uploaddocuments">Upload Documents</a>
@@ -18,15 +18,17 @@
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/printoptions">Print Options</a>
     </div>
+    <?php /*
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/lockoption">Lock Option</a>
     </div>
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/seatallocation">Seat Allocation</a>
-    </div>
-    <?php if(!empty($this->Session->read('eligible_for_payment')) && $this->Session->read('eligible_for_payment') == "1") {?>
+    </div> */
+    ?>
+    <?php /*if(!empty($this->Session->read('eligible_for_payment')) && $this->Session->read('eligible_for_payment') == "1") {?>
     <div class="nav-menu-link">
         <a href="<?php echo $this->webroot; ?>form/prepayment">Payment Details</a>
     </div>
-    <?php } ?>
+    <?php } */ ?>
 </div>

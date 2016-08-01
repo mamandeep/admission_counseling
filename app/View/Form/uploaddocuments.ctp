@@ -36,6 +36,7 @@ echo $this->Form->create('Document', array('id' => 'Image_Details', 'url' => Rou
         </tr>
         <tr>
             <td class="table_headertxt misc_col1" style="padding-top: 17px;">CUCET Scorecard/Result Card (.jpg/.jpeg/.png/.gif/.pdf format, min size 10 kb, max size 200 kb)
+                <span style="color: red;">COMPULSORY</span>
             </td>
             <td><?php echo $this->Form->input('filename6', array('label' => false, 'type' => 'file')); ?></td>
         </tr>

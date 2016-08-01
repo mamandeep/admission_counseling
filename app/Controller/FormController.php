@@ -40,7 +40,7 @@ class FormController extends AppController {
     private function isClosed() {
         $current_datetime = new DateTime();
         $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-        $close_datetime = new DateTime("2016-06-28 23:59:59", new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-08-03 15:59:59", new DateTimeZone('Asia/Calcutta'));
         
         //print_r($current_datetime->format('Y-m-d-H-i-s'));
         //print_r($close_datetime->format('Y-m-d-H-i-s'));
@@ -181,7 +181,8 @@ class FormController extends AppController {
                 //$this->request->data = $images['0'];
                 if(empty($images['0']['Document']['filename']) 
                     || empty($images['0']['Document']['filename2'])
-                    || empty($images['0']['Document']['filename4']))
+                    || empty($images['0']['Document']['filename4'])
+                    || empty($images['0']['Document']['filename6']))
                 {
                     if(empty($images['0']['Document']['filename']))
                         $this->Session->setFlash('Photograph is compulsory');
@@ -189,6 +190,8 @@ class FormController extends AppController {
                         $this->Session->setFlash('Date of Birth certificate is compulsory');
                     if(empty($images['0']['Document']['filename4']))
                         $this->Session->setFlash('Signature is compulsory');
+                    if(empty($images['0']['Document']['filename6']))
+                        $this->Session->setFlash('CUCET Score Card is compulsory');
                     $this->redirect(array('controller'=>'form', 'action' => 'uploaddocuments'));
                 }
                 $this->set('image', $images['0']);
@@ -598,28 +601,35 @@ class FormController extends AppController {
                 //print_r($this->data['Choice']);
                 $foundEmpty = false;
                 //print_r($this->data['Choice']); return false;
-                foreach ($this->data['Choice'] as $key => $value) {
-                    if($this->data['Choice'][$key]['subject'] === "- select -") {
-                        $foundEmpty = true;
-                    }
-                    if($foundEmpty === true && $this->data['Choice'][$key]['subject'] !== "- select -") {
-                        $this->Session->setFlash('Please fill the preferences in order.');
-                        $this->request->data = array('Choice' => $choice_data);
-                        return false;
-                    }
-                    if(count($choice_arr) === 5) {
-                        $this->request->data['Choice'][$key]['id'] = $choice_arr[$key]['Choice']['id'];
+                if(count($choice_arr) == count($this->data['Choice'])) {
+                    foreach ($this->data['Choice'] as $key => $value) {
+                        if(count($choice_arr) > 0 && empty($this->request->data['Choice'][$key]['id'])) {
+                            $this->request->data['Choice'][$key]['id'] = $choice_arr[$key]['Choice']['id'];
+                        }
                     }
                 }
                 //print_r($this->data['Choice']);
-                if($this->Choice->saveMany($this->data['Choice'])) { 
-                    //return false;
-                    $this->redirect(array('controller' => 'form', 'action' => 'printoptions'));
-                    //return true;
+                $data = $this->request->data;
+                if((count($choice_arr) == 2 && count($this->data['Choice']) < 2) || (count($choice_arr) == 1 && count($this->data['Choice']) == 2)) {
+                    $deleteResult = $this->Choice->deleteAll( array('Choice.std_id' => $this->Session->read('std_id')));
+                }
+                
+                if(count($this->data['Choice']) == 2 && strcmp($this->data['Choice']['0']['preference'], $this->data['Choice']['1']['preference']) == 0) {
+                    $this->Session->setFlash('Both preferences cannot be same.');
                 }
                 else {
-                    $this->Session->setFlash('There was an error in saving the preferences. Please contact Support.');
-                    return false;
+                    if($this->Choice->validateMany($data['Choice']) && $this->Choice->saveMany($this->data['Choice'])) { 
+                        //return false;
+                        $this->redirect(array('controller' => 'form', 'action' => 'printoptions'));
+                        //return true;
+                    }
+                    else {
+                        //print_r($this->request->data['Choice']);
+                        //print_r($this->Choice->validationErrors);
+                        //return false;
+                        $this->Session->setFlash('There was an error in saving the preferences.');
+                        //return false;
+                    }
                 }
                 
                 //return false;
@@ -648,7 +658,8 @@ class FormController extends AppController {
             //$subjectbranch = $this->BranchSubject->find('list', array(    
             //                                    'fields' => array('BranchSubject.subject_code','BranchSubject.branch_code')));
             //foreach ($branchlist as $key)
-            $this->request->data = array('Choice' => $choice_data);
+            if(empty($this->request->data['Choice']))
+                $this->request->data = array('Choice' => $choice_data);
             //$this->set('branchArr', $branchlist);
             //$this->set('subjectArr', $subjectlist);
             //$this->set('subjectBrArr', $subjectbranch);
