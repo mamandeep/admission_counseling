@@ -48,7 +48,8 @@ class FormController extends AppController {
         if ($current_datetime > $close_datetime) {
             //exit("The Application Form is closed at this time.");
             //if($current_datetime > $close_datetime) { 
-                $this->Session->setFlash('Application Form is closed. Please click on Lock Option/Seat Allocation.');
+                //$this->Session->setFlash('Application Form is closed. Please click on Lock Option/Seat Allocation.');
+                $this->Session->setFlash('Application Form is closed. Please click on Seat Allocation.');
                 return true;
             //}
             //$this->redirect(array('controller' => 'users', 'action' => 'logout'));
@@ -60,8 +61,8 @@ class FormController extends AppController {
     private function isSeatAllocationClosed() {
         $current_datetime = new DateTime();
         $current_datetime->setTimezone(new DateTimeZone('Asia/Calcutta'));
-        $close_datetime = new DateTime("2016-07-28 13:59:59", new DateTimeZone('Asia/Calcutta'));
-        $open_datetime = new DateTime("2016-07-28 09:00:00", new DateTimeZone('Asia/Calcutta'));
+        $close_datetime = new DateTime("2016-08-04 16:59:59", new DateTimeZone('Asia/Calcutta'));
+        $open_datetime = new DateTime("2016-08-04 10:00:00", new DateTimeZone('Asia/Calcutta'));
         
         if ($current_datetime > $close_datetime || $current_datetime < $open_datetime) {
                 $this->Session->setFlash('Application Form is closed. Seat Allocation is closed');
@@ -180,17 +181,21 @@ class FormController extends AppController {
             if(count($images) == 1) {
                 //$this->request->data = $images['0'];
                 if(empty($images['0']['Document']['filename']) 
+                        || strcmp($images['0']['Document']['filename'], "") == 0
                     || empty($images['0']['Document']['filename2'])
+                        || strcmp($images['0']['Document']['filename2'], "") == 0
                     || empty($images['0']['Document']['filename4'])
-                    || empty($images['0']['Document']['filename6']))
+                        || strcmp($images['0']['Document']['filename4'], "") == 0
+                    || empty($images['0']['Document']['filename6'])
+                        || strcmp($images['0']['Document']['filename6'], "") == 0)
                 {
-                    if(empty($images['0']['Document']['filename']))
+                    if(empty($images['0']['Document']['filename']) || strcmp($images['0']['Document']['filename'], "") == 0)
                         $this->Session->setFlash('Photograph is compulsory');
-                    if(empty($images['0']['Document']['filename2']))
+                    if(empty($images['0']['Document']['filename2']) || strcmp($images['0']['Document']['filename2'], "") == 0)
                         $this->Session->setFlash('Date of Birth certificate is compulsory');
-                    if(empty($images['0']['Document']['filename4']))
+                    if(empty($images['0']['Document']['filename4']) || strcmp($images['0']['Document']['filename4'], "") == 0)
                         $this->Session->setFlash('Signature is compulsory');
-                    if(empty($images['0']['Document']['filename6']))
+                    if(empty($images['0']['Document']['filename6']) || strcmp($images['0']['Document']['filename6'], "") == 0)
                         $this->Session->setFlash('CUCET Score Card is compulsory');
                     $this->redirect(array('controller'=>'form', 'action' => 'uploaddocuments'));
                 }
@@ -787,8 +792,8 @@ class FormController extends AppController {
             $choice_arr = $this->Choice->find('all', array(
                                     'conditions' => array('Choice.std_id' => $this->Session->read('std_id'),
                                                           'Choice.seat_allocated' => '1',
-'Choice.counselling_no' => '1',
-'Choice.cycle_no' => '8'),
+//'Choice.counselling_no' => '1',
+'Choice.cycle_no' => '1'),
                                     'order' => array('Choice.pref_order ASC')));
             
             $image = $this->Document->find('all', array(
